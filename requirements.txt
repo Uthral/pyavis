@@ -1,0 +1,2 @@
+pya>=0.5
+pyqtgraph>=0.13
