@@ -40,13 +40,21 @@ class AudioPlot(QtWidgets.QVBoxLayout):
         self.play_button.clicked.connect(self._onPlayClicked)
         self.stop_button.clicked.connect(self._onStopClicked)
 
+        # TODO: Allow creation of region, e.g. via double click + allow removal, e.g. via ESC
+        # self.selection = pg.LinearRegionItem(values=(5000,50000), orientation=pg.LinearRegionItem.Vertical)
+        # self.plot_item.addItem(self.selection)
+
     def _onPlayClicked(self):
-        # TODO: Add manual blocking
+        if hasattr(self, 'selection') and self.selection != None:
+            (l,r) = self.selection.getRegion()
+        else:
+            (l,r) = 0, self.audio.samples
+
+        self.update_line.update_positions(l, r)
         self.update_line.start()
-        self.audio.play()
-    
+        self.audio[int(l):int(r)].play()
+
     def _onStopClicked(self):
-        # TODO: Better way of getting server
         server = pya.Aserver.default
         self.update_line.stop()
         server.stop()
@@ -97,12 +105,16 @@ class UpdateLine(pg.InfiniteLine):
         self.timer.stop()
         self.setPos(self.start_pos)
 
+    def update_positions(self, start, end):
+        self.start_pos = start
+        self.end_pos = end
+
     def _update_line(self):
         old_pos = self.pos()
         new_pos = old_pos.toQPoint().x() + 0.016 * self.sampling_rate
         
-        print(new_pos)
         if new_pos > self.end_pos:
+            self.setPos(self.end_pos)
             self.timer.stop()
-
-        self.setPos(new_pos)
+        else:
+            self.setPos(new_pos)
