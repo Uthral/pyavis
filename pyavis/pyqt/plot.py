@@ -7,12 +7,15 @@ class AudioPlot(QtWidgets.QVBoxLayout):
     def __init__(self, audio: pya.Asig, parent=None):
         super(AudioPlot, self).__init__(parent)
         self.audio = audio
+        self.plot_item = pg.PlotItem()
 
         # TODO: Seperate plot and play button
         self.play_button = QtWidgets.QPushButton("Play")
         self.stop_button = QtWidgets.QPushButton("Stop")
 
-        self.plot_item = pg.PlotItem()
+        self._calculateViewLimits()
+
+
         self.plot_widget = pg.GraphicsLayoutWidget()
         self.update_line = UpdateLine(start=0, end=audio.samples, sampling_rate=audio.sr)
 
@@ -47,6 +50,26 @@ class AudioPlot(QtWidgets.QVBoxLayout):
         server = pya.Aserver.default
         self.update_line.stop()
         server.stop()
+
+    def _calculateViewLimits(self, padding: float = 0.1):
+        """ 
+        Calculate the limits of the :class:`ViewBox <pyqtgraph.ViewBox>` of the display based
+        on the audio data.
+
+        Parameters
+        ----------
+        padding : float, default: 0.1
+            Padding added to y-Axis
+        """
+        xMin = 0
+        xMax = self.audio.samples
+        yMin = np.min(self.audio.sig) - padding
+        yMax = np.max(self.audio.sig) + padding 
+        yRange = np.abs(yMax) + np.abs(yMin)
+
+        view_box = self.plot_item.getViewBox()
+        view_box.setLimits(xMin=xMin, xMax=xMax, yMin=yMin, yMax=yMax, minYRange=yRange, maxYRange=yRange) 
+
 
 class TimeAxisItem(pg.AxisItem):
     def __init__(self, sampling_rate, *args, **kwargs):
