@@ -3,46 +3,71 @@ from PySide2 import QtWidgets, QtCore
 import pyqtgraph as pg
 import pya
 
+from .signal_render import SignalRender
+from .time_axis import TimeAxisItem
+
+from pyqtgraph.GraphicsScene.mouseEvents import *
+
 class AudioPlot(QtWidgets.QVBoxLayout):
     def __init__(self, audio: pya.Asig, parent=None):
         super(AudioPlot, self).__init__(parent)
         self.audio = audio
-        self.plot_item = pg.PlotItem()
+
+        # TODO: Cleanup drag / select 
+        self.drag = True
+        self.selection = None
 
         # TODO: Seperate plot and play button
         self.play_button = QtWidgets.QPushButton("Play")
         self.stop_button = QtWidgets.QPushButton("Stop")
 
-        self._calculateViewLimits()
-
+        self.drag_button = QtWidgets.QPushButton("Drag")
+        self.select_button = QtWidgets.QPushButton("Select")
 
         self.plot_widget = pg.GraphicsLayoutWidget()
+        self.plot_item = pg.PlotItem()
         self.update_line = UpdateLine(start=0, end=audio.samples, sampling_rate=audio.sr)
 
         self.plot_widget.addItem(self.plot_item)
         
-        divider = pg.InfiniteLine(angle=0,pos=0,pen=pg.mkPen(color='b'))
-        plot = pg.PlotDataItem(y=audio.sig)
+        divider = pg.InfiniteLine(angle=0, pos=0, pen=pg.mkPen(color='r'))
+        self.plot = SignalRender(audio)
         axis_bottom = TimeAxisItem(audio.sr, orientation="bottom")
         
-        self.plot_item.addItem(divider)
-        self.plot_item.addItem(plot)
+        view = self.plot_item.getViewBox()
+        self._calculateViewLimits()
+        view.addItem(divider)
+        view.addItem(self.plot)
+        view.addItem(self.update_line)
+        
+
         self.plot_item.setAxisItems(axisItems={"bottom":axis_bottom})
-        self.plot_item.addItem(self.update_line)
 
-        hori = QtWidgets.QHBoxLayout()
-        hori.addWidget(self.play_button)
-        hori.addWidget(self.stop_button)
+        self.plot.sigClicked.connect(self._onSignalClick)
+        self.plot.sigDragged.connect(self._onSignalDrag)
 
-        self.addLayout(hori)
+        hori1 = QtWidgets.QHBoxLayout()
+        hori1.addWidget(self.drag_button)
+        hori1.addWidget(self.select_button)
+
+        hori2 = QtWidgets.QHBoxLayout()
+        hori2.addWidget(self.play_button)
+        hori2.addWidget(self.stop_button)
+
+        self.addLayout(hori1)
+        self.addLayout(hori2)
         self.addWidget(self.plot_widget)
+
+        self.plot.setClickable(False)
+        self.plot.setDraggable(False)
+
+        self.drag_button.clicked.connect(self._toggleDrag)
+        self.select_button.clicked.connect(self._toggleSelect)
 
         self.play_button.clicked.connect(self._onPlayClicked)
         self.stop_button.clicked.connect(self._onStopClicked)
 
-        # TODO: Allow creation of region, e.g. via double click + allow removal, e.g. via ESC
-        # self.selection = pg.LinearRegionItem(values=(5000,50000), orientation=pg.LinearRegionItem.Vertical)
-        # self.plot_item.addItem(self.selection)
+
 
     def _onPlayClicked(self):
         if hasattr(self, 'selection') and self.selection != None:
@@ -58,6 +83,21 @@ class AudioPlot(QtWidgets.QVBoxLayout):
         server = pya.Aserver.default
         self.update_line.stop()
         server.stop()
+
+
+    # TODO: Cleanup
+    def _toggleDrag(self):
+        if self.drag == False:
+            self.drag = True
+            self.plot.setClickable(False)
+            self.plot.setDraggable(False)
+    
+    # TODO: Cleanup
+    def _toggleSelect(self):
+        if self.drag == True:
+            self.drag = False
+            self.plot.setClickable(True)
+            self.plot.setDraggable(True)
 
     def _calculateViewLimits(self, padding: float = 0.1):
         """ 
@@ -78,32 +118,47 @@ class AudioPlot(QtWidgets.QVBoxLayout):
         view_box = self.plot_item.getViewBox()
         view_box.setLimits(xMin=xMin, xMax=xMax, yMin=yMin, yMax=yMax, minYRange=yRange, maxYRange=yRange) 
 
+    def _onSignalClick(self, render: SignalRender, event: MouseClickEvent):
+        if self.selection:
+            view = self.plot_item.getViewBox()
+            view.removeItem(self.selection)
+            self.selection = None
+        pass
 
-class TimeAxisItem(pg.AxisItem):
-    def __init__(self, sampling_rate, *args, **kwargs):
-        super(TimeAxisItem, self).__init__(*args, **kwargs)
-        self.sampling_rate = sampling_rate
+    def _onSignalDrag(self, render: SignalRender, event: MouseDragEvent):
+        if not self.selection:
+            self.selection = pg.LinearRegionItem(values=(event.pos().x(), event.pos().x()), orientation=pg.LinearRegionItem.Vertical)
+            self.start_pos = event.pos()
 
-    def tickStrings(self, values, scale, spacing):
-        return [f'{value / self.sampling_rate:.2f}' for value in values]
+            view = self.plot_item.getViewBox()
+            view.addItem(self.selection)
+        else:
+            self.selection.setRegion((self.start_pos.x(), event.pos().x()))
+        pass
+
     
 class UpdateLine(pg.InfiniteLine):
+    sigStarted = QtCore.Signal(object)
+    sigStopped = QtCore.Signal(object)
+
     def __init__(self, start, end, sampling_rate, parent=None):
         super(UpdateLine, self).__init__(angle=90, pos=start)
         self.start_pos = start
         self.end_pos = end
         self.sampling_rate = sampling_rate
-        
+
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self._update_line)
         
     def start(self):
         self.setPos(self.start_pos)
         self.timer.start(16)
+        self.sigStarted.emit(self)
     
     def stop(self):
         self.timer.stop()
         self.setPos(self.start_pos)
+        self.sigStopped.emit(self)
 
     def update_positions(self, start, end):
         self.start_pos = start
