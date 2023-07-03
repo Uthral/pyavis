@@ -18,6 +18,7 @@ class AudioPlotFigure(Figure):
 
         self.ax = self.add_subplot(111, xlim=(0, audio.sr * xMin), ylim=(yMin - padding,yMax + padding))
         self.subplots_adjust(bottom=0.3)
+        self.setAxisFormatter("time")
 
         # TODO: Maybe move interactivity out of here and allow usage of other
         #       UI methods
@@ -100,6 +101,17 @@ class AudioPlotFigure(Figure):
         self.ax.set_xlim((view_start, view_end))
         self.ax.figure.canvas.draw()
 
+    def setAxisFormatter(self, axis_type="sample"):
+        if axis_type == "sample":
+            self.ax.xaxis.set_major_formatter(lambda x, pos: sampleAxisFormatter(x))
+        elif axis_type == "time":
+            self.ax.xaxis.set_major_formatter(lambda x, pos: timeAxisFormatter(x, self.audio.sr))
 
 
+def timeAxisFormatter(x, sampling_rate):
+    return "{:.2f}".format(x / sampling_rate)
+
+
+def sampleAxisFormatter(x):
+    return "{}".format(x)
 
