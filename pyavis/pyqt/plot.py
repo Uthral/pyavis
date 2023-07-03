@@ -40,12 +40,14 @@ class AudioPlot(QtWidgets.QVBoxLayout):
         view.addItem(self.plot)
         view.addItem(self.update_line)
         
-
         self.plot_item.setAxisItems(axisItems={"bottom":axis_bottom})
 
         self.plot.sigClicked.connect(self._onSignalClick)
         self.plot.sigDragged.connect(self._onSignalDrag)
 
+
+        # TODO: Move this outside, e.g. Play/Stop panel, Drag/Select panel
+        #       Also seperate display from playing sound
         hori1 = QtWidgets.QHBoxLayout()
         hori1.addWidget(self.drag_button)
         hori1.addWidget(self.select_button)
