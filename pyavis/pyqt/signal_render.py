@@ -25,10 +25,7 @@ class SignalRender(pg.GraphicsObject):
         self._setRectangleStyle()
 
         self.line_graph.setParentItem(self)
-        self.background_rect.setParentItem(self) 
-
-        print(self.clickable)
-        print(self.draggable)
+        self.background_rect.setParentItem(self)
         
 
     def _setRectangleStyle(self):

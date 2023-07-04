@@ -101,6 +101,7 @@ class AudioPlotFigure(Figure):
         self.ax.set_xlim((view_start, view_end))
         self.ax.figure.canvas.draw()
 
+    # TODO: Refactor this, since both can use this
     def setAxisFormatter(self, axis_type="sample"):
         if axis_type == "sample":
             self.ax.xaxis.set_major_formatter(lambda x, pos: sampleAxisFormatter(x))
