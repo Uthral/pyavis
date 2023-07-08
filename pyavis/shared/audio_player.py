@@ -45,10 +45,10 @@ class AudioPlayer:
         if self.running or self.paused:
             self.server.stop()
             
-            self.running = False
-            self.paused = False
+            self.running: bool = False
+            self.paused: bool = False
             self.start_time: float | None = None
-            self.pause_time: float | None= None
+            self.pause_time: float | None = None
 
             self.on_stop.emit(self)
 
