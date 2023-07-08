@@ -5,6 +5,7 @@ from matplotlib.figure import Figure
 import numpy as np
 import pya 
 
+# TODO: To Axes 
 class AudioPlotFigure(Figure):
     """A figure for displaying audio data"""
     

@@ -4,7 +4,7 @@ from ..signal import Signal
 
 class Track:
     def __init__(self):
-        self.signals: List[Tuple[int, Signal]]
+        self.signals: List[Tuple[int, Signal]] = []
 
     def get_section(self, start: int, end: int) -> np.ndarray:
         """
@@ -37,7 +37,7 @@ class Track:
             else:
                 pos_1 = signal_start - start
                 pos_2 = pos_1 + len(signal.signal)
-                array[pos_1, pos_2] = signal.signal[:]
+                array[pos_1: pos_2] = signal.signal[:]
             
         return array
     
@@ -58,6 +58,23 @@ class Track:
             Index of the signal
         """
         return self.signals.index((pos, signal))
+    
+    def get_signal_at_position(self, pos: int) -> Tuple[int,Signal] | None:
+        """
+        Get signal at the position
+
+        Parameters
+        ----------
+        pos : int
+            Position of the signal
+
+        Returns
+        -------
+        (int, Signal) | None
+            Returns a signal, if there is one at the position
+        """
+        value = next(filter(lambda item: pos >= item[0] and pos < item[0] + len(item[1].signal), self.signals), None)
+        return value
 
 
     def try_add(self, pos: int, signal: Signal) -> bool:
@@ -74,7 +91,7 @@ class Track:
         Returns
         -------
         '''
-        if self.can_add_at(signal, pos):
+        if self.can_add_at(pos, signal):
             self.signals.append((pos, signal))
             return True
         else:
@@ -92,7 +109,7 @@ class Track:
             Signal to add
         """
         start, end = pos, pos + len(signal.signal)
-        for iter_idx, (iter_pos, iter_signal) in enumerate(self.signal):
+        for iter_idx, (iter_pos, iter_signal) in enumerate(self.signals):
             iter_start, iter_end = iter_pos, iter_pos + len(iter_signal.signal)
             if start > iter_start and start < iter_end:
                 return False
@@ -129,7 +146,9 @@ class Track:
 
         '''
         if self.can_move_to(pos, idx):
-            self.signals.pop(idx)
+            value = list(self.signals[idx]) 
+            value[0] = pos
+            self.signals[idx] = tuple(value)
             return True
         else:
             return False
