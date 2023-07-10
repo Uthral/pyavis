@@ -11,11 +11,17 @@ class MultiTrack:
         sections = []
         for track in self.tracks:
             sections.append(track.get_section(start, end))
-
         return sections
     
-    def get_track(self, index: int):
-        return self.tracks[index]
+    def get_track(self, track: Track | int) -> Track:
+        result: Track = None
+        if isinstance(track, Track):
+            result = self.tracks[self.tracks.index(track)]
+        elif isinstance(track, int):
+            result = self.tracks[track]
+        else:
+            raise TypeError("Not a valid type.")
+        return result
 
     def add_track(self, track: Track):
         self.tracks.append(track)
@@ -27,6 +33,8 @@ class MultiTrack:
             removed = track
         elif isinstance(track, int):
             removed = self.tracks.pop(track)
+        else:
+            raise TypeError("Not a valid type.")
 
         return removed
     

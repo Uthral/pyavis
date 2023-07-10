@@ -1,4 +1,3 @@
-from typing import TypeVar, Generic
 import typing
 
 class Subject:

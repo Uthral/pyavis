@@ -1,5 +1,5 @@
 from pyavis.pyqt import DeviceSelector
-from pyavis.shared.device_util import DeviceInfo
+from pyavis.shared.util import DeviceInfo
 from pyqtgraph.Qt import QtWidgets
 import pya
 from pya import Aserver, startup
@@ -17,7 +17,7 @@ def on_value_change(device_info: DeviceInfo):
     s = startup(device=device_id)
     atone.play()
 
-app = QtWidgets.QApplication()
+app = QtWidgets.QApplication([])
 selector = DeviceSelector(callback=on_value_change)
 selector.show()
 app.exec_()

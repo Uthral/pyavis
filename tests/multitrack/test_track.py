@@ -136,10 +136,12 @@ class TestTrack(TestCase):
         section1 = track.get_section(0, 50)
         section2 = track.get_section(50, 150)
         section3 = track.get_section(0, 150)
+        section4 = track.get_section(100, 150)
 
         np.testing.assert_array_equal(np.zeros(50), section1)
         np.testing.assert_array_equal(val, section2)
         np.testing.assert_array_equal(np.concatenate((np.zeros(50), val)), section3)
+        np.testing.assert_array_equal(val[50:], section4)
 
         
 
