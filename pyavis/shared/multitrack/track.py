@@ -1,10 +1,22 @@
 import numpy as np
 from typing import List, Tuple
+from ..util import Subject
 from ..signal import Signal
+
 
 class Track:
     def __init__(self):
         self.signals: List[Tuple[int, Signal]] = []
+        self._selection_start = None
+        self._selection_end = None
+
+        self.onSignalAdded = Subject()
+        self.onSignalMoved = Subject()
+        self.onSignalRemoved = Subject()
+
+        self.onSelectionAdded = Subject()
+        self.onSelectionUpdated = Subject()
+        self.onSelectionRemoved = Subject()
 
     def get_section(self, start: int, end: int) -> np.ndarray:
         """
@@ -40,6 +52,28 @@ class Track:
                 array[pos_1: pos_2] = signal.signal[:]
             
         return array
+    
+    def set_selection(self, start: int, end: int):
+        if self._selection_start is None and self._selection_end is None:
+            self._selection_start = start
+            self._selection_end = end
+            self.onSelectionAdded.emit(self, start, end)
+        else:
+            self._selection_start = start
+            self._selection_end = end
+            self.onSelectionUpdated.emit(self, start, end)
+
+    def remove_selection(self):
+        if self._selection_end is not None and self._selection_end is not None:
+            self._selection_start = None
+            self._selection_end = None
+            self.onSelectionRemoved.emit(self)
+    
+    def get_selection(self) -> np.ndarray | None:
+        if self._selection_start is None or self._selection_end is None:
+            return None
+        else:
+            return self.get_section(self._selection_start, self._selection_end)
     
     def get_index(self, pos: int, signal: Signal) -> int:
         """
@@ -93,6 +127,7 @@ class Track:
         '''
         if self.can_add_at(pos, signal):
             self.signals.append((pos, signal))
+            self.onSignalAdded.emit(self, pos, signal)
             return True
         else:
             return False
@@ -129,6 +164,7 @@ class Track:
             Signal to delete
         '''
         self.signals.remove((pos, signal))
+        self.onSignalRemoved(self, pos, signal)
 
     def try_move(self, pos: int, idx: int) -> bool:
         '''
@@ -149,6 +185,7 @@ class Track:
             value = list(self.signals[idx]) 
             value[0] = pos
             self.signals[idx] = tuple(value)
+            self.onSignalMoved.emit(self, pos, value[1])
             return True
         else:
             return False
