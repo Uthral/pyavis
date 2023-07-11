@@ -1,8 +1,8 @@
-from PySide2.QtWidgets import QWidget, QHBoxLayout, QComboBox
+from pyqtgraph.Qt.QtWidgets import QWidget, QHBoxLayout, QComboBox
 from pya import *
 from typing import Callable
 
-from pyavis.shared import getInOutDevices, DeviceInfo
+from pyavis.shared.util import getInOutDevices, DeviceInfo
 
 class DeviceSelector(QWidget):
     def __init__(self, parent = None, callback: Callable[[DeviceInfo], None] = None):

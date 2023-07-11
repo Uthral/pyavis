@@ -89,40 +89,6 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
         return self.widget
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class _Track(pg.PlotItem):
 
     sigClicked = QtCore.Signal(object, MouseClickEvent)
@@ -168,7 +134,6 @@ class _Track(pg.PlotItem):
         signal_renderer.updatePosition(pos)
 
     def _selectionAdded(self, start: int, end: int):
-        print("Add")
         self.selection = pg.LinearRegionItem(values=(start, end), orientation=pg.LinearRegionItem.Vertical)
         viewBox = self.getViewBox()
         viewBox.addItem(self.selection)
@@ -224,43 +189,6 @@ class _Track(pg.PlotItem):
 
     def hoverEvent(self, ev: HoverEvent):
         self.sigHovered.emit(self, ev)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class _Signal(pg.GraphicsObject):

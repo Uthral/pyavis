@@ -2,7 +2,7 @@ from . import shared
 
 
 from .backends import _Backend
-from .base_classes import AbstractButton, AbstractMultiTrackVisualizer
+from .base_classes import AbstractButton, AbstractHBox, AbstractMultiTrackVisualizer, AbstractVBox
 
 _backend: _Backend = None
 def use_backend(backend: str = "qt"):
@@ -36,4 +36,12 @@ def create_multitrack(*args, **kwargs) -> AbstractMultiTrackVisualizer:
 def create_button(*args, **kwargs) -> AbstractButton:
     global _backend
     return _backend.Button(*args, **kwargs)
+
+def create_vbox(*args, **kwargs) -> AbstractVBox:
+    global _backend
+    return _backend.VBox(*args, **kwargs)
+
+def create_hbox(*args, **kwargs) -> AbstractHBox:
+    global _backend
+    return _backend.HBox(*args, **kwargs)
     

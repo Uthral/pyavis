@@ -3,23 +3,42 @@ Abstract base classes that implement the shared functionality between
 different backends.
 """
 from abc import ABC, abstractmethod
+from typing import Callable
 
-class AbstractMultiTrackVisualizer(ABC):
+class Widget(ABC):
     @abstractmethod
     def get_native_widget(self):
         pass
 
-# class SpectrumVisualizer(ABC):
-#     @abstractmethod
-#     def get_native_widget(self):
-#         pass
+    # @abstractmethod
+    # def show(self):
+    #     pass
 
-# class MelodyneVisualizer(ABC):
-#     @abstractmethod
-#     def get_native_widget(self):
-#         pass
+class AbstractMultiTrackVisualizer(Widget):
+    pass
 
-class AbstractButton(ABC):
+class AbstractButton(Widget):
+
     @abstractmethod
-    def get_native_widget(self):
+    def __init__(self, label: str, onClick: Callable):
+        pass
+
+class AbstractVBox(Widget):
+
+    @abstractmethod
+    def add_widget(self, widget: Widget):
+        pass
+
+    @abstractmethod
+    def remove_widget(self, widget: Widget):
+        pass
+
+class AbstractHBox(Widget):
+
+    @abstractmethod
+    def add_widget(self, widget: Widget):
+        pass
+
+    @abstractmethod
+    def remove_widget(self, widget: Widget):
         pass
