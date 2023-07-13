@@ -42,3 +42,12 @@ class AbstractHBox(Widget):
     @abstractmethod
     def remove_widget(self, widget: Widget):
         pass
+
+class AbstractSlider(Widget):
+    pass
+
+class AbstractSelect(Widget):
+    pass
+
+class AbstractRangeSlider(Widget):
+    pass

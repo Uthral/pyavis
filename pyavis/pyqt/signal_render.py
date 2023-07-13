@@ -1,10 +1,10 @@
 import numpy as np
 import pyqtgraph as pg
-import PySide2
+import pyqtgraph.Qt
 import pya
 
 from overrides import override
-from PySide2 import QtWidgets, QtCore
+from pyqtgraph.Qt import QtWidgets, QtCore
 from pyqtgraph.GraphicsScene.mouseEvents import *
 
 
@@ -52,7 +52,7 @@ class SignalRender(pg.GraphicsObject):
     def boundingRect(self):
         return self.background_rect.boundingRect()
     
-    def paint(self, painter: PySide2.QtGui.QPainter, option: QtWidgets.QStyleOptionGraphicsItem, widget: QtWidgets.QWidget | None = ...) -> None:
+    def paint(self, painter: pyqtgraph.Qt.QtGui.QPainter, option: QtWidgets.QStyleOptionGraphicsItem, widget: QtWidgets.QWidget | None = ...) -> None:
         pass
     
     def mouseClickEvent(self, ev: MouseClickEvent):
