@@ -1,4 +1,4 @@
-from .widgets import ButtonIPY, HBoxIPY, VBoxIPY
+from .widgets import ButtonIPY, FloatSliderIPY, HBoxIPY, IntSliderIPY, DropDownIPY, VBoxIPY
 from .. import _Backend
 
 class _BackendIPyWidgets(_Backend):
@@ -6,3 +6,6 @@ class _BackendIPyWidgets(_Backend):
     Button = ButtonIPY
     VBox = VBoxIPY
     HBox = HBoxIPY
+    IntSlider = IntSliderIPY
+    FloatSlider  = FloatSliderIPY
+    DropDown = DropDownIPY

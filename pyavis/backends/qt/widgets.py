@@ -1,16 +1,23 @@
-from typing import Callable
+from typing import Callable, List, Any
 from overrides import override
-from ...base_classes import AbstractButton, AbstractVBox, Widget, AbstractHBox
-from pyqtgraph.Qt import QtWidgets
+from ...base_classes import AbstractButton, AbstractDropDown, AbstractFloatSlider, AbstractIntSlider, AbstractVBox, Widget, AbstractHBox
+from pyqtgraph.Qt import QtWidgets, QtCore
 
 class ButtonQt(AbstractButton):
-    def __init__(self, label: str, onClick: Callable, ):
+    def __init__(self, label: str):
         self.button = QtWidgets.QPushButton(text=label)
-        self.button.clicked.connect(onClick)
     
     @override
     def get_native_widget(self):
         return self.button
+    
+    @override
+    def add_on_click(self, func: Callable):
+        self.button.clicked.connect(func)
+    
+    @override
+    def remove_on_click(self, func: Callable):
+        self.button.clicked.disconnect(func)
 
 class VBoxQt(AbstractVBox):
     def __init__(self, *args, **kwargs):
@@ -49,3 +56,123 @@ class HBoxQt(AbstractVBox):
     @override
     def get_native_widget(self):
         return self.widget
+    
+class IntSliderQt(AbstractIntSlider):
+    
+    @override
+    def __init__(self, description: str, orientation: str, default: int, min: int, max: int, step: int):
+        self.text = QtWidgets.QLabel(text=description)
+        self.value_text = QtWidgets.QLabel(text=str(default))
+        
+        if orientation == "horizontal":
+            ori = QtCore.Qt.Horizontal
+            self.box = QtWidgets.QHBoxLayout()
+        elif orientation == "vertical":
+            ori = QtCore.Qt.Vertical
+            self.box = QtWidgets.QVBoxLayout()
+        else:
+            raise ValueError(f"{orientation} is not a valid orientation.")
+        
+        self.slider = QtWidgets.QSlider(orientation=ori)
+        self.slider.setMinimum(min)
+        self.slider.setMaximum(max)
+        self.slider.setValue(default)
+        self.slider.setSingleStep(step)
+
+        #TODO: Add step
+
+        self.box.addWidget(self.text)
+        self.box.addWidget(self.slider)
+        self.box.addWidget(self.value_text)
+
+        self.widget = QtWidgets.QWidget()
+        self.widget.setLayout(self.box)
+
+        self.add_on_value_changed(lambda x: self.value_text.setText(str(x)))
+        
+    @override
+    def get_native_widget(self):
+        return self.widget
+
+    @override
+    def set_value(self, value: int):
+        self.slider.setValue(value)
+
+    @override
+    def get_value(self) -> int:
+        return self.slider.value()
+
+    @override
+    def add_on_value_changed(self, func: Callable[[Any], None]):
+        self.slider.valueChanged.connect(func)
+        pass
+
+    @override
+    def remove_on_value_changed(self, func: Callable[[Any], None]):
+        self.slider.valueChanged.disconnect(func)
+        pass
+
+class FloatSliderQt(AbstractFloatSlider):
+        
+    @override
+    def __init__(self, description: str, orientation: str, default: float, min: float, max: float, step: float):
+        pass
+
+    @override
+    def get_native_widget(self):
+        return self.widget
+
+    @override
+    def set_value(self, value: float):
+        pass
+
+    @override
+    def get_value(self) -> float:
+        pass
+
+    @override
+    def add_on_value_changed(self, func: Callable[[Any], None]):
+        pass
+
+    @override
+    def remove_on_value_changed(self, func: Callable[[Any], None]):
+        pass
+
+class DropDownQt(AbstractDropDown):
+
+    @override
+    def __init__(self, description: str, options: List[Any], default: Any):
+        self.text = QtWidgets.QLabel(text=description)
+        self.drop_down = QtWidgets.QComboBox()
+
+        for option in options:
+            if isinstance(option, str):
+                self.drop_down.addItem(option)
+            else:
+                self.drop_down.addItem(str(option))
+        idx = options.index(default)
+        self.drop_down.setCurrentIndex(idx)
+
+
+        self.box = QtWidgets.QHBoxLayout()
+        self.box.addWidget(self.text)
+        self.box.addWidget(self.drop_down)
+        
+        self.widget = QtWidgets.QWidget()
+        self.widget.setLayout(self.box)
+
+    @override
+    def get_native_widget(self):
+        return self.widget
+
+    @override
+    def get_value(self) -> Any | None:
+        return self.drop_down.currentData()
+
+    @override
+    def add_on_selection_changed(self, func: Callable[[Any], None]):
+        self.drop_down.currentIndexChanged.connect(func)
+
+    @override
+    def remove_on_selection_changed(self, func: Callable[[Any], None]):
+        self.drop_down.currentIndexChanged.disconnect(func)

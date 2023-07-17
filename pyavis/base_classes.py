@@ -3,7 +3,7 @@ Abstract base classes that implement the shared functionality between
 different backends.
 """
 from abc import ABC, abstractmethod
-from typing import Callable
+from typing import Callable, List, Any
 
 class Widget(ABC):
     @abstractmethod
@@ -20,7 +20,15 @@ class AbstractMultiTrackVisualizer(Widget):
 class AbstractButton(Widget):
 
     @abstractmethod
-    def __init__(self, label: str, onClick: Callable):
+    def __init__(self, label: str):
+        pass
+
+    @abstractmethod
+    def add_on_click(self, func: Callable):
+        pass
+
+    @abstractmethod
+    def remove_on_click(self, func: Callable):
         pass
 
 class AbstractVBox(Widget):
@@ -43,11 +51,67 @@ class AbstractHBox(Widget):
     def remove_widget(self, widget: Widget):
         pass
 
-class AbstractSlider(Widget):
-    pass
+class AbstractIntSlider(Widget):
+    
+    @abstractmethod
+    def __init__(self, description: str, orientation: str, default: int, min: int, max: int, step: int):
+        pass
 
-class AbstractSelect(Widget):
-    pass
+    @abstractmethod
+    def set_value(self, value: int):
+        pass
 
-class AbstractRangeSlider(Widget):
+    @abstractmethod
+    def get_value(self) -> int:
+        pass
+
+    @abstractmethod
+    def add_on_value_changed(self, func: Callable[[Any], None]):
+        pass
+
+    @abstractmethod
+    def remove_on_value_changed(self, func: Callable[[Any], None]):
+        pass
+
+class AbstractFloatSlider(Widget):
+        
+    @abstractmethod
+    def __init__(self, description: str, orientation: str, default: float, min: float, max: float, step: float):
+        pass
+
+    @abstractmethod
+    def set_value(self, value: float):
+        pass
+
+    @abstractmethod
+    def get_value(self) -> float:
+        pass
+
+    @abstractmethod
+    def add_on_value_changed(self, func: Callable[[Any], None]):
+        pass
+
+    @abstractmethod
+    def remove_on_value_changed(self, func: Callable[[Any], None]):
+        pass
+
+class AbstractDropDown(Widget):
+
+    @abstractmethod
+    def __init__(self, description: str, options: List[Any], default: Any):
+        pass
+
+    @abstractmethod
+    def get_value(self) -> Any | None:
+        pass
+
+    @abstractmethod
+    def add_on_selection_changed(self, func: Callable[[Any], None]):
+        pass
+
+    @abstractmethod
+    def remove_on_selection_changed(self, func: Callable[[Any], None]):
+        pass
+
+class AbstractToolBar(Widget):
     pass

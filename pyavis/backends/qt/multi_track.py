@@ -100,8 +100,8 @@ class _Track(pg.PlotItem):
         self.signal_renderers: list[_Signal] = []
         self.track = track
 
-        self.clickable = True
-        self.draggable = True
+        self.clickable = False
+        self.draggable = False
 
         self._calculateViewLimits()
         self._addMiddleLine()

@@ -2,7 +2,7 @@ from . import shared
 
 
 from .backends import _Backend
-from .base_classes import AbstractButton, AbstractHBox, AbstractMultiTrackVisualizer, AbstractVBox
+from .base_classes import AbstractButton, AbstractFloatSlider, AbstractHBox, AbstractIntSlider, AbstractMultiTrackVisualizer, AbstractDropDown, AbstractVBox
 
 _backend: _Backend = None
 def use_backend(backend: str = "qt"):
@@ -23,25 +23,42 @@ def use_backend(backend: str = "qt"):
     else:
         raise ValueError("Invalid backend")
     
-def get_backend():
+def _get_backend():
     global _backend
     if _backend is None:
         use_backend()
     return _backend   
 
+def _is_missing_implementation(backend: _Backend, widget: str):
+    if (not hasattr(backend, widget) or getattr(backend, widget) is None):
+        class_name = repr(backend)[7:-1]
+        raise RuntimeError(f'{class_name} does not implement {widget}')
+    
+def _get_implementation(widget: str):
+    backend = _get_backend()
+    _is_missing_implementation(backend, widget)
+    return getattr(backend, widget)
+
 def create_multitrack(*args, **kwargs) -> AbstractMultiTrackVisualizer:
-    global _backend
-    return _backend.MultiTrackVisualizer(*args, **kwargs)
+    return _get_implementation('MultiTrackVisualizer')(*args, **kwargs)
 
 def create_button(*args, **kwargs) -> AbstractButton:
-    global _backend
-    return _backend.Button(*args, **kwargs)
+    return _get_implementation('Button')(*args, **kwargs)
 
 def create_vbox(*args, **kwargs) -> AbstractVBox:
-    global _backend
-    return _backend.VBox(*args, **kwargs)
+    return _get_implementation('VBox')(*args, **kwargs)
 
 def create_hbox(*args, **kwargs) -> AbstractHBox:
-    global _backend
-    return _backend.HBox(*args, **kwargs)
+    return _get_implementation('HBox')(*args, **kwargs)
+
+def create_int_slider(*args, **kwargs) -> AbstractIntSlider:
+    return _get_implementation('IntSlider')(*args, **kwargs)
+
+def create_float_slider(*args, **kwargs) -> AbstractFloatSlider:
+    return _get_implementation('FloatSlider')(*args, **kwargs)
+
+def create_drop_down(*args, **kwargs) -> AbstractDropDown:
+    return _get_implementation('DropDown')(*args, **kwargs)
+
+
     
