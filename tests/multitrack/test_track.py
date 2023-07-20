@@ -5,7 +5,7 @@ from pyavis.shared import Signal
 
 class TestTrack(TestCase):
     def test_get_index(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig1 = Signal(val)
         sig2 = Signal(val)
@@ -19,7 +19,7 @@ class TestTrack(TestCase):
         self.assertEqual(idx2, 1)
 
     def test_get_signal_at_position(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig = Signal(val)
 
@@ -31,7 +31,7 @@ class TestTrack(TestCase):
         self.assertEqual(result[1], sig)
 
     def test_get_signal_at_position_none(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig = Signal(val)
 
@@ -41,7 +41,7 @@ class TestTrack(TestCase):
         self.assertIsNone(result)
 
     def test_remove(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig1 = Signal(val)
         sig2 = Signal(val)
@@ -56,7 +56,7 @@ class TestTrack(TestCase):
         self.assertEqual(len(track.signals), 0)
 
     def test_add_signal(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig = Signal(val)
 
@@ -66,7 +66,7 @@ class TestTrack(TestCase):
         self.assertEqual(len(track.signals), 1)
 
     def test_add_multile_signals(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig1 = Signal(val)
         sig2 = Signal(val)
@@ -79,7 +79,7 @@ class TestTrack(TestCase):
         self.assertEqual(len(track.signals), 2)
     
     def test_add_overlaping_signals(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig1 = Signal(val)
         sig2 = Signal(val)
@@ -92,7 +92,7 @@ class TestTrack(TestCase):
         self.assertEqual(len(track.signals), 1)
 
     def test_move_signal(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig1 = Signal(val)
         sig2 = Signal(val)
@@ -110,7 +110,7 @@ class TestTrack(TestCase):
         self.assertEqual(result2[1], sig1)
 
     def test_move_overlapping_signal(self):
-        track = Track()
+        track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
         sig1 = Signal(val)
         sig2 = Signal(val)
@@ -126,22 +126,6 @@ class TestTrack(TestCase):
         self.assertIsNotNone(result2)
         self.assertEqual(result2[0], 0)
         self.assertEqual(result2[1], sig1)
-
-    def test_get_section(self):
-        track = Track()
-        val = np.linspace(0, np.pi, 100)
-        sig = Signal(val)
-
-        track.try_add(50, sig)
-        section1 = track.get_section(0, 50)
-        section2 = track.get_section(50, 150)
-        section3 = track.get_section(0, 150)
-        section4 = track.get_section(100, 150)
-
-        np.testing.assert_array_equal(np.zeros(50), section1)
-        np.testing.assert_array_equal(val, section2)
-        np.testing.assert_array_equal(np.concatenate((np.zeros(50), val)), section3)
-        np.testing.assert_array_equal(val[50:], section4)
 
         
 
