@@ -1,54 +1,14 @@
 import math
 import numpy as np
 from typing import List, Tuple
-from ..util import Subject
-from ..signal import Signal
+from ..signal import AudioSignal
 
 
 class Track:
     def __init__(self, label: str, sampling_rate: int):
         self.label = label
         self.sampling_rate = sampling_rate
-        self.signals: List[Tuple[int, Signal]] = []
-
-        self.onSelectionAdded = Subject()
-        self.onSelectionUpdated = Subject()
-        self.onSelectionRemoved = Subject()
-
-    def get_section(self, start: int, end: int) -> np.ndarray:
-        """
-        Return the values in the range.
-
-        Parameters
-        ----------
-        start : int
-            Start of the range
-        end : int
-            End of the range
-
-        Returns
-        -------
-        numpy.ndarray
-            Array containing the signal values in the range. Values between signals are 0.
-        """
-        array = np.zeros((end-start))
-
-        for pos, signal in self.signals:
-            signal_start, signal_end = pos, pos + len(signal.signal)
-
-            # Signal starts outside of range
-            if signal_start < start and signal_end < end:
-                array[0:signal_end - start] = signal.signal[start - signal_start:]
-            # Signal ends outside of range
-            elif signal_start > start and signal_end > end:
-                array[signal_start - start:-1] = signal.signal[0:end - signal_end]
-            # Signal lies completly in the range
-            else:
-                pos_1 = signal_start - start
-                pos_2 = pos_1 + len(signal.signal)
-                array[pos_1: pos_2] = signal.signal[:]
-            
-        return array
+        self.signals: List[Tuple[int, AudioSignal]] = []
     
     def __getitem__(self, index):
         """ 
@@ -118,7 +78,7 @@ class Track:
         for pos, sig in self.signals:
 
             signal_start = pos
-            signal_end = pos + len(sig.signal)
+            signal_end = pos + len(sig.signal())
 
             if lower >= signal_end or higher <= signal_start:
                 continue
@@ -128,16 +88,16 @@ class Track:
                 if signal_start <= lower and signal_end <= higher:
 
                     # Divide stop index by step to allow both padding and step at the same time
-                    array[0:int(math.ceil((signal_end - lower) / step))] = sig.signal[lower - signal_start::step]
+                    array[0:int(math.ceil((signal_end - lower) / step))] = sig.signal()[lower - signal_start::step]
                     
                 # Signal starts in range and ends outside of range
                 elif signal_start >= lower and signal_start < higher and signal_end > higher:
                     # TODO: Is divide here necessary
-                    array[signal_start - lower:] = sig.signal[0:higher - signal_end:step]
+                    array[signal_start - lower:] = sig.signal()[0:higher - signal_end:step]
                     
                 # Range completly inside signal
                 elif signal_start <= lower and signal_end >= higher:
-                    array[:] = sig.signal[lower - signal_start:higher - signal_end:step]
+                    array[:] = sig.signal()[lower - signal_start:higher - signal_end:step]
                     
                 # Signal lies completly in the range
                 else:
@@ -149,7 +109,7 @@ class Track:
                     remainder = padding % abs(step)
                     offset = step - remainder if not remainder == 0 else 0
 
-                    array[math.ceil(pos_1 / step):] = sig.signal[offset::step]
+                    array[math.ceil(pos_1 / step):] = sig.signal()[offset::step]
                     
             elif direction == "backward":
                 # Signal starts outside of range and ends in range
@@ -159,7 +119,7 @@ class Track:
                     remainder = padding % abs(step)
                     offset = step + remainder
                     
-                    values = sig.signal[offset:lower - signal_start:step]
+                    values = sig.signal()[offset:lower - signal_start:step]
                     if not len(values) == 0:
                         array[-len(values):] = values
                     
@@ -167,12 +127,12 @@ class Track:
                 elif signal_start >= lower and signal_start < higher and signal_end > higher:
                     # Since signal ends outsider of range, and were are going "backwards"
                     # -> Start at beginng of array
-                    values = sig.signal[higher - signal_end:lower-signal_start:step]
+                    values = sig.signal()[higher - signal_end:lower-signal_start:step]
                     array[:len(values)] = values
                     
                 # Range completly inside signal
                 elif signal_start <= lower and signal_end >= higher:
-                    array[:] = sig.signal[higher - signal_end:lower - signal_start:step]
+                    array[:] = sig.signal()[higher - signal_end:lower - signal_start:step]
                     
                 # Signal lies completly in the range
                 else:
@@ -181,19 +141,17 @@ class Track:
                     remainder = padding % abs(step) # calc. what remains after enough steps
                     offset = step + remainder # padding is negative so -x + y => yields offset into array 
 
-                    values = sig.signal[offset::step]
+                    values = sig.signal()[offset::step]
                     array[-len(values):] = values
             
         return array
     
-    def get_index(self, pos: int, signal: Signal) -> int:
+    def get_index(self, signal: AudioSignal) -> int:
         """
         Get index of the signal
 
         Parameters
         ----------
-        pos : int
-            Position of the signal
         signal : Signal
             The signal
 
@@ -202,9 +160,26 @@ class Track:
         int
             Index of the signal
         """
-        return self.signals.index((pos, signal))
+        value = next(filter(lambda item: item[1] == signal, self.signals), None)
+        return self.signals.index(value)
     
-    def get_signal_at_position(self, pos: int) -> Tuple[int,Signal] | None:
+    def get_signal(self, signal: AudioSignal) -> Tuple[int, AudioSignal] | None:
+        """
+        Get the signal and its position
+
+        Parameters
+        ----------
+        signal : Signal
+            The signal
+
+        Returns
+        -------
+        Tuple[int, AudioSignal] | None
+            Tuple of position and audio signal, or None if signal not in track
+        """
+        return next(filter(lambda item: item[1] == signal, self.signals), None)
+    
+    def get_signal_at_position(self, pos: int) -> Tuple[int, AudioSignal] | None:
         """
         Get signal at the position
 
@@ -215,14 +190,14 @@ class Track:
 
         Returns
         -------
-        (int, Signal) | None
+        Tuple[int, Signal] | None
             Returns a signal, if there is one at the position
         """
-        value = next(filter(lambda item: pos >= item[0] and pos < item[0] + len(item[1].signal), self.signals), None)
+        value = next(filter(lambda item: pos >= item[0] and pos < item[0] + len(item[1].signal()), self.signals), None)
         return value
 
 
-    def try_add(self, pos: int, signal: Signal) -> bool:
+    def try_add(self, pos: int, signal: AudioSignal) -> bool:
         '''
         Try adding the signal at the positioin position to the track.
 
@@ -231,18 +206,24 @@ class Track:
         pos : int
             Positon of the new signal
         signal : Signal
-            Signal to ad
+            Signal to add
 
         Returns
         -------
+            True, if the signal does not overlap
+            False, if the signal does overlap with another signal
         '''
+
+        if signal.sampling_rate() != self.sampling_rate:
+            raise ValueError("Sampling rate does not match")
+        
         if self.can_add_at(pos, signal):
             self.signals.append((pos, signal))
             return True
         else:
             return False
 
-    def can_add_at(self, pos: int, signal: Signal) -> bool:
+    def can_add_at(self, pos: int, signal: AudioSignal) -> bool:
         """
         Check if a signal can be added at the position
 
@@ -253,16 +234,16 @@ class Track:
         signal : Signal
             Signal to add
         """
-        start, end = pos, pos + len(signal.signal)
+        start, end = pos, pos + len(signal.signal())
         for iter_idx, (iter_pos, iter_signal) in enumerate(self.signals):
-            iter_start, iter_end = iter_pos, iter_pos + len(iter_signal.signal)
+            iter_start, iter_end = iter_pos, iter_pos + len(iter_signal.signal())
             if start > iter_start and start < iter_end:
                 return False
             if end > iter_start and end < iter_end:
                 return False
         return True
     
-    def remove(self, pos: int, signal: Signal):
+    def remove(self, pos: int, signal: AudioSignal):
         '''
         Remove the signal at the position.
 
@@ -298,7 +279,7 @@ class Track:
         else:
             return False
 
-    def can_move_to(self, pos: int, idx: int) -> bool:
+    def can_move_to(self, pos: int, signal: AudioSignal | int) -> bool:
         '''
         Check if the signal can be moved to the position.
 
@@ -313,14 +294,17 @@ class Track:
         -------
 
         '''
-        (_, signal) = self.signals[idx]
+        if isinstance(signal, int):
+            (sig_pos, signal) = self.signals[signal]
+        elif isinstance(signal, AudioSignal):
+            (sig_pos, signal) = self.get_signal(signal)
         
-        start, end = pos, pos + len(signal.signal)
+        start, end = pos, pos + len(signal.signal())
         for iter_idx, (iter_pos, iter_signal) in enumerate(self.signals):
             # Ignore current signal, since it will be moved.
-            if iter_idx == idx:
+            if sig_pos == iter_pos:
                 continue
-            iter_start, iter_end = iter_pos, iter_pos + len(iter_signal.signal)
+            iter_start, iter_end = iter_pos, iter_pos + len(iter_signal.signal())
             if start > iter_start and start < iter_end:
                 return False
             if end > iter_start and end < iter_end:
@@ -343,8 +327,8 @@ class Track:
         """
         val = max(self.signals, key=lambda x: x[0])
         if type == "samples":
-            return val[0] + len(val[1].signal)
+            return val[0] + len(val[1].signal())
         elif type == "seconds":
-            return ( val[0] + len(val[1].signal) ) / self.sampling_rate
+            return ( val[0] + len(val[1].signal()) ) / self.sampling_rate
         else:
             raise ValueError("Not a valid argument")

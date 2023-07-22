@@ -1,10 +1,16 @@
-from typing import Tuple
+from pya import Asig
 
-class Signal:
-    def __init__(self, signal):
-        self.signal = signal
+class AudioSignal:
+    def __init__(self, asig: Asig, channel_index: int = None, channel_name: str = None):
+        self.asig = asig
+        self.channel_index = channel_index
+        self.channel_name = channel_name
 
-def split_sample(sample: Signal, at: int) -> Tuple[Signal, Signal]:
-    l = Signal(sample.signal[:at])
-    r = Signal(sample.signal[at:])
-    return (l, r)
+    def signal(self):
+        if self.channel_index is None:
+            return self.asig.sig
+        else:
+            return self.asig.sig[self.channel_index]
+    
+    def sampling_rate(self):
+        return self.asig.sr

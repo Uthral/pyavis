@@ -1,19 +1,20 @@
 import numpy as np
 from unittest import TestCase
 from pyavis.shared.multitrack import Track 
-from pyavis.shared import Signal
+from pyavis.shared import AudioSignal
+from pya import Asig
 
 class TestTrack(TestCase):
     def test_get_index(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig1 = Signal(val)
-        sig2 = Signal(val)
+        sig1 = AudioSignal(Asig(val))
+        sig2 = AudioSignal(Asig(val))
 
         track.try_add(0, sig1)
         track.try_add(500, sig2)
-        idx1 = track.get_index(0, sig1)
-        idx2 = track.get_index(500, sig2)
+        idx1 = track.get_index(sig1)
+        idx2 = track.get_index(sig2)
 
         self.assertEqual(idx1, 0)
         self.assertEqual(idx2, 1)
@@ -21,7 +22,7 @@ class TestTrack(TestCase):
     def test_get_signal_at_position(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig = Signal(val)
+        sig = AudioSignal(Asig(val))
 
         track.try_add(0, sig)
         result = track.get_signal_at_position(20)
@@ -33,7 +34,7 @@ class TestTrack(TestCase):
     def test_get_signal_at_position_none(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig = Signal(val)
+        sig = AudioSignal(Asig(val))
 
         track.try_add(0, sig)
         result = track.get_signal_at_position(5000)
@@ -43,8 +44,8 @@ class TestTrack(TestCase):
     def test_remove(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig1 = Signal(val)
-        sig2 = Signal(val)
+        sig1 = AudioSignal(Asig(val))
+        sig2 = AudioSignal(Asig(val))
 
         track.try_add(0, sig1)
         track.try_add(500, sig2)
@@ -58,7 +59,7 @@ class TestTrack(TestCase):
     def test_add_signal(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig = Signal(val)
+        sig = AudioSignal(Asig(val))
 
         result = track.try_add(0,sig)
 
@@ -68,8 +69,8 @@ class TestTrack(TestCase):
     def test_add_multile_signals(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig1 = Signal(val)
-        sig2 = Signal(val)
+        sig1 = AudioSignal(Asig(val))
+        sig2 = AudioSignal(Asig(val))
 
         result1 = track.try_add(0, sig1)
         result2 = track.try_add(200, sig2)
@@ -81,8 +82,8 @@ class TestTrack(TestCase):
     def test_add_overlaping_signals(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig1 = Signal(val)
-        sig2 = Signal(val)
+        sig1 = AudioSignal(Asig(val))
+        sig2 = AudioSignal(Asig(val))
 
         result1 = track.try_add(0, sig1)
         result2 = track.try_add(50, sig2)
@@ -94,12 +95,12 @@ class TestTrack(TestCase):
     def test_move_signal(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig1 = Signal(val)
-        sig2 = Signal(val)
+        sig1 = AudioSignal(Asig(val))
+        sig2 = AudioSignal(Asig(val))
 
         track.try_add(0, sig1)
         track.try_add(200, sig2)
-        idx = track.get_index(0, sig1)
+        idx = track.get_index(sig1)
 
         result1 = track.try_move(500, idx)
         result2 = track.get_signal_at_position(500)
@@ -112,12 +113,12 @@ class TestTrack(TestCase):
     def test_move_overlapping_signal(self):
         track = Track("Test", 44100)
         val = np.linspace(0, np.pi, 100)
-        sig1 = Signal(val)
-        sig2 = Signal(val)
+        sig1 = AudioSignal(Asig(val))
+        sig2 = AudioSignal(Asig(val))
 
         track.try_add(0, sig1)
         track.try_add(200, sig2)
-        idx = track.get_index(0, sig1)
+        idx = track.get_index(sig1)
 
         result1 = track.try_move(250, idx)
         result2 = track.get_signal_at_position(0)

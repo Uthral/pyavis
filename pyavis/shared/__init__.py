@@ -1,1 +1,1 @@
-from .signal import Signal
+from .signal import AudioSignal
