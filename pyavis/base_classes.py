@@ -15,7 +15,9 @@ class Widget(ABC):
     #     pass
 
 class AbstractMultiTrackVisualizer(Widget):
-    pass
+    @abstractmethod
+    def add_selection(self, indices, start, end):
+        pass
 
 class AbstractButton(Widget):
 

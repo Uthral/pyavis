@@ -3,57 +3,45 @@ import numpy as np
 from typing import List
 from .track import Track
 from ..util import Subject
+from pya import Astft
 
 class MultiTrack:
     def __init__(self):
         self.tracks: List[Track] = []
-        self._selection_start = None
-        self._selection_end = None
 
         self.onTrackAdded = Subject()
         self.onTrackRemoved = Subject()
-
-        self.onSelectionAdded = Subject()
-        self.onSelectionUpdated = Subject()
-        self.onSelectionRemoved = Subject()
-
-    def get_section(self, start: int, end: int) -> List[np.ndarray]:
-        sections = []
-        for track in self.tracks:
-            sections.append(track.get_section(start, end))
-        return sections
     
-    def set_selection(self, start: int, end: int):
-        if self._selection_start is None and self._selection_end is None:
-            self._selection_start = start
-            self._selection_end = end
-            self.onSelectionAdded.emit(self, start, end)
-        else:
-            self._selection_start = start
-            self._selection_end = end
-            self.onSelectionUpdated.emit(self, start, end)
-
-        for track in self.tracks:
-            track.set_selection(start, end)
-
-    def remove_selection(self):
-        if self._selection_end is not None and self._selection_end is not None:
-            self._selection_start = None
-            self._selection_end = None
-            self.onSelectionRemoved.emit(self)
+    def __getitem__(self, index): 
+        """ Accessing array elements through slicing.
+            * int, get signal row asig[4];
+            * slice, range and step slicing asig[4:40:2]
+                # from 4 to 40 every 2 samples;
+            * list, subset rows, asig[[2, 4, 6]]
+                # pick out index 2, 4, 6 as a new asig
+            * tuple, row and column specific slicing, asig[4:40, 3:5]
+                # from 4 to 40, channel 3 and 4
+            * Time slicing (unit in seconds) using dict asig[{1:2.5}, :]
+                creates indexing of 1s to 2.5s.
+            * Channel name slicing: asig['l'] returns channel 'l' as
+                a new mono asig. asig[['front', 'rear']], etc...
+            * bool, subset channels: asig[:, [True, False]]
+        """
     
-    def get_selection(self) -> List[np.ndarray] | None:
-        if self._selection_start is None or self._selection_end is None:
-            return None
-        else:
-            return self.get_section(self._selection_start, self._selection_end)
-    
-    def get_track(self, track: Track | int) -> Track:
+    def get_track(self, track: Track | str |int) -> Track | None:
         result: Track = None
         if isinstance(track, Track):
-            result = self.tracks[self.tracks.index(track)]
+            try:
+                result = self.tracks[self.tracks.index(track)]
+            except:
+                result = None
         elif isinstance(track, int):
-            result = self.tracks[track]
+            try:
+                result = self.tracks[track]
+            except:
+                None
+        elif isinstance(track, str):
+            result = next(filter(lambda item: item.label == track, self.tracks), None)
         else:
             raise TypeError("Not a valid type.")
         return result
@@ -62,13 +50,16 @@ class MultiTrack:
         self.tracks.append(track)
         self.onTrackAdded.emit(self, track)
     
-    def remove_track(self, track: Track | int) -> Track:
+    def remove_track(self, track: Track | str | int) -> Track:
         removed: Track = None
         if isinstance(track, Track):
             self.tracks.remove(track)
             removed = track
         elif isinstance(track, int):
             removed = self.tracks.pop(track)
+        elif isinstance(track, str):
+            result = next(filter(lambda item: item.label == track, self.tracks), None)
+            removed = self.tracks.pop(result)
         else:
             raise TypeError("Not a valid type.")
         self.onTrackRemoved(self, removed)

@@ -1,7 +1,9 @@
 from overrides import override
-from typing import List
+from typing import List, Tuple
+
+from ...shared.util import Subject
 from ...base_classes import AbstractMultiTrackVisualizer
-from ...shared import Signal
+from ...shared import AudioSignal
 from ...shared.multitrack import MultiTrack, Track
 
 from pyqtgraph.Qt import QtWidgets, QtCore
@@ -13,6 +15,7 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
     def __init__(self, multi_track: MultiTrack, *args, **kwargs):
         self.widget = pg.GraphicsLayoutWidget(**kwargs) 
         self.track_renderes: List[_Track] = []
+        self.selections: List[Selection] = []
         self.multi_track = multi_track
         
         self.pannZoom = False
@@ -87,6 +90,122 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
 
     def get_native_widget(self: bool):
         return self.widget
+    
+    def add_selection(self, indices: List[int], start: int | float, end: int | float):
+        """
+        Add a selection over one or multiple tracks
+
+        Parameters
+        ----------
+        start: int | float
+            Start value in samples or seconds
+        end: int | float
+            End value in samples or seconds
+        index: int
+            Designates what tracks should be selected
+        """
+
+        # TODO: Change index to allow str, slice, ...
+        selection = Selection(indices, start, end)
+        selection.selectionAdded.connect(self._on_selection_index_added)
+        selection.selectionRemoved.connect(self._on_selection_index_removed)
+        selection.selectionsUpdated.connect(self._on_selection_updated)
+
+        for sel in selection.selections:
+            self.track_renderes[sel.track_index].addItem(sel)
+
+        self.selections.append(selection)
+
+    def _on_selection_updated(self, arguments):
+        old = arguments[0]
+        for selection in old:
+            self.track_renderes[selection.track_index].removeItem(selection)
+        
+        new = arguments[1]
+        for selection in new:
+            self.track_renderes[selection.track_index].addItem(selection)
+        
+    def _on_selection_index_added(self, arguments):
+        selection = arguments[0]
+        self.track_renderes[selection.track_index].addItem(selection)
+
+    def _on_selection_index_removed(self, arguments):
+        selection = arguments[0]
+        self.track_renderes[selection.track_index].removeItem(selection)
+
+
+
+class Selection():
+    def __init__(self, indices: List[int], start: int, end: int, *args, **kwargs):
+        self.selections: List[_Selection] = []
+        self.indices = indices
+        self.region = (start, end)
+
+        self.selectionsUpdated = Subject()
+        self.selectionAdded = Subject()
+        self.selectionRemoved = Subject()
+
+        self._set_selections()
+
+    def update_region(self, region: Tuple[int, int]):
+        for selection in self.selections:
+            selection.setRegion(region)
+    
+    def update_indices(self, indices: List[int]):
+        self.indices = indices
+
+        old_selections = self.selections
+        for selection in old_selections:
+            selection.sigRegionChanged.disconnect()
+
+        self.selections = []
+        self._set_selections()
+
+        self.selectionsUpdated.emit(old_selections, self.selections)
+
+    def add_index(self, index: int):
+        if index in self.indices:
+            return
+
+        selection = _Selection(index, orientation="vertical")
+        selection.setRegion(self.region)
+        selection.sigRegionChanged.connect(lambda selection: self._update_selections(selection.getRegion()))
+
+        self.indices.append(index)
+        self.selections.append(selection)
+
+        self.selectionAdded.emit(selection)
+
+    def remove_index(self, index: int):
+        if index not in self.indices:
+            return
+        
+        to_remove = next(filter(lambda item: item.track_index == index, self.selections), None)
+        to_remove.sigRegionChanged.disconnect()
+        self.selections.remove(to_remove)
+        self.indices.remove(index)
+
+        self.selectionRemoved.emit(to_remove)
+
+    def _set_selections(self):
+        for index in self.indices:
+            sel = _Selection(index, orientation="vertical")
+            self.selections.append(sel)
+            sel.setRegion(self.region)
+        for selection in self.selections:
+            selection.sigRegionChanged.connect(lambda selection: self._update_selections(selection.getRegion()))
+
+    def _update_selections(self, region):
+        self.region = region
+        for selection in self.selections:
+            selection.setRegion(region)
+
+class _Selection(pg.LinearRegionItem):
+    def __init__(self, track_index: int, *args, **kwargs):
+        # TODO: Allow str, slice, int, ... for indexing
+        super(_Selection, self).__init__(**kwargs)
+        self.track_index = track_index
+        
 
 
 class _Track(pg.PlotItem):
@@ -109,27 +228,27 @@ class _Track(pg.PlotItem):
         for (pos, signal) in track.signals:
             self._addSignal(pos, signal)
 
-        self.track.onSignalAdded.connect(lambda track, pos, sig: self._addSignal(pos, sig))
-        self.track.onSignalRemoved.connect(lambda track, pos, sig: self._removeSignal(sig))
-        self.track.onSignalMoved.connect(lambda track, pos, sig: self._moveSignal(pos, sig))
+        # self.track.onSignalAdded.connect(lambda track, pos, sig: self._addSignal(pos, sig))
+        # self.track.onSignalRemoved.connect(lambda track, pos, sig: self._removeSignal(sig))
+        # self.track.onSignalMoved.connect(lambda track, pos, sig: self._moveSignal(pos, sig))
 
-        self.track.onSelectionAdded.connect(lambda arguments: self._selectionAdded(arguments[1], arguments[2]))
-        self.track.onSelectionUpdated.connect(lambda arguments: self._selectionUpdated(arguments[1], arguments[2]))
-        self.track.onSelectionRemoved.connect(lambda arguments: self._selectionRemoved())
+        # self.track.onSelectionAdded.connect(lambda arguments: self._selectionAdded(arguments[1], arguments[2]))
+        # self.track.onSelectionUpdated.connect(lambda arguments: self._selectionUpdated(arguments[1], arguments[2]))
+        # self.track.onSelectionRemoved.connect(lambda arguments: self._selectionRemoved())
 
-    def _addSignal(self, pos: int, signal: Signal):
+    def _addSignal(self, pos: int, signal: AudioSignal):
         viewBox = self.getViewBox()
         sig = _Signal(pos, signal)
         viewBox.addItem(sig)
         self.signal_renderers.append(sig)
     
-    def _removeSignal(self, signal: Signal):
+    def _removeSignal(self, signal: AudioSignal):
         signal_renderer = next(filter(lambda item: item.signal == signal, self.signal_renderers), None)
         self.signal_renderers.remove(signal_renderer)
         viewBox = self.getViewBox()
         viewBox.removeItem(signal_renderer)
 
-    def _moveSignal(self, pos: int, signal: Signal):
+    def _moveSignal(self, pos: int, signal: AudioSignal):
         signal_renderer = next(filter(lambda item: item.signal == signal, self.signal_renderers), None)
         signal_renderer.updatePosition(pos)
 
@@ -197,17 +316,17 @@ class _Signal(pg.GraphicsObject):
     sigDragged = QtCore.Signal(object, MouseDragEvent)
     sigHovered = QtCore.Signal(object, HoverEvent)
 
-    def __init__(self, start: int, signal: Signal, *args, **kwargs):
+    def __init__(self, start: int, signal: AudioSignal, *args, **kwargs):
         super(_Signal, self).__init__(*args)
         self.start = start
-        self.end = start + len(signal.signal)
+        self.end = start + len(signal.signal())
         self.signal = signal
 
         self.clickable = False
         self.draggable = False
 
         self._setBackgroundRect()
-        self.line_graph = pg.PlotDataItem(x=range(start, len(signal.signal) + start), y=signal.signal)
+        self.line_graph = pg.PlotDataItem(x=range(start, len(signal.signal()) + start), y=signal.signal())
 
         self.background_rect.setParentItem(self)
         self.line_graph.setParentItem(self)
@@ -235,7 +354,7 @@ class _Signal(pg.GraphicsObject):
         yMin = -1 # np.min(self.signal.signal)
         yMax = 1  # np.max(self.signal.signal)
         x, y = self.start, yMin
-        width, height = len(self.signal.signal), yMax - yMin
+        width, height = len(self.signal.signal()), yMax - yMin
         return (x, y, width, height)
     
     def _setRectangleStyle(self, border_color=None, background_color=None):
@@ -265,7 +384,7 @@ class _Signal(pg.GraphicsObject):
     def updatePosition(self, newStart: int):
         (x,y,w,h) = self._calculateRectangleBounds()
         self.background_rect.update(newStart, y, w, h)
-        self.line_graph.curve.setData(x=range(newStart, len(self.signal.signal) + newStart), y=self.signal.signal)
+        self.line_graph.curve.setData(x=range(newStart, len(self.signal.signal()) + newStart), y=self.signal.signal())
 
     def mouseClickEvent(self, ev: MouseClickEvent):
         if self.clickable != True:
