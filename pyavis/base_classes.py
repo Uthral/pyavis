@@ -10,9 +10,9 @@ class Widget(ABC):
     def get_native_widget(self):
         pass
 
-    # @abstractmethod
-    # def show(self):
-    #     pass
+    @abstractmethod
+    def show(self):
+        pass
 
 class Selection(ABC):
     @abstractmethod
@@ -36,8 +36,6 @@ class AbstractMultiTrackVisualizer(Widget):
     @abstractmethod
     def remove_selection(self, selection: Selection):
         pass
-
-
 
 class AbstractButton(Widget):
 

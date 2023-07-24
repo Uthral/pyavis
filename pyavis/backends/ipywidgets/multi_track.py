@@ -31,7 +31,7 @@ class MultiTrackVisualizerIPY(AbstractMultiTrackVisualizer):
             
 
     def get_native_widget(self):
-        return self.figure
+        return self.figure.canvas
     
     @override
     def add_selection(self, indices, start, end) -> Selection:

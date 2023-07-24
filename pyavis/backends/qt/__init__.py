@@ -1,3 +1,4 @@
+import abc
 from .. import _Backend
 from .multi_track import MultiTrackVisualizerQt
 from .widgets import ButtonQt, DropDownQt, FloatSliderQt, IntSliderQt, VBoxQt, HBoxQt
@@ -10,3 +11,14 @@ class _BackendQt(_Backend):
     IntSlider = IntSliderQt
     FloatSlider = FloatSliderQt
     DropDown = DropDownQt
+
+def _show_func(self):
+    w = self.get_native_widget()
+    w.show()
+
+for attribute in _BackendQt.__dict__.keys():
+    # TODO: Replace with list of strings or just implement base class
+    if attribute[:2] != '__':
+        type = getattr(_BackendQt, attribute)
+        type.show = _show_func
+        abc.update_abstractmethods(type)

@@ -1,6 +1,8 @@
+import abc
 from .widgets import ButtonIPY, FloatSliderIPY, HBoxIPY, IntSliderIPY, DropDownIPY, VBoxIPY
 from .multi_track import MultiTrackVisualizerIPY
 from .. import _Backend
+from IPython.display import display 
 
 class _BackendIPyWidgets(_Backend):
     MultiTrackVisualizer = MultiTrackVisualizerIPY
@@ -10,3 +12,14 @@ class _BackendIPyWidgets(_Backend):
     IntSlider = IntSliderIPY
     FloatSlider  = FloatSliderIPY
     DropDown = DropDownIPY
+
+def _show_func(self):
+    w = self.get_native_widget()
+    display(w)
+
+for attribute in _BackendIPyWidgets.__dict__.keys():
+    # TODO: Replace with list of strings or just implement base class
+    if attribute[:2] != '__':
+        type = getattr(_BackendIPyWidgets, attribute)
+        type.show = _show_func
+        abc.update_abstractmethods(type)
