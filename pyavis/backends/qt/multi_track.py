@@ -178,8 +178,9 @@ class Selection():
         self._set_selections()
 
     def update_region(self, region: Tuple[int, int]):
+        self.region = region
         for selection in self.selections:
-            selection.setRegion(region)
+            selection.setRegion(self.region)
     
     def update_indices(self, indices: List[int]):
         self.indices = indices
