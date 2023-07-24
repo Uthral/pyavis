@@ -2,7 +2,7 @@ from overrides import override
 from typing import List, Tuple
 
 from ...shared.util import Subject
-from ...base_classes import AbstractMultiTrackVisualizer
+from ...base_classes import AbstractMultiTrackVisualizer, Selection
 from ...shared import AudioSignal
 from ...shared.multitrack import MultiTrack, Track
 
@@ -15,7 +15,7 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
     def __init__(self, multi_track: MultiTrack, *args, **kwargs):
         self.widget = pg.GraphicsLayoutWidget(**kwargs) 
         self.track_renderes: List[_Track] = []
-        self.selections: List[Selection] = []
+        self.selections: List[SelectionQt] = []
         self.multi_track = multi_track
         
         self.pannZoom = False
@@ -74,17 +74,13 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
             self.start_index = self.track_renderes.index(track)
             self.hover_index = self.start_index
 
-            self.active_selection = Selection([self.start_index], int(self.start_pos.x()), int(self.start_pos.x()))
-            self.active_selection.selectionAdded.connect(self._on_selection_index_added)
-            self.active_selection.selectionRemoved.connect(self._on_selection_index_removed)
-            self.active_selection.selectionsUpdated.connect(self._on_selection_updated)
-
-            for sel in self.active_selection.selections:
-                self.track_renderes[sel.track_index].addItem(sel)
-
+            self.active_selection: SelectionQt = self.add_selection(
+                [self.start_index], 
+                int(self.start_pos.x()), 
+                int(self.start_pos.x())
+            )
 
         elif event.isFinish():
-            self.selections.append(self.active_selection)
             del self.start_pos
             del self.active_selection
         else:
@@ -121,22 +117,21 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
     def get_native_widget(self: bool):
         return self.widget
     
-    def add_selection(self, indices: List[int], start: int | float, end: int | float):
+    @override
+    def add_selection(self, indices: List[int], start: int, end: int) -> Selection:
         """
         Add a selection over one or multiple tracks
 
         Parameters
         ----------
-        start: int | float
-            Start value in samples or seconds
-        end: int | float
-            End value in samples or seconds
+        start: int
+            Start value in samples
+        end: int
+            End value in samples
         index: int
             Designates what tracks should be selected
         """
-
-        # TODO: Change index to allow str, slice, ...
-        selection = Selection(indices, start, end)
+        selection = SelectionQt(indices, start, end)
         selection.selectionAdded.connect(self._on_selection_index_added)
         selection.selectionRemoved.connect(self._on_selection_index_removed)
         selection.selectionsUpdated.connect(self._on_selection_updated)
@@ -145,6 +140,19 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
             self.track_renderes[sel.track_index].addItem(sel)
 
         self.selections.append(selection)
+        return selection
+
+    @override
+    def remove_selection(self, selection: Selection):
+        selection: SelectionQt = self.selections.pop(self.selections.index(selection))
+        selection.selectionAdded.disconnect(self._on_selection_index_added)
+        selection.selectionRemoved.disconnect(self._on_selection_index_removed)
+        selection.selectionsUpdated.disconnect(self._on_selection_updated)
+
+        for sel in selection.selections:
+            self.track_renderes[sel.track_index].removeItem(sel)
+
+        
 
     def _on_selection_updated(self, arguments):
         old = arguments[0]
@@ -165,34 +173,23 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
 
 
 # TODO: Extract to use for backend
-class Selection():
-    def __init__(self, indices: List[int], start: int, end: int, *args, **kwargs):
+class SelectionQt(Selection):
+    def __init__(self, indices: List[int], start: int, end: int, **kwargs):
         self.selections: List[_Selection] = []
-        self.indices = indices
+        self.indices: List[int] = []
         self.region = (start, end)
 
         self.selectionsUpdated = Subject()
         self.selectionAdded = Subject()
         self.selectionRemoved = Subject()
 
-        self._set_selections()
+        for index in indices:
+            self.add_index(index)
 
     def update_region(self, region: Tuple[int, int]):
         self.region = region
         for selection in self.selections:
             selection.setRegion(self.region)
-    
-    def update_indices(self, indices: List[int]):
-        self.indices = indices
-
-        old_selections = self.selections
-        for selection in old_selections:
-            selection.sigRegionChanged.disconnect()
-
-        self.selections = []
-        self._set_selections()
-
-        self.selectionsUpdated.emit(old_selections, self.selections)
 
     def add_index(self, index: int):
         if index in self.indices:
@@ -200,11 +197,10 @@ class Selection():
 
         selection = _Selection(index, orientation="vertical")
         selection.setRegion(self.region)
-        selection.sigRegionChanged.connect(lambda selection: self._update_selections(selection.getRegion()))
+        selection.sigRegionChanged.connect(lambda selection: self.update_region(selection.getRegion()))
 
         self.indices.append(index)
         self.selections.append(selection)
-
         self.selectionAdded.emit(selection)
 
     def remove_index(self, index: int):
@@ -213,23 +209,10 @@ class Selection():
         
         to_remove = next(filter(lambda item: item.track_index == index, self.selections), None)
         to_remove.sigRegionChanged.disconnect()
+
         self.selections.remove(to_remove)
         self.indices.remove(index)
-
         self.selectionRemoved.emit(to_remove)
-
-    def _set_selections(self):
-        for index in self.indices:
-            sel = _Selection(index, orientation="vertical")
-            self.selections.append(sel)
-            sel.setRegion(self.region)
-        for selection in self.selections:
-            selection.sigRegionChanged.connect(lambda selection: self._update_selections(selection.getRegion()))
-
-    def _update_selections(self, region):
-        self.region = region
-        for selection in self.selections:
-            selection.setRegion(region)
 
 class _Selection(pg.LinearRegionItem):
     def __init__(self, track_index: int, *args, **kwargs):

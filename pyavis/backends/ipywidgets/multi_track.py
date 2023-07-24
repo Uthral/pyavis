@@ -6,6 +6,8 @@ from typing import List, Tuple, Any
 
 from overrides import override
 
+from pyavis.base_classes import Selection
+
 from ...shared.util.subject import Subject
 from ...shared.multitrack import MultiTrack, Track
 from ...base_classes import AbstractMultiTrackVisualizer
@@ -32,10 +34,14 @@ class MultiTrackVisualizerIPY(AbstractMultiTrackVisualizer):
         return self.figure
     
     @override
-    def add_selection(self, indices, start, end) -> Any:
-        selection = Selection(indices, start, end, fig=self.figure)
+    def add_selection(self, indices, start, end) -> Selection:
+        selection = SelectionIPY(indices, start, end, fig=self.figure)
         self.selections.append(selection)
         return selection
+    
+    @override
+    def remove_selection(self, selection: Selection):
+        self.selections.remove(selection)
 
 
 class _Track(Axes):
@@ -47,7 +53,7 @@ class _Track(Axes):
             self.plot(range(pos, pos + len(signal.signal())), signal.signal())
 
 
-class Selection:
+class SelectionIPY(Selection):
     def __init__(self, indices: List[int], start: int, end: int, **kwargs):
         self.selections: List[_TrackSelection] = []
         self.indices: List[int] = []

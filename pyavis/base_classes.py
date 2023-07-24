@@ -3,7 +3,7 @@ Abstract base classes that implement the shared functionality between
 different backends.
 """
 from abc import ABC, abstractmethod
-from typing import Callable, List, Any
+from typing import Callable, List, Any, Tuple
 
 class Widget(ABC):
     @abstractmethod
@@ -14,10 +14,30 @@ class Widget(ABC):
     # def show(self):
     #     pass
 
+class Selection(ABC):
+    @abstractmethod
+    def __init__(self, indices: List[int], start: int, end: int, **kwargs):
+        pass
+
+    def add_index(self, index: int):
+        pass
+
+    def remove_index(self, index: int):
+        pass
+
+    def update_region(self, region: Tuple[int, int]):
+        pass
+
 class AbstractMultiTrackVisualizer(Widget):
     @abstractmethod
-    def add_selection(self, indices, start, end):
+    def add_selection(self, indices: List[int], start: int, end: int) -> Selection:
         pass
+    
+    @abstractmethod
+    def remove_selection(self, selection: Selection):
+        pass
+
+
 
 class AbstractButton(Widget):
 
