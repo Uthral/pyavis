@@ -20,6 +20,6 @@ def _show_func(self):
 for attribute in _BackendIPyWidgets.__dict__.keys():
     # TODO: Replace with list of strings or just implement base class
     if attribute[:2] != '__':
-        type = getattr(_BackendIPyWidgets, attribute)
-        type.show = _show_func
-        abc.update_abstractmethods(type)
+        class_type = getattr(_BackendIPyWidgets, attribute)
+        class_type.show = _show_func
+        abc.update_abstractmethods(class_type)

@@ -38,7 +38,7 @@ class VBoxQt(AbstractVBox):
     def get_native_widget(self):
         return self.widget
     
-class HBoxQt(AbstractVBox):
+class HBoxQt(AbstractHBox):
     def __init__(self, *args, **kwargs):
         self.widget = QtWidgets.QWidget()
         self.hbox = QtWidgets.QHBoxLayout()

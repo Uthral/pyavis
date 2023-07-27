@@ -19,6 +19,6 @@ def _show_func(self):
 for attribute in _BackendQt.__dict__.keys():
     # TODO: Replace with list of strings or just implement base class
     if attribute[:2] != '__':
-        type = getattr(_BackendQt, attribute)
-        type.show = _show_func
-        abc.update_abstractmethods(type)
+        widget_type = getattr(_BackendQt, attribute)
+        widget_type.show = _show_func
+        abc.update_abstractmethods(widget_type)
