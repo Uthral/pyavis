@@ -14,27 +14,62 @@ class Widget(ABC):
     def show(self):
         pass
 
-class Selection(ABC):
+class BaseTrack(ABC):
+    @abstractmethod
+    def __init__(self, label: str, sampling_rate: int, **kwargs):
+        pass
+
+    @abstractmethod
+    def add_signal(self, position: int, signal, **kwargs):
+        pass
+
+    @abstractmethod
+    def remove_signal(self, signal):
+        pass
+
+    @abstractmethod
+    def remove_at_position(self, position: int):
+        pass
+
+    @abstractmethod
+    def __getitem__(self, index):
+        pass
+
+class BaseSelection(ABC):
     @abstractmethod
     def __init__(self, indices: List[int], start: int, end: int, **kwargs):
         pass
-
+    
+    @abstractmethod
     def add_index(self, index: int):
         pass
 
+    @abstractmethod
     def remove_index(self, index: int):
         pass
 
+    @abstractmethod
     def update_region(self, region: Tuple[int, int]):
         pass
-
 class AbstractMultiTrackVisualizer(Widget):
     @abstractmethod
-    def add_selection(self, indices: List[int], start: int, end: int) -> Selection:
+    def add_selection(self, indices: List[int], start: int, end: int) -> BaseSelection:
         pass
     
     @abstractmethod
-    def remove_selection(self, selection: Selection):
+    def remove_selection(self, selection: BaseSelection):
+        pass
+
+    @abstractmethod
+    def add_track(self, label: str, sampling_rate: int, **kwargs) -> BaseTrack:
+        pass
+
+    @abstractmethod
+    def remove_track(self, ident: int | str | BaseTrack):
+        pass
+
+    @abstractmethod
+    def __getitem__(self, index):
         pass
 
 class AbstractButton(Widget):

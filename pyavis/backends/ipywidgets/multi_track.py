@@ -43,6 +43,14 @@ class MultiTrackVisualizerIPY(AbstractMultiTrackVisualizer):
     def remove_selection(self, selection: Selection):
         self.selections.remove(selection)
 
+    @override
+    def add_track(self, label: str, sampling_rate: int, **kwargs):
+        pass
+
+    @override
+    def remove_track(self, ident: int | str | Track):
+        pass
+
 
 class _Track(Axes):
     def set_track(self, index: int, track: Track):
@@ -52,6 +60,27 @@ class _Track(Axes):
         for pos, signal in self.track.signals:
             self.plot(range(pos, pos + len(signal.signal())), signal.signal())
 
+
+class TrackIPY(Track):
+    @override
+    def __init__(self, label: str, sampling_rate: int, **kwargs):
+        pass
+
+    @override
+    def add_signal(self, position: int, signal, **kwargs):
+        pass
+
+    @override
+    def remove_signal(self, signal):
+        pass
+
+    @override
+    def remove_at_position(self, position: int):
+        pass
+
+    @override
+    def __getitem__(self, index):
+        pass
 
 class SelectionIPY(Selection):
     def __init__(self, indices: List[int], start: int, end: int, **kwargs):

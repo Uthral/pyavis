@@ -51,7 +51,7 @@ def create_vbox(*args, **kwargs) -> AbstractVBox:
 def create_hbox(*args, **kwargs) -> AbstractHBox:
     return _get_implementation('HBox')(*args, **kwargs)
 
-def create_int_slider(*args, **kwargs) -> AbstractIntSlider:
+def create_int_slider(description="IntSlider", orientation: str = "horizontal", default: int = 50, min: int = 1, max: int = 100, step: int = 1, *args, **kwargs) -> AbstractIntSlider:
     return _get_implementation('IntSlider')(*args, **kwargs)
 
 def create_float_slider(*args, **kwargs) -> AbstractFloatSlider:
