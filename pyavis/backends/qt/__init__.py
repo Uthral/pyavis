@@ -1,6 +1,6 @@
 import abc
 from .. import _Backend
-from .multi_track import MultiTrackVisualizerQt
+from .multitrack import MultiTrackVisualizerQt
 from .widgets import ButtonQt, DropDownQt, FloatSliderQt, IntSliderQt, VBoxQt, HBoxQt
 
 class _BackendQt(_Backend):

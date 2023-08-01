@@ -65,7 +65,7 @@ class AbstractMultiTrackVisualizer(Widget):
         pass
 
     @abstractmethod
-    def remove_track(self, ident: int | str | BaseTrack):
+    def remove_track(self, identifier: int | str | BaseTrack):
         pass
 
     @abstractmethod
