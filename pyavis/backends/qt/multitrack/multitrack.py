@@ -8,6 +8,7 @@ from . import TrackQt, SelectionQt
 
 from pyqtgraph.GraphicsScene.mouseEvents import *
 import pyqtgraph as pg
+import numpy as np
 
 class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
     def __init__(self, *args, **kwargs):
@@ -173,7 +174,7 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
         # Update track height again, since upper axis was added to new track
         self.update_track_height(self.track_height)        
             
-        
+    @override
     def update_track_height(self, track_height: int = 100):
         self.track_height = track_height
         
@@ -186,10 +187,106 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
             else:
                 track.setFixedHeight(track_height)
 
-        
+    # TODO: Extract this to a base class
     @override
     def __getitem__(self, index):
-        pass
+        """ Accessing array elements through slicing.
+            * int, get signal row asig[4];
+            * slice, range and step slicing asig[4:40:2]
+                # from 4 to 40 every 2 samples;
+            * list, subset rows, asig[[2, 4, 6]]
+                # pick out index 2, 4, 6 as a new asig
+            * tuple, row and column specific slicing, asig[4:40, 3:5]
+                # from 4 to 40, channel 3 and 4
+            * Time slicing (unit in seconds) using dict asig[{1:2.5}, :]
+                creates indexing of 1s to 2.5s.
+            * Channel name slicing: asig['l'] returns channel 'l' as
+                a new mono asig. asig[['front', 'rear']], etc...
+            * bool, subset channels: asig[:, [True, False]]
+
+
+        Parameters
+        ----------
+            index : Number or slice or list or tuple or dict
+                Slicing argument.
+
+        Returns
+        -------
+            a : Asig
+                __getitem__ returns a subset of the self based on the slicing.
+        """
+
+        if isinstance(index, tuple):
+            # value_idx can be a slice or dict
+            # track_idx can be a int, str, list[int], list[bool], list[str] or slice
+            value_idx: slice | dict = index[0]
+            track_idx: int | str | list[int] | list[bool] | list[str] | slice = index[1]
+        elif isinstance(index, str):
+            # Get channel / track via label
+            value_idx: slice = slice(None, None, None)
+            track_idx: str = index
+        elif isinstance(index, int):
+            # Get channel / track via index
+            value_idx: slice = slice(None, None, None)
+            track_idx: int = index
+        elif isinstance(index, list):
+            # Get channel / track via list of indices or strings
+            value_idx: slice = slice(None, None, None)
+            track_idx: List[int] | List[bool] | List[str] = index
+        elif isinstance(index, slice):
+            # Get all values of all tracks in the slice range
+            value_idx: slice = index
+            track_idx: slice = slice(None, None, None)
+        elif isinstance(index, dict):
+            value_idx: dict = index
+            track_idx: slice = slice(None, None, None)
+        else:
+            # Other inputs will be rejected
+            raise TypeError("Invalid type argument")
+        
+        # Convert str, list[str] and list[bool] into int or list[int] to simplifiy the next steps
+        if isinstance(track_idx, str):
+            track_idx = self.tracks.index(next(filter(lambda item: item.label == track_idx, self.tracks), None))
+        elif isinstance(track_idx, list) and isinstance(track_idx[0], str):
+            track_idx = [self.tracks.index(next(filter(lambda item: item.label == label, self.tracks), None)) for label in track_idx]
+        elif isinstance(track_idx, list) and isinstance(track_idx[0], bool):
+            if len(track_idx) != len(self.tracks):
+                raise IndexError("boolean index does not match amount of tracks")
+            track_idx = [index for (index, boolean) in enumerate(track_idx) if boolean]
+
+        # Covert value_idx of type dict into slice 
+        if isinstance(value_idx, dict):
+            # TODO: Refactor, so that a multi track has itself a sampling rate
+            sampling_rate = self.tracks[0].sampling_rate
+            for key, val in value_idx.items():
+                try:
+                    start = int(key * sampling_rate)
+                except TypeError: 
+                    start = None
+                try:
+                    stop = int(val * sampling_rate)
+                except TypeError:
+                    stop = None
+            value_idx = slice(start, stop, 1)
+
+        # From here on value_idx will always be slice
+        # track_idx will be an int, list[int] or slice
+        if isinstance(track_idx, int):
+            values = self.tracks[track_idx].track[value_idx]
+        elif isinstance(track_idx, list):
+            # TODO: Pad arrays if not of equal length
+            values = [self.tracks[idx].track[value_idx] for idx in track_idx]
+        elif isinstance(track_idx, slice):
+            # TODO: Pad arrays if not of equal length
+            values = [track.track[value_idx] for track in self.tracks[track_idx]]
+        else:
+            raise Exception("This should not happen")
+
+        # TODO: Transform into Asig
+        return values
+
+
+        
 
     def _on_selection_updated(self, arguments):
         old = arguments[0]

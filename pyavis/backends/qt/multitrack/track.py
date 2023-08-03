@@ -33,10 +33,6 @@ class TrackQt(BaseTrack, pg.PlotItem, metaclass=M_TrackQt):
         
         self._calculateViewLimits()
         self._addMiddleLine()
-
-        # self.track.onSignalAdded.connect(lambda track, pos, sig: self._addSignal(pos, sig))
-        # self.track.onSignalRemoved.connect(lambda track, pos, sig: self._removeSignal(sig))
-        # self.track.onSignalMoved.connect(lambda track, pos, sig: self._moveSignal(pos, sig))
         
     @override
     def add_signal(self, position: int, signal, **kwargs):

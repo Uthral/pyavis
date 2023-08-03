@@ -69,6 +69,10 @@ class AbstractMultiTrackVisualizer(Widget):
         pass
 
     @abstractmethod
+    def update_track_height(self, track_height: int):
+        pass
+
+    @abstractmethod
     def __getitem__(self, index):
         pass
 
