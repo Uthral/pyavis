@@ -12,11 +12,11 @@ class TestTrackIndexing(TestCase):
         self.val_2 = np.sin(2 * np.pi * 50 * np.linspace(0, 1, self.sr), dtype="float32")
         self.sig_1 = AudioSignal(Asig(self.val_1))
         self.sig_2 = AudioSignal(Asig(self.val_2))
-        self.pos_1 = 0
+        self.pos_1 = 1
         self.pos_2 = self.sr * 3
 
-        zeros = np.zeros((self.sr * 2))
-        self.concat = np.concatenate((self.val_1, zeros, self.val_2))
+        zeros = np.zeros((self.sr * 2 - self.pos_1))
+        self.concat = np.concatenate(([0] * self.pos_1, self.val_1, zeros, self.val_2))
         self.concat_with_padding = np.concatenate((self.concat, zeros))
 
         self.track = Track("Test", self.sr)
@@ -48,7 +48,7 @@ class TestTrackIndexing(TestCase):
     def test_indexing_with_step(self):
         for i in range(1, 50, 1):
             self.assert_func(self.track[self.pos_1:self.pos_1 + 100:i], self.concat[self.pos_1:self.pos_1 + 100:i])
-            self.assert_func(self.track[self.pos_1 + 100:self.pos_1 + 5000:i], self.concat[100:5000:i])
+            self.assert_func(self.track[self.pos_1 + 100:self.pos_1 + 5000:i], self.concat[self.pos_1 + 100:self.pos_1 + 5000:i])
             self.assert_func(self.track[::i], self.concat[::i])
 
         for i in range(-1, -50, -1):

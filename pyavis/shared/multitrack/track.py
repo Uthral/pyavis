@@ -86,7 +86,6 @@ class Track:
             if direction == "forward":
                 # Signal starts outside of range and ends in range
                 if signal_start <= lower and signal_end <= higher:
-
                     # Divide stop index by step to allow both padding and step at the same time
                     array[0:int(math.ceil((signal_end - lower) / step))] = sig.signal()[lower - signal_start::step]
                     
@@ -109,7 +108,10 @@ class Track:
                     remainder = padding % abs(step)
                     offset = step - remainder if not remainder == 0 else 0
 
-                    array[math.ceil(pos_1 / step):] = sig.signal()[offset::step]
+                    values = sig.signal()[offset::step]
+                    start_pos = math.ceil(pos_1 / step)
+                    
+                    array[start_pos:start_pos + len(values)] = values
                     
             elif direction == "backward":
                 # Signal starts outside of range and ends in range
@@ -142,8 +144,14 @@ class Track:
                     offset = step + remainder # padding is negative so -x + y => yields offset into array 
 
                     values = sig.signal()[offset::step]
-                    array[-len(values):] = values
-            
+
+                    start = math.ceil(-signal_start / abs(step))
+                    start = start if start != 0 else None
+                    end = start - len(values) if start is not None else -len(values)
+                    
+                    array[end:start] = values
+                    
+
         return array
     
     def get_index(self, signal: AudioSignal) -> int:

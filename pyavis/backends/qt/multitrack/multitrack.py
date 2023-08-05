@@ -272,21 +272,29 @@ class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
         # From here on value_idx will always be slice
         # track_idx will be an int, list[int] or slice
         if isinstance(track_idx, int):
-            values = self.tracks[track_idx].track[value_idx]
+            return self.tracks[track_idx].track[value_idx]
         elif isinstance(track_idx, list):
-            # TODO: Pad arrays if not of equal length
-            values = [self.tracks[idx].track[value_idx] for idx in track_idx]
+            tracks: list[TrackQt] = [self.tracks[idx] for idx in track_idx]
         elif isinstance(track_idx, slice):
-            # TODO: Pad arrays if not of equal length
-            values = [track.track[value_idx] for track in self.tracks[track_idx]]
+            tracks: list[TrackQt] = self.tracks[track_idx]
         else:
             raise Exception("This should not happen")
 
+        # Different tracks can have different lengths
+        # Calc. max values and apply correct slice
+        max_length = max([track.track.get_minimum_length() for track in tracks])
+
+        # Update slice if one of the absolute values is greater than our track length
+        if value_idx.start is not None and value_idx.start > max_length:
+            max_length = value_idx.start
+        if value_idx.stop is not None and value_idx.stop > max_length:
+            max_length = value_idx.stop
+
+        (start, stop, step) = value_idx.indices(max_length)
+        values = [track[start:stop:step] for track in tracks]     
+
         # TODO: Transform into Asig
         return values
-
-
-        
 
     def _on_selection_updated(self, arguments):
         old = arguments[0]
