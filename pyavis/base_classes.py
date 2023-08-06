@@ -76,6 +76,9 @@ class AbstractMultiTrackVisualizer(Widget):
     def __getitem__(self, index):
         pass
 
+class AbstractSpectrogramVisualizer(Widget):
+    pass
+
 class AbstractButton(Widget):
 
     @abstractmethod
