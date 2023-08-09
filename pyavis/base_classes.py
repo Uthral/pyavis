@@ -4,6 +4,9 @@ different backends.
 """
 from abc import ABC, abstractmethod
 from typing import Callable, List, Any, Tuple
+import numpy as np
+
+from pya import Asig, Astft
 
 class Widget(ABC):
     @abstractmethod
@@ -51,7 +54,7 @@ class BaseSelection(ABC):
     @abstractmethod
     def update_region(self, region: Tuple[int, int]):
         pass
-class AbstractMultiTrackVisualizer(Widget):
+class BaseMultiTrack(Widget):
     @abstractmethod
     def add_selection(self, indices: List[int], start: int, end: int) -> BaseSelection:
         pass
@@ -76,8 +79,32 @@ class AbstractMultiTrackVisualizer(Widget):
     def __getitem__(self, index):
         pass
 
-class AbstractSpectrogramVisualizer(Widget):
-    pass
+class BaseSpectrogram(Widget):
+
+    @abstractmethod
+    def __init__(self, x: Asig | Astft, disp_func: Callable[[np.ndarray], np.ndarray] = np.abs, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def reset(self):
+        pass
+
+    @abstractmethod
+    def clear(self):
+        pass
+
+    @abstractmethod
+    def as_asig(self, **kwargs) -> Asig:
+        pass
+
+    @abstractmethod
+    def as_astft(self) -> Astft:
+        pass
+
+    @abstractmethod
+    def draw(self, freq: float, time: float):
+        pass
+
 
 class AbstractButton(Widget):
 

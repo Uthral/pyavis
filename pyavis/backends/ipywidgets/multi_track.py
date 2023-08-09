@@ -10,9 +10,9 @@ from pyavis.base_classes import Selection
 
 from ...shared.util.subject import Subject
 from ...shared.multitrack import MultiTrack, Track
-from ...base_classes import AbstractMultiTrackVisualizer
+from ...base_classes import BaseMultiTrack
 
-class MultiTrackVisualizerIPY(AbstractMultiTrackVisualizer):
+class MultiTrackVisualizerIPY(BaseMultiTrack):
     def __init__(self, multi_track: MultiTrack, **kwargs):
         self.figure = plt.figure(**kwargs)
         self.figure.subplots_adjust(hspace=0)

@@ -1,7 +1,7 @@
 from overrides import override
 from typing import List
 
-from ....base_classes import AbstractMultiTrackVisualizer, BaseSelection, BaseTrack
+from ....base_classes import BaseMultiTrack, BaseSelection, BaseTrack
 from ....shared.multitrack import Track
 
 from . import TrackQt, SelectionQt
@@ -10,7 +10,7 @@ from pyqtgraph.GraphicsScene.mouseEvents import *
 import pyqtgraph as pg
 import numpy as np
 
-class MultiTrackVisualizerQt(AbstractMultiTrackVisualizer):
+class MultiTrackQt(BaseMultiTrack):
     def __init__(self, *args, **kwargs):
         self.widget = pg.GraphicsLayoutWidget(*args, **kwargs) 
 

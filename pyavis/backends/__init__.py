@@ -1,7 +1,7 @@
-from ..base_classes import AbstractButton, AbstractDropDown, AbstractFloatSlider, AbstractHBox, AbstractIntSlider, AbstractMultiTrackVisualizer, AbstractVBox
+from ..base_classes import AbstractButton, AbstractDropDown, AbstractFloatSlider, AbstractHBox, AbstractIntSlider, BaseMultiTrack, AbstractVBox
 
 class _Backend:
-    MultiTrackVisualizer: AbstractMultiTrackVisualizer = None
+    MultiTrackVisualizer: BaseMultiTrack = None
     Button: AbstractButton = None
     VBox: AbstractVBox = None
     HBox: AbstractHBox = None

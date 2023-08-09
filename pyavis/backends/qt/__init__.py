@@ -2,12 +2,12 @@ import abc
 
 
 from .. import _Backend
-from .multitrack import MultiTrackVisualizerQt
+from .multitrack import MultiTrackQt
 from .spectrogram import SpectogramQt
 from .widgets import ButtonQt, DropDownQt, FloatSliderQt, IntSliderQt, VBoxQt, HBoxQt
 
 class _BackendQt(_Backend):
-    MultiTrackVisualizer = MultiTrackVisualizerQt
+    MultiTrackVisualizer = MultiTrackQt
     Button = ButtonQt
     VBox = VBoxQt
     HBox = HBoxQt

@@ -2,7 +2,7 @@ from . import shared
 
 
 from .backends import _Backend
-from .base_classes import AbstractButton, AbstractFloatSlider, AbstractHBox, AbstractIntSlider, AbstractMultiTrackVisualizer, AbstractDropDown, AbstractSpectrogramVisualizer, AbstractVBox
+from .base_classes import AbstractButton, AbstractFloatSlider, AbstractHBox, AbstractIntSlider, BaseMultiTrack, AbstractDropDown, BaseSpectrogram, AbstractVBox
 
 _backend: _Backend = None
 def use_backend(backend: str = "qt"):
@@ -39,10 +39,10 @@ def _get_implementation(widget: str):
     _is_missing_implementation(backend, widget)
     return getattr(backend, widget)
 
-def create_multitrack(*args, **kwargs) -> AbstractMultiTrackVisualizer:
+def create_multitrack(*args, **kwargs) -> BaseMultiTrack:
     return _get_implementation('MultiTrackVisualizer')(*args, **kwargs)
 
-def create_spectrogram(*args, **kwargs) -> AbstractSpectrogramVisualizer:
+def create_spectrogram(*args, **kwargs) -> BaseSpectrogram:
     return _get_implementation('SpectrogramVisualizer')(*args, **kwargs)
 
 def create_button(*args, **kwargs) -> AbstractButton:
