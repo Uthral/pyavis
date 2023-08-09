@@ -4,7 +4,7 @@ import abc
 from .. import _Backend
 from .multitrack import MultiTrackQt
 from .spectrogram import SpectogramQt
-from .widgets import ButtonQt, DropDownQt, FloatSliderQt, IntSliderQt, VBoxQt, HBoxQt
+from .widgets import ButtonQt, DropDownQt, FloatSliderQt, IntSliderQt, ScrollAreaQt, VBoxQt, HBoxQt
 
 class _BackendQt(_Backend):
     MultiTrackVisualizer = MultiTrackQt
@@ -15,6 +15,7 @@ class _BackendQt(_Backend):
     FloatSlider = FloatSliderQt
     DropDown = DropDownQt
     SpectrogramVisualizer = SpectogramQt
+    ScrollArea = ScrollAreaQt
 
 def _show_func(self):
     w = self.get_native_widget()

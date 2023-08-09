@@ -1,9 +1,9 @@
 from typing import Callable, List, Any
 from overrides import override
-from ...base_classes import AbstractButton, AbstractFloatSlider, AbstractIntSlider, AbstractDropDown, AbstractVBox, Widget, AbstractHBox
-from ipywidgets import Button, VBox, HBox, IntSlider, FloatSlider, Dropdown
+from ...base_classes import BaseButton, BaseFloatSlider, BaseIntSlider, BaseDropDown, BaseScrollArea, BaseVBox, Widget, BaseHBox
+from ipywidgets import Button, VBox, HBox, IntSlider, FloatSlider, Dropdown, Layout
 
-class ButtonIPY(AbstractButton):
+class ButtonIPY(BaseButton):
     @override
     def __init__(self, label: str):
         self.button = Button(description=label)
@@ -19,7 +19,7 @@ class ButtonIPY(AbstractButton):
     def remove_on_click(self, func: Callable):
         self.button.on_click(func, remove=True)
 
-class VBoxIPY(AbstractVBox):
+class VBoxIPY(BaseVBox):
     def __init__(self, *args, **kwargs):
         self.vbox = VBox()
     
@@ -37,7 +37,7 @@ class VBoxIPY(AbstractVBox):
     def get_native_widget(self):
         return self.vbox
     
-class HBoxIPY(AbstractHBox):
+class HBoxIPY(BaseHBox):
     def __init__(self, *args, **kwargs):
         self.hbox = HBox()
     
@@ -55,9 +55,9 @@ class HBoxIPY(AbstractHBox):
     def get_native_widget(self):
         return self.hbox
     
-class IntSliderIPY(AbstractIntSlider):
+class IntSliderIPY(BaseIntSlider):
     @override
-    def __init__(self, description: str, orientation: str, default: int, min: int, max: int, step: int):
+    def __init__(self, description="IntSlider", orientation: str = "horizontal", default: int = 50, min: int = 1, max: int = 100, step: int = 1, *args, **kwargs):
         self.slider = IntSlider(
             value=default,
             min=min,
@@ -87,7 +87,7 @@ class IntSliderIPY(AbstractIntSlider):
     def remove_on_value_changed(self, func: Callable[[Any], None]):
         self.slider.unobserve(func, 'value')
 
-class FloatSliderIPY(AbstractFloatSlider):
+class FloatSliderIPY(BaseFloatSlider):
     @override
     def __init__(self, description: str, orientation: str, default: float, min: float, max: float, step: float):
             self.slider = FloatSlider(
@@ -119,7 +119,7 @@ class FloatSliderIPY(AbstractFloatSlider):
     def remove_on_value_changed(self, func: Callable[[Any], None]):
         self.slider.unobserve(func, 'value')
 
-class DropDownIPY(AbstractDropDown):
+class DropDownIPY(BaseDropDown):
 
     @override
     def __init__(self, description: str, options: List[Any], default: Any):
@@ -144,3 +144,17 @@ class DropDownIPY(AbstractDropDown):
     @override
     def remove_on_selection_changed(self, func: Callable[[Any], None]):
         self.drop_down.unobserve(func, names="value")
+
+class ScrollAreaIPY(BaseScrollArea):
+    @override
+    def __init__(self, height: str = '250px'):
+        self.scroll = None
+        self.height = height
+
+    @override
+    def get_native_widget(self):
+        return self.scroll
+
+    @override
+    def set_widget(self, widget: Widget):
+        self.scroll = HBox([widget.get_native_widget()], layout=Layout(height=self.height, overflow='scroll', display='inline-block'))

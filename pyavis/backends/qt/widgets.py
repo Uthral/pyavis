@@ -1,9 +1,11 @@
 from typing import Callable, List, Any
 from overrides import override
-from ...base_classes import AbstractButton, AbstractDropDown, AbstractFloatSlider, AbstractIntSlider, AbstractVBox, Widget, AbstractHBox
+
+from pyavis.base_classes import Widget
+from ...base_classes import BaseButton, BaseDropDown, BaseFloatSlider, BaseIntSlider, BaseScrollArea, BaseVBox, Widget, BaseHBox
 from pyqtgraph.Qt import QtWidgets, QtCore
 
-class ButtonQt(AbstractButton):
+class ButtonQt(BaseButton):
     def __init__(self, label: str):
         self.button = QtWidgets.QPushButton(text=label)
     
@@ -19,7 +21,7 @@ class ButtonQt(AbstractButton):
     def remove_on_click(self, func: Callable):
         self.button.clicked.disconnect(func)
 
-class VBoxQt(AbstractVBox):
+class VBoxQt(BaseVBox):
     def __init__(self, *args, **kwargs):
         self.widget = QtWidgets.QWidget()
         self.vbox = QtWidgets.QVBoxLayout()
@@ -38,7 +40,7 @@ class VBoxQt(AbstractVBox):
     def get_native_widget(self):
         return self.widget
     
-class HBoxQt(AbstractHBox):
+class HBoxQt(BaseHBox):
     def __init__(self, *args, **kwargs):
         self.widget = QtWidgets.QWidget()
         self.hbox = QtWidgets.QHBoxLayout()
@@ -57,7 +59,7 @@ class HBoxQt(AbstractHBox):
     def get_native_widget(self):
         return self.widget
     
-class IntSliderQt(AbstractIntSlider):
+class IntSliderQt(BaseIntSlider):
     
     @override
     def __init__(self, description: str, orientation: str, default: int, min: int, max: int, step: int):
@@ -112,7 +114,7 @@ class IntSliderQt(AbstractIntSlider):
         self.slider.valueChanged.disconnect(func)
         pass
 
-class FloatSliderQt(AbstractFloatSlider):
+class FloatSliderQt(BaseFloatSlider):
         
     @override
     def __init__(self, description: str, orientation: str, default: float, min: float, max: float, step: float):
@@ -138,7 +140,7 @@ class FloatSliderQt(AbstractFloatSlider):
     def remove_on_value_changed(self, func: Callable[[Any], None]):
         pass
 
-class DropDownQt(AbstractDropDown):
+class DropDownQt(BaseDropDown):
 
     @override
     def __init__(self, description: str, options: List[Any], default: Any):
@@ -176,3 +178,24 @@ class DropDownQt(AbstractDropDown):
     @override
     def remove_on_selection_changed(self, func: Callable[[Any], None]):
         self.drop_down.currentIndexChanged.disconnect(func)
+
+
+class ScrollAreaQt(BaseScrollArea):
+    def __init__(self):
+        self.scroll = QtWidgets.QScrollArea()
+        self.widget = QtWidgets.QWidget()
+        self.layout = QtWidgets.QVBoxLayout(self.widget)
+
+        self.scroll.setWidget(self.widget)
+        self.scroll.setWidgetResizable(True)
+
+    def set_widget(self, widget: Widget):
+        for i in reversed(range(self.layout.count())):
+            self.layout.itemAt(i).widget().setParent(None)
+
+        w = widget.get_native_widget()
+        self.layout.addWidget(w)
+
+    @override
+    def get_native_widget(self):
+        return self.scroll

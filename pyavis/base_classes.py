@@ -18,9 +18,6 @@ class Widget(ABC):
         pass
 
 class BaseTrack(ABC):
-    @abstractmethod
-    def __init__(self, label: str, sampling_rate: int, **kwargs):
-        pass
 
     @abstractmethod
     def add_signal(self, position: int, signal, **kwargs):
@@ -106,7 +103,7 @@ class BaseSpectrogram(Widget):
         pass
 
 
-class AbstractButton(Widget):
+class BaseButton(Widget):
 
     @abstractmethod
     def __init__(self, label: str):
@@ -120,7 +117,7 @@ class AbstractButton(Widget):
     def remove_on_click(self, func: Callable):
         pass
 
-class AbstractVBox(Widget):
+class BaseVBox(Widget):
 
     @abstractmethod
     def add_widget(self, widget: Widget):
@@ -130,7 +127,7 @@ class AbstractVBox(Widget):
     def remove_widget(self, widget: Widget):
         pass
 
-class AbstractHBox(Widget):
+class BaseHBox(Widget):
 
     @abstractmethod
     def add_widget(self, widget: Widget):
@@ -140,7 +137,7 @@ class AbstractHBox(Widget):
     def remove_widget(self, widget: Widget):
         pass
 
-class AbstractIntSlider(Widget):
+class BaseIntSlider(Widget):
     
     @abstractmethod
     def __init__(self, description: str, orientation: str, default: int, min: int, max: int, step: int):
@@ -162,7 +159,7 @@ class AbstractIntSlider(Widget):
     def remove_on_value_changed(self, func: Callable[[Any], None]):
         pass
 
-class AbstractFloatSlider(Widget):
+class BaseFloatSlider(Widget):
         
     @abstractmethod
     def __init__(self, description: str, orientation: str, default: float, min: float, max: float, step: float):
@@ -184,7 +181,7 @@ class AbstractFloatSlider(Widget):
     def remove_on_value_changed(self, func: Callable[[Any], None]):
         pass
 
-class AbstractDropDown(Widget):
+class BaseDropDown(Widget):
 
     @abstractmethod
     def __init__(self, description: str, options: List[Any], default: Any):
@@ -202,5 +199,24 @@ class AbstractDropDown(Widget):
     def remove_on_selection_changed(self, func: Callable[[Any], None]):
         pass
 
-class AbstractToolBar(Widget):
-    pass
+class BaseScrollArea(Widget):
+    @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def set_widget(widget: Widget):
+        pass
+
+class BaseToolBar(Widget):
+    @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def add(widget: Widget):
+        pass
+
+    @abstractmethod
+    def remove(widget: Widget):
+        pass

@@ -2,7 +2,7 @@ from . import shared
 
 
 from .backends import _Backend
-from .base_classes import AbstractButton, AbstractFloatSlider, AbstractHBox, AbstractIntSlider, BaseMultiTrack, AbstractDropDown, BaseSpectrogram, AbstractVBox
+from .base_classes import BaseButton, BaseFloatSlider, BaseHBox, BaseIntSlider, BaseMultiTrack, BaseDropDown, BaseScrollArea, BaseSpectrogram, BaseVBox
 
 _backend: _Backend = None
 def use_backend(backend: str = "qt"):
@@ -45,23 +45,26 @@ def create_multitrack(*args, **kwargs) -> BaseMultiTrack:
 def create_spectrogram(*args, **kwargs) -> BaseSpectrogram:
     return _get_implementation('SpectrogramVisualizer')(*args, **kwargs)
 
-def create_button(*args, **kwargs) -> AbstractButton:
+def create_button(*args, **kwargs) -> BaseButton:
     return _get_implementation('Button')(*args, **kwargs)
 
-def create_vbox(*args, **kwargs) -> AbstractVBox:
+def create_vbox(*args, **kwargs) -> BaseVBox:
     return _get_implementation('VBox')(*args, **kwargs)
 
-def create_hbox(*args, **kwargs) -> AbstractHBox:
+def create_hbox(*args, **kwargs) -> BaseHBox:
     return _get_implementation('HBox')(*args, **kwargs)
 
-def create_int_slider(description="IntSlider", orientation: str = "horizontal", default: int = 50, min: int = 1, max: int = 100, step: int = 1, *args, **kwargs) -> AbstractIntSlider:
+def create_int_slider(description="IntSlider", orientation: str = "horizontal", default: int = 50, min: int = 1, max: int = 100, step: int = 1, *args, **kwargs) -> BaseIntSlider:
     return _get_implementation('IntSlider')(*args, **kwargs)
 
-def create_float_slider(*args, **kwargs) -> AbstractFloatSlider:
+def create_float_slider(*args, **kwargs) -> BaseFloatSlider:
     return _get_implementation('FloatSlider')(*args, **kwargs)
 
-def create_drop_down(*args, **kwargs) -> AbstractDropDown:
+def create_drop_down(*args, **kwargs) -> BaseDropDown:
     return _get_implementation('DropDown')(*args, **kwargs)
+
+def create_scroll_area(*args, **kwargs) -> BaseScrollArea:
+    return _get_implementation('ScrollArea')(*args, **kwargs)
 
 
     

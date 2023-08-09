@@ -2,17 +2,16 @@ from overrides import override
 from typing import List
 
 from ....base_classes import BaseMultiTrack, BaseSelection, BaseTrack
-from ....shared.multitrack import Track
 
 from . import TrackQt, SelectionQt
 
 from pyqtgraph.GraphicsScene.mouseEvents import *
 import pyqtgraph as pg
-import numpy as np
 
 class MultiTrackQt(BaseMultiTrack):
     def __init__(self, *args, **kwargs):
-        self.widget = pg.GraphicsLayoutWidget(*args, **kwargs) 
+        self.widget = pg.GraphicsLayoutWidget(*args, **kwargs)
+        self.widget.setContentsMargins(0,0,0,0)
 
         self.selections: List[SelectionQt] = []
         self.tracks: List[TrackQt] = []
@@ -23,6 +22,7 @@ class MultiTrackQt(BaseMultiTrack):
         self.track_height = 100
 
         self.top_axis = pg.AxisItem("top")
+        
 
     def set_pann_and_zoom(self):
         if self.pannZoom is False:
@@ -186,6 +186,9 @@ class MultiTrackQt(BaseMultiTrack):
                 track.setFixedHeight(top_height)
             else:
                 track.setFixedHeight(track_height)
+
+        self.widget.setFixedHeight(int(self.widget.ci.boundingRect().height()))
+        self.widget.adjustSize()
 
     # TODO: Extract this to a base class
     @override
