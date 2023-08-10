@@ -54,7 +54,7 @@ class MultiTrackIPY(BaseMultiTrack):
             new_ax = self.figure.add_subplot(gs[self.row-1], axes_class=TrackIPY)
         
         new_ax.set_data(label, sampling_rate)
-        new_ax.figure.canvas.draw()
+        self.figure.canvas.draw_idle()
         
         self.tracks.append(new_ax)
 
@@ -63,7 +63,32 @@ class MultiTrackIPY(BaseMultiTrack):
 
     @override
     def remove_track(self, identifier: int | str | BaseTrack):
-        pass
+        if isinstance(identifier, BaseTrack):
+            idx = self.tracks.index(identifier)
+        elif isinstance(identifier, str):
+            track = next(filter(lambda item: item.label == identifier, self.tracks), None)
+            idx = self.tracks.index(track)
+        elif isinstance(identifier, int):
+            idx = identifier
+        else:
+            raise TypeError("Not a valid type.")
+        
+        print(idx)
+
+        to_remove = self.tracks.pop(idx)
+        self.figure.delaxes(to_remove)
+
+        self.row -= 1
+        gs = gridspec.GridSpec(self.row, 1)
+
+        for i, ax in enumerate(self.figure.axes):
+            ax.set_position(gs[i].get_position(self.figure))
+            ax.set_subplotspec(gs[i])
+            ax.xaxis.set_tick_params(labelbottom=False)
+
+        self.figure.axes[-1].xaxis.set_tick_params(labelbottom=True)
+
+        self.figure.canvas.draw_idle() 
 
     @override
     def update_track_height(self, track_height: int):
