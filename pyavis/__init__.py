@@ -40,10 +40,10 @@ def _get_implementation(widget: str):
     return getattr(backend, widget)
 
 def create_multitrack(*args, **kwargs) -> BaseMultiTrack:
-    return _get_implementation('MultiTrackVisualizer')(*args, **kwargs)
+    return _get_implementation('MultiTrack')(*args, **kwargs)
 
 def create_spectrogram(*args, **kwargs) -> BaseSpectrogram:
-    return _get_implementation('SpectrogramVisualizer')(*args, **kwargs)
+    return _get_implementation('Spectrogram')(*args, **kwargs)
 
 def create_button(*args, **kwargs) -> BaseButton:
     return _get_implementation('Button')(*args, **kwargs)

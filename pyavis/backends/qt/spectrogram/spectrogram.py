@@ -12,8 +12,8 @@ from pyavis.base_classes import BaseSpectrogram
 
 #TODO: Add basic styling & display (Hz, dB, maybe color)
 
-class SpectogramQt(BaseSpectrogram):
-    def __init__(self, x: Asig | Astft, disp_func: Callable[[np.ndarray], np.ndarray] = np.abs, *args, **kwargs):
+class SpectrogramQt(BaseSpectrogram):
+    def __init__(self, x: Asig | Astft, disp_func: Callable[[np.ndarray], np.ndarray] = np.abs, widget_kw: dict = {}):
         
         if type(x) == Asig:
             self.orig_signal = x
@@ -34,8 +34,7 @@ class SpectogramQt(BaseSpectrogram):
         stft = self.orig_spectrogram.stft
         disp = disp_func(stft)
         
-        self.widget = pg.GraphicsLayoutWidget(*args, **kwargs)
-        self.hist = pg.HistogramLUTItem(fillHistogram=True)
+        self.widget = pg.GraphicsLayoutWidget(**widget_kw)
         self.img = pg.ImageItem()
 
         self.img.setImage(disp.T)        
@@ -45,12 +44,15 @@ class SpectogramQt(BaseSpectrogram):
         self.plot.addItem(self.img)
         self.plot.setLimits(xMin=0, xMax=times[-1], yMin=0, yMax=freqs[-1])
 
-        self.hist.setImageItem(self.img)
-        self.hist.setLevels(np.min(disp), np.max(disp))
-        self.widget.addItem(self.hist)        
+        show_bar = True
+        if show_bar:
+            self.hist = pg.HistogramLUTItem(fillHistogram=True)
+            self.hist.setImageItem(self.img)
+            self.hist.setLevels(np.min(disp), np.max(disp))
+            self.widget.addItem(self.hist)  
 
     @override
-    def get_native_widget(self: bool):
+    def get_native_widget(self):
         return self.widget
 
     @override

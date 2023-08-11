@@ -3,18 +3,18 @@ import abc
 
 from .. import _Backend
 from .multitrack import MultiTrackQt
-from .spectrogram import SpectogramQt
+from .spectrogram import SpectrogramQt
 from .widgets import ButtonQt, DropDownQt, FloatSliderQt, IntSliderQt, ScrollAreaQt, VBoxQt, HBoxQt
 
 class _BackendQt(_Backend):
-    MultiTrackVisualizer = MultiTrackQt
+    MultiTrack = MultiTrackQt
+    Spectrogram = SpectrogramQt
     Button = ButtonQt
     VBox = VBoxQt
     HBox = HBoxQt
     IntSlider = IntSliderQt
     FloatSlider = FloatSliderQt
     DropDown = DropDownQt
-    SpectrogramVisualizer = SpectogramQt
     ScrollArea = ScrollAreaQt
 
 def _show_func(self):

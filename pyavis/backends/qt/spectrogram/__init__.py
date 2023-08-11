@@ -1,1 +1,1 @@
-from .spectrogram import SpectogramQt
+from .spectrogram import SpectrogramQt

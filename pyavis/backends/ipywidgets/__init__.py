@@ -1,11 +1,14 @@
 import abc
-from .widgets import ButtonIPY, FloatSliderIPY, HBoxIPY, IntSliderIPY, DropDownIPY, ScrollAreaIPY, VBoxIPY
-from .multitrack.multi_track import MultiTrackIPY
+
 from .. import _Backend
+from .multitrack.multi_track import MultiTrackIPY
+from .spectrogram.spectrogram import SpectrogramIPY
+from .widgets import ButtonIPY, FloatSliderIPY, HBoxIPY, IntSliderIPY, DropDownIPY, ScrollAreaIPY, VBoxIPY
 from IPython.display import display 
 
 class _BackendIPyWidgets(_Backend):
-    MultiTrackVisualizer = MultiTrackIPY
+    MultiTrack = MultiTrackIPY
+    Spectrogram = SpectrogramIPY
     Button = ButtonIPY
     VBox = VBoxIPY
     HBox = HBoxIPY

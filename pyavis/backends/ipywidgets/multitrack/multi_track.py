@@ -22,7 +22,6 @@ class MultiTrackIPY(BaseMultiTrack):
         self.tracks: List[TrackIPY] = []
         
         self.selecting = True
-        #subplots: List[Axes] = self.figure.subplots(self.dimensions, sharex=True, sharey=True, subplot_kw={"axes_class": TrackIPY})
             
 
     def get_native_widget(self):
