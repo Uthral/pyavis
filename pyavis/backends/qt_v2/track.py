@@ -1,4 +1,5 @@
-from typing import List, Tuple
+from typing import List, Literal, Tuple
+from overrides import override
 
 from pyqtgraph.Qt import QtCore, QtWidgets
 from pyqtgraph.GraphicsScene.mouseEvents import *
@@ -6,11 +7,16 @@ from pyqtgraph.GraphicsScene.mouseEvents import *
 import pyqtgraph as pg
 import numpy as np
 
+
 from pyavis.shared.util import Subject
+from pyavis.graphics import GraphicElement, Rectangle, Signal, Track, Axis
 
 from .signal import SignalQt
+from .rectangle import RectangleQt
 
-class TrackQt(pg.PlotItem):
+
+class M_TrackQt(type(Track), type(pg.GraphicsObject)): pass
+class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
 
     sigClicked = QtCore.Signal(object, MouseClickEvent)
     sigDragged = QtCore.Signal(object, MouseDragEvent)
@@ -21,19 +27,19 @@ class TrackQt(pg.PlotItem):
         self.draggable = False
         self.clickable = False
 
-        # self.onSignalMoved = Subject()
-        # self.onSignalResized = Subject()
-        # self.onSignalAdded = Subject()
-        # self.onSignalRemoved = Subject()
-
         self.label = label
         self.sampling_rate = sampling_rate
 
         self.signals: List[SignalQt]  = []
+        self.rectangles: List[RectangleQt] = []
+
+        self.elements: List[GraphicElement] = []
+
         self.x_movement = False
         self.y_movement = False
 
-    def add_signal(self, position: Tuple[int, float], data: np.ndarray) -> SignalQt:
+    @override
+    def add_signal(self, position: Tuple[float, float], data: np.ndarray) -> Signal:
         '''
         Add a new signal to the track.
 
@@ -43,16 +49,27 @@ class TrackQt(pg.PlotItem):
             Position of the signal. Format: (x, y)
         data : np.ndarray
             Data array containing the signal values
-        signal_kw : dict
-            ... 
         '''
         signal = SignalQt(position=position, data=data)
-        self.signals.append(signal)
+        self.elements.append(signal)
         self.addItem(signal)
 
-        return signal
+        signal.sigDragged.connect(lambda sig, ev: self._move_on_drag(sig, ev))
 
-    def remove_signal(self, signal):
+        return signal
+    
+    @override
+    def add_rectangle(self, position: Tuple[float, float], size: Tuple[float, float]) -> Rectangle:
+        rectangle = RectangleQt(position, size)
+        self.elements.append(rectangle)
+        self.addItem(rectangle)
+
+        rectangle.sigDragged.connect(lambda rect, ev: self._move_on_drag(rect, ev))
+
+        return rectangle
+
+    @override
+    def remove(self, element: GraphicElement):
         '''
         Remove a signal from the track.
 
@@ -61,9 +78,11 @@ class TrackQt(pg.PlotItem):
         signal : Signal
             Signal to remove
         '''
-        self.signals.remove(signal)
-        self.removeItem(signal)
+        element.sigDragged.disconnect()
+        self.elements.remove(element)
+        self.removeItem(element)
 
+    @override
     def set_style(self, **kwargs):
         '''
         Set the color of the track.
@@ -74,8 +93,9 @@ class TrackQt(pg.PlotItem):
             Keyword arguments for setting the track colors
         '''
         pass
-
-    def allow_signal_dragging(self, along_x: bool, along_y: bool):
+    
+    @override
+    def allow_dragging(self, along_x: bool, along_y: bool):
         '''
         Enable or disable dragging along an axis.
 
@@ -86,23 +106,10 @@ class TrackQt(pg.PlotItem):
         along_y : bool
             Enable / Disable dragging along y axis.
         '''
-
-        # Check if signals are overall allowed to be dragged
-        # Disable signal dragging if no dragging along any axis is allowed
-        prev_dragging_state = self.x_movement or self.y_movement
-        curr_dragging_state = along_x or along_y
-
-        if curr_dragging_state != prev_dragging_state:
-            for signal in self.signals:
-                signal.draggable = curr_dragging_state
-                if signal.draggable:
-                    signal.sigDragged.connect(lambda sig, ev: self._move_signal_on_drag(sig, ev))
-                else:
-                    signal.sigDragged.disconnect()
-
         self.x_movement = along_x
         self.y_movement = along_y
 
+    @override
     def set_dragging_limits(
             self,
             x_limits: Tuple[int | None, int | None] = (None, None),
@@ -121,19 +128,57 @@ class TrackQt(pg.PlotItem):
         self.x_limits = x_limits
         self.y_limits = y_limits
 
+    @override
+    def link_track(self, track: 'Track', axis: Literal['x', 'y']='x'):
+        '''
+        Link either the x or y axis of the track to other track.
+        None unlinks the track.
 
-    def set_axis(self, axis):
+        Parameters
+        ----------
+        track : Track | None
+            Track to link with, or None to unlink
+        axis : {'x', 'y'}
+            Axis to link / unlink
+        '''
+        if axis == 'x':
+            self.getViewBox().setXLink(track.getViewBox() if track is not None else None)
+        elif axis == 'y':
+            self.getViewBox().setYLink(track.getViewBox() if track is not None else None)
+        else:
+            raise ValueError("Not a valid axis")
+
+    def set_view_limits(self, **kwargs):
+        '''
+        Set view limits. Arguments must correspond to accepted arguments of
+        `pg.ViewBox.setLimits`
+
+        Parameters
+        ----------
+        **kwargs
+            Arguments to limit view
+        '''
+        self.getViewBox().setLimits(**kwargs)
+
+    def set_axis(self, axis: Axis):
         '''
         Set the axes of the track.
 
         Parameters
         ----------
-        axis : any
+        axis : Axis
             ...
         '''
-        pass
+        self.setAxisItems({axis.orientation : axis})
 
     
+
+
+
+
+
+
+
 
     def mouseClickEvent(self, ev: MouseClickEvent):
         if self.clickable != True:
@@ -151,11 +196,15 @@ class TrackQt(pg.PlotItem):
         self.sigHovered.emit(self, ev)
 
 
+    def _move_on_drag(self, elem: GraphicElement, ev: MouseDragEvent):
+        if self.x_movement != True and self.y_movement != True:
+            return
+        
+        if elem.draggable != True:
+            return
+        ev.accept()
 
-
-
-    def _move_signal_on_drag(self, sig: SignalQt, ev: MouseDragEvent):
-        old_pos = sig.position
+        old_pos = elem.position
         new_pos = list(old_pos)
 
         if self.x_movement:
@@ -175,9 +224,8 @@ class TrackQt(pg.PlotItem):
             elif self.y_limits[1] is not None and y_pos > self.y_limits[1]:
                 y_pos = self.y_limits[1]
             new_pos[1] = y_pos
-        
-        
-        sig.update_position(tuple(new_pos))
+
+        elem.set_position(*tuple(new_pos))
 
 
 
