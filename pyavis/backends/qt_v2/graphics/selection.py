@@ -4,7 +4,7 @@ from overrides import override
 import pyqtgraph as pg
 import numpy as np
 
-from pyavis.graphics import Selection
+from pyavis.backends.graphics import Selection
 
 
 class M_SelectionQt(type(Selection), type(pg.LinearRegionItem)): pass

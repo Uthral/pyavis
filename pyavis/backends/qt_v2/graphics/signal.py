@@ -7,7 +7,7 @@ from pyqtgraph.GraphicsScene.mouseEvents import *
 import pyqtgraph as pg
 import numpy as np
 
-from pyavis.graphics import Signal
+from pyavis.backends.graphics import Signal
 from pyavis.shared.util import Subject
 
 

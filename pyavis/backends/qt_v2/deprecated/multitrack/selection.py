@@ -1,8 +1,8 @@
 from overrides import override
 from typing import List, Tuple, Any
 
-from ....shared.util import Subject
-from ....base_classes import BaseSelection
+from pyavis.shared.util import Subject
+from pyavis.base_classes import BaseSelection
 
 from pyqtgraph.GraphicsScene.mouseEvents import *
 

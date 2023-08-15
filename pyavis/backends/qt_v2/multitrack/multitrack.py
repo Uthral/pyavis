@@ -4,9 +4,9 @@ from overrides import override
 import pyqtgraph as pg
 import numpy as np
 
-from pyavis.graphics import MultiTrack, Track
+from pyavis.backends.graphics import MultiTrack, Track
 
-from ..track import TrackQt
+from ..graphics.track import TrackQt
 
 class M_MultiTrackQt(type(MultiTrack), type(pg.GraphicsLayoutWidget)): pass
 class MultiTrackQt(MultiTrack, pg.GraphicsLayoutWidget, metaclass=M_MultiTrackQt):

@@ -9,7 +9,7 @@ import numpy as np
 
 
 from pyavis.shared.util import Subject
-from pyavis.graphics import GraphicElement, Rectangle, Selection, Signal, Track, Axis
+from pyavis.backends.graphics import GraphicElement, Rectangle, Selection, Signal, Track, Axis
 
 from .signal import SignalQt
 from .rectangle import RectangleQt

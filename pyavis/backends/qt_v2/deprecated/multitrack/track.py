@@ -1,9 +1,9 @@
 from overrides import override
 from typing import List, Tuple, Any
 
-from ....base_classes import BaseTrack
-from ....shared import AudioSignal
-from ....shared.multitrack import Track
+from pyavis.base_classes import BaseTrack
+from pyavis.shared import AudioSignal
+from pyavis.shared.multitrack import Track
 
 from pyqtgraph.Qt import QtCore, QtWidgets
 from pyqtgraph.GraphicsScene.mouseEvents import *

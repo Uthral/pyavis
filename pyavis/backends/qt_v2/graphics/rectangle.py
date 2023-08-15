@@ -7,7 +7,7 @@ from pyqtgraph.Qt import QtCore, QtWidgets
 from overrides import override
 from pyqtgraph.GraphicsScene.mouseEvents import *
 
-from pyavis.graphics import Rectangle
+from pyavis.backends.graphics import Rectangle
 
 
 class M_RectangleQt(type(Rectangle), type(pg.GraphicsObject)): pass

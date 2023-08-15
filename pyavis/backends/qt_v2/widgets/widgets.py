@@ -1,8 +1,7 @@
 from typing import Callable, List, Any
 from overrides import override
 
-from pyavis.base_classes import Widget
-from ...base_classes import BaseButton, BaseDropDown, BaseFloatSlider, BaseIntSlider, BaseScrollArea, BaseVBox, Widget, BaseHBox
+from pyavis.base_classes import BaseButton, BaseDropDown, BaseFloatSlider, BaseIntSlider, BaseScrollArea, BaseVBox, Widget, BaseHBox
 from pyqtgraph.Qt import QtWidgets, QtCore
 
 class ButtonQt(BaseButton):
@@ -143,7 +142,7 @@ class FloatSliderQt(BaseFloatSlider):
 class DropDownQt(BaseDropDown):
 
     @override
-    def __init__(self, description: str, options: List[Any], default: Any):
+    def __init__(self, description: str, options: List[Any], default: Any = None):
         self.text = QtWidgets.QLabel(text=description)
         self.drop_down = QtWidgets.QComboBox()
 
@@ -152,7 +151,7 @@ class DropDownQt(BaseDropDown):
                 self.drop_down.addItem(option)
             else:
                 self.drop_down.addItem(str(option))
-        idx = options.index(default)
+        idx = options.index(default) if default is not None else 0
         self.drop_down.setCurrentIndex(idx)
 
 

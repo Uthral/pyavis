@@ -3,7 +3,7 @@ from overrides import override
 import pyqtgraph as pg
 import numpy as np
 
-from pyavis.graphics import Axis
+from pyavis.backends.graphics import Axis
 
 
 class M_AxisQt(type(Axis), type(pg.AxisItem)): pass

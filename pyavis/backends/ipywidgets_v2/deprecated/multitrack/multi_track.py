@@ -4,12 +4,10 @@ from matplotlib.axes import Axes
 from typing import List
 
 from overrides import override
-from pyavis.backends.ipywidgets.multitrack.selection import SelectionIPY
-from pyavis.backends.ipywidgets.multitrack.track import TrackIPY
+from ..multitrack.selection import SelectionIPY
+from ..multitrack.track import TrackIPY
 
-from pyavis.base_classes import BaseSelection
-
-from ....base_classes import BaseMultiTrack, BaseTrack
+from pyavis.base_classes import BaseSelection, BaseMultiTrack, BaseTrack
 
 class MultiTrackIPY(BaseMultiTrack):
     def __init__(self, *args, **kwargs):

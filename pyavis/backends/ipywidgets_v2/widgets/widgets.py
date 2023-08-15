@@ -1,6 +1,6 @@
 from typing import Callable, List, Any
 from overrides import override
-from ...base_classes import BaseButton, BaseFloatSlider, BaseIntSlider, BaseDropDown, BaseScrollArea, BaseVBox, Widget, BaseHBox
+from pyavis.base_classes import BaseButton, BaseFloatSlider, BaseIntSlider, BaseDropDown, BaseScrollArea, BaseVBox, Widget, BaseHBox
 from ipywidgets import Button, VBox, HBox, IntSlider, FloatSlider, Dropdown, Layout
 
 class ButtonIPY(BaseButton):
