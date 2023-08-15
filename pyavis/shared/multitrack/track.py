@@ -1,6 +1,8 @@
 import math
 import numpy as np
 from typing import List, Tuple
+
+from pyavis.shared.util import Subject
 from ..signal import AudioSignal
 
 
@@ -9,6 +11,10 @@ class Track:
         self.label = label
         self.sampling_rate = sampling_rate
         self.signals: List[Tuple[int, AudioSignal]] = []
+
+        self.signalAdded = Subject()
+        self.signalRemoved = Subject()
+        self.signalMoved = Subject()
     
     def __getitem__(self, index):
         """ 
@@ -227,6 +233,7 @@ class Track:
         
         if self.can_add_at(pos, signal):
             self.signals.append((pos, signal))
+            self.signalAdded.emit(self, (pos, signal))
             return True
         else:
             return False
@@ -251,6 +258,23 @@ class Track:
                 return False
         return True
     
+    def remove_signal(self, signal):
+        '''
+        Remove the signal.
+
+        Parameters
+        ----------
+        signal: Signal
+            Signal to delete
+        '''
+        (position, signal) = self.get_signal(signal)
+        success = self.remove(position, signal)
+        if not success:
+            raise ValueError("Could not remove signal")
+        
+        self.signalRemoved.emit(self, (position, signal))
+
+
     def remove(self, pos: int, signal: AudioSignal):
         '''
         Remove the signal at the position.
@@ -263,6 +287,7 @@ class Track:
             Signal to delete
         '''
         self.signals.remove((pos, signal))
+        self.signalRemoved.emit(self, (pos, signal))
 
     def try_move(self, pos: int, idx: int) -> bool:
         '''

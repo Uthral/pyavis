@@ -9,7 +9,7 @@ import numpy as np
 
 
 from pyavis.shared.util import Subject
-from pyavis.graphics import GraphicElement, Rectangle, Signal, Track, Axis
+from pyavis.graphics import GraphicElement, Rectangle, Selection, Signal, Track, Axis
 
 from .signal import SignalQt
 from .rectangle import RectangleQt
@@ -30,10 +30,8 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         self.label = label
         self.sampling_rate = sampling_rate
 
-        self.signals: List[SignalQt]  = []
-        self.rectangles: List[RectangleQt] = []
-
         self.elements: List[GraphicElement] = []
+        self.selection: Selection = None
 
         self.x_movement = False
         self.y_movement = False
@@ -67,6 +65,12 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         rectangle.sigDragged.connect(lambda rect, ev: self._move_on_drag(rect, ev))
 
         return rectangle
+    
+    def add(self, element: GraphicElement):
+        self.elements.append(element)
+        self.addItem(element)
+
+        # element.sigDragged.connect(lambda elem, ev: self._move_on_drag(rect, ev))
 
     @override
     def remove(self, element: GraphicElement):
@@ -81,6 +85,38 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         element.sigDragged.disconnect()
         self.elements.remove(element)
         self.removeItem(element)
+
+    def set_selection(self, selection: Selection):
+        '''
+        Set the active selection.
+
+        Parameters
+        ----------
+        selection : Selection
+            Selection to use
+        '''
+        self.selection = selection
+        self.addItem(self.selection)
+
+    def get_selection(self) -> Selection | None:
+        '''
+        Get the current selection, or None if nothing is selected.
+
+        Returns
+        -------
+        Selection | None
+            Active selection or None
+        '''
+        return self.selection
+
+
+    def unset_selection(self):
+        '''
+        Unset the active selection. Does nothing if no selection set.
+        '''
+        self.selection = None
+
+
 
     @override
     def set_style(self, **kwargs):

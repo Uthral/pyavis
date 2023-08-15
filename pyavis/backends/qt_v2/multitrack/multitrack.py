@@ -26,6 +26,7 @@ class MultiTrackQt(MultiTrack, pg.GraphicsLayoutWidget, metaclass=M_MultiTrackQt
         self.nextRow()
 
         self.tracks.append(track)
+        self.trackAdded.emit(self, track)
 
         return track
 
@@ -43,6 +44,7 @@ class MultiTrackQt(MultiTrack, pg.GraphicsLayoutWidget, metaclass=M_MultiTrackQt
         
         to_remove = self.tracks.pop(idx)
         self.removeItem(to_remove)
+        self.trackRemoved.emit(self, to_remove)
 
     @override
     def update_track_height(self, track_height: int):

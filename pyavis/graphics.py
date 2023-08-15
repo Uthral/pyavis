@@ -28,10 +28,13 @@ class GraphicElement(ABC):
         y : float
             New y-position of element
         '''
+        if self.position[0] == x and self.position[1] == y:
+            return
+        
         old_pos = self.position
         new_pos = (x, y)
+
         self.position = new_pos
-        
         self.positionChanged.emit(self, new_pos, old_pos)
     
     def set_active(self, active: bool = False):
@@ -43,11 +46,14 @@ class GraphicElement(ABC):
         active : bool, default: False
             Hide or show element
         '''
+        if self.active == active:
+            return
+
         old = self.active
         new = active
-        self.active = new
 
-        self.activeStateChanged(self, new, old)
+        self.active = new
+        self.activeStateChanged.emit(self, new, old)
 
 class Rectangle(GraphicElement):
     def __init__(self):
@@ -80,6 +86,30 @@ class Signal(GraphicElement):
     def set_style(self, style: dict | Literal["default"]):
         pass
 
+class Selection(ABC):
+    def __init__(self, orientation: str, region: Tuple[float, float]):
+        self.regionChanged = Subject()
+        self._orientation = orientation
+        self._region = region
+        self._active = True
+
+    def set_region(self, region: Tuple[float, float]):
+        if self._region[0] == region[0] and self._region[1] == region[1]:
+            return
+
+        self._region = region
+        self.regionChanged.emit(self, region)
+
+    def get_region(self) -> Tuple[float, float]:
+        return self._region
+
+    def set_active(self, active: bool):
+        self._active = active
+
+    def set_style(self, style):
+        pass
+
+
 class Axis(ABC):
     @abstractmethod
     def set_disp_func(self, func: Callable[[float], str]):
@@ -101,6 +131,16 @@ class Track(ABC):
     @abstractmethod
     def remove(self, element: GraphicElement):
         pass
+
+    def set_selection(self, selection: Selection):
+        pass
+
+    def get_selection(self) -> Selection:
+        pass
+
+    def unset_selection(self):
+        pass
+
 
     @abstractmethod
     def set_style(self, **kwargs):
