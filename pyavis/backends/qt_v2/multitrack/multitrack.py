@@ -4,7 +4,7 @@ from overrides import override
 import pyqtgraph as pg
 import numpy as np
 
-from pyavis.backends.graphics import MultiTrack, Track
+from pyavis.backends.bases.graphic_bases import MultiTrack, Track
 
 from ..graphics.track import TrackQt
 

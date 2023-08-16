@@ -8,7 +8,7 @@ import numpy as np
 
 from pyqtgraph.Qt import QtCore
 from pya import Asig, Astft
-from pyavis.base_classes import BaseSpectrogram
+from pyavis.backends.bases.deprecated.base_classes import BaseSpectrogram
 
 #TODO: Add basic styling & display (Hz, dB, maybe color)
 

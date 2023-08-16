@@ -1,6 +1,6 @@
 from matplotlib.axes import Axes
 from overrides import override
-from pyavis.base_classes import BaseTrack
+from pyavis.backends.bases.deprecated.base_classes import BaseTrack
 from pyavis.shared.multitrack.track import Track
 
 class M_TrackIPY(type(BaseTrack), type(Axes)): pass

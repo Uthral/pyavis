@@ -1,7 +1,7 @@
 from overrides import override
 from typing import List, Tuple, Any
 
-from pyavis.base_classes import BaseTrack
+from pyavis.backends.bases.deprecated.base_classes import BaseTrack
 from pyavis.shared import AudioSignal
 from pyavis.shared.multitrack import Track
 

@@ -1,6 +1,6 @@
 from . import _get_backend
 from .backends import Backend
-from .backends.graphics import Rectangle, Signal, Selection, Axis, Track, MultiTrack
+from .backends.bases.graphic_bases import Rectangle, Signal, Selection, Axis, Track, MultiTrack
 
 def _is_missing_implementation(backend: Backend, gfx: str):
     if gfx not in backend.get_gfx_registry():

@@ -1,1 +1,5 @@
-from .widgets import ButtonQt, DropDownQt, FloatSliderQt, IntSliderQt, ScrollAreaQt, VBoxQt, HBoxQt
+from .box import HBoxQt, VBoxQt
+from .button import ButtonQt
+from .drop_down import DropDownQt
+from .slider import IntSliderQt, FloatSliderQt
+from .scroll import ScrollAreaQt

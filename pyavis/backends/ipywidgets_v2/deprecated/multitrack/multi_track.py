@@ -7,7 +7,7 @@ from overrides import override
 from ..multitrack.selection import SelectionIPY
 from ..multitrack.track import TrackIPY
 
-from pyavis.base_classes import BaseSelection, BaseMultiTrack, BaseTrack
+from pyavis.backends.bases.deprecated.base_classes import BaseSelection, BaseMultiTrack, BaseTrack
 
 class MultiTrackIPY(BaseMultiTrack):
     def __init__(self, *args, **kwargs):

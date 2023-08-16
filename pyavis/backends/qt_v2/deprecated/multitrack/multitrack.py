@@ -1,7 +1,7 @@
 from overrides import override
 from typing import List
 
-from pyavis.base_classes import BaseMultiTrack, BaseSelection, BaseTrack
+from pyavis.backends.bases.deprecated.base_classes import BaseMultiTrack, BaseSelection, BaseTrack
 
 from . import TrackQt, SelectionQt
 

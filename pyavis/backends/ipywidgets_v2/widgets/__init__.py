@@ -1,1 +1,5 @@
-from .widgets import ButtonIPY, VBoxIPY, HBoxIPY, IntSliderIPY, FloatSliderIPY, DropDownIPY, ScrollAreaIPY
+from .button import ButtonIPY
+from .box import VBoxIPY, HBoxIPY
+from .slider import IntSliderIPY, FloatSliderIPY
+from .drop_down import DropDownIPY
+from .scroll import ScrollAreaIPY

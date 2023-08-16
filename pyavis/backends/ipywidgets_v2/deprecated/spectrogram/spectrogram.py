@@ -4,7 +4,7 @@ from typing import Callable
 from matplotlib import pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from overrides import override
-from pyavis.base_classes import BaseSpectrogram
+from pyavis.backends.bases.deprecated.base_classes import BaseSpectrogram
 from pya import Asig, Astft
 
 import numpy as np

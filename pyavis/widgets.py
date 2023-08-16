@@ -1,6 +1,5 @@
 from . import _get_backend
 from .backends import Backend
-from .base_classes import BaseButton, BaseFloatSlider, BaseHBox, BaseIntSlider, BaseDropDown, BaseScrollArea, BaseVBox
 
 def _is_missing_implementation(backend: Backend, widget: str):
     if widget not in backend.get_widget_registry():
@@ -12,7 +11,7 @@ def _get_implementation(widget: str):
     _is_missing_implementation(backend, widget)
     return backend.get_widget_registry()[widget]
 
-from .base_classes import BaseButton, BaseFloatSlider, BaseHBox, BaseIntSlider, BaseDropDown, BaseScrollArea, BaseVBox
+from .backends.bases.widget_bases import BaseButton, BaseFloatSlider, BaseHBox, BaseIntSlider, BaseDropDown, BaseScrollArea, BaseVBox
 
 def Button(*args, **kwargs) -> BaseButton:
     return _get_implementation('Button')(*args, **kwargs)
@@ -37,7 +36,7 @@ def ScrollArea(*args, **kwargs) -> BaseScrollArea:
 
 
 # Deprecated
-from .base_classes import BaseMultiTrack, BaseSpectrogram
+from .backends.bases.deprecated.base_classes import BaseMultiTrack, BaseSpectrogram
 
 def DepMultiTrack(*args, **kwargs) -> BaseMultiTrack:
     return _get_implementation('DepMultiTrack')(*args, **kwargs)

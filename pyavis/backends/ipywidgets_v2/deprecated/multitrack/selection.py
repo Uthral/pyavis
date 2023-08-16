@@ -2,7 +2,7 @@ from typing import Tuple, Any, List
 
 from matplotlib.figure import Figure
 from matplotlib.widgets import SpanSelector
-from pyavis.base_classes import BaseSelection
+from pyavis.backends.bases.deprecated.base_classes import BaseSelection
 from pyavis.shared.util import Subject
 
 
