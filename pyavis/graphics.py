@@ -1,6 +1,6 @@
 from . import _get_backend
 from .backends import Backend
-from .backends.bases.graphic_bases import Rectangle, Signal, Selection, Axis, Track, MultiTrack
+from .backends.bases.graphic_bases import Rectangle, Signal, Selection, Axis, Track, MultiTrack, Spectrogram
 
 def _is_missing_implementation(backend: Backend, gfx: str):
     if gfx not in backend.get_gfx_registry():
@@ -29,3 +29,6 @@ def createTrack(*args, **kwargs) -> Track:
 
 def createMultiTrack(*args, **kwargs) -> MultiTrack:
     return _get_implementation('MultiTrack')(*args, **kwargs)
+
+def createSpectrogram(*args, **kwargs) -> Spectrogram:
+    return _get_implementation('Spectrogram')(*args, **kwargs)
