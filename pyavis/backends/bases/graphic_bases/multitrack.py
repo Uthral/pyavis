@@ -8,7 +8,7 @@ class MultiTrack(ABC):
     def __init__(self):
         self.trackAdded = Subject()
         self.trackRemoved = Subject()
-        self.tracks = []
+        self.tracks: list[Track] = []
 
     @abstractmethod
     def add_track(self, label: str, sampling_rate: int, **kwargs) -> Track:

@@ -54,5 +54,5 @@ class MultiTrackQt(MultiTrack, pg.GraphicsLayoutWidget, metaclass=M_MultiTrackQt
     def __getitem__(self, index):
         pass
 
-    def as_widget(self):
+    def get_native_widget(self):
         return self

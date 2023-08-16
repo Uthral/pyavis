@@ -25,7 +25,7 @@ class Track(ABC):
     def set_selection(self, selection: Selection):
         pass
 
-    def get_selection(self) -> Selection:
+    def get_selection(self) -> Selection | None:
         pass
 
     def unset_selection(self):
