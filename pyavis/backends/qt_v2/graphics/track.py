@@ -48,7 +48,7 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         data : np.ndarray
             Data array containing the signal values
         '''
-        signal = SignalQt(position=position, data=data)
+        signal = SignalQt(position, "auto", data)
         self.elements.append(signal)
         self.addItem(signal)
 

@@ -21,51 +21,60 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
 
     def __init__(
             self,
-            position: Tuple[int, float],
-            data: np.ndarray,
-            sig_size: float | str = 'auto',
+            position: Tuple[int, float] = (0,0),
+            vert_size: float | Literal["auto"] = 'auto',
+            *args,
+            **kwargs,
     ):
+        '''
+        Initalize a new signal renderer.
+
+        Parameter
+        ---------
+        position: (int, float), default: (0,0)
+            Position of the rendered signal. y position equates to a y value of 0.
+        sig_size: float | "auto", default: "auto
+            Vertical size of the data.
+        *args
+            Passed to ``:func:Signal.set_data()``
+        **kwargs
+            Passed to ``:func:Signal.set_data()``
+            
+        '''
         Signal.__init__(self)
         pg.GraphicsObject.__init__(self)
         self.draggable = False
         self.clickable = False
 
         self.position = position
-        self.data = data
+        super().set_data(*args, **kwargs)
 
-        self.signal_size = sig_size
-        self.orig_signal_size = np.max(data)
+        self.vert_size = vert_size
+        self.orig_vert_size = np.max(self.y_data)
         self._handle_signal_size()
 
         self.line_plot = pg.PlotDataItem(
-            x=range(self.position[0], len(self.data) + self.position[0]),
-            y=self.data + self.position[1]
+            x=self.x_data + self.position[0],
+            y=self.y_data + self.position[1]
         )
 
         self.line_plot.setParentItem(self)
 
     @override
-    def set_data(self, data):
-        self.data = data
-        self.orig_signal_size = np.max(data)
+    def set_data(self, *args, **kwargs):
+        super().set_data(*args, **kwargs)
+        self.orig_vert_size = np.max(self.y_data)
         self._handle_signal_size()
         self._update_plot()
+
+        self.dataChanged.emit(self)
     
     @override
-    def set_size(self, size: float | Literal["auto"] = "auto"):
-        '''
-        Set the y-size of the signal. "auto" uses the orignal values as size.
-
-        Parameters:
-        -----------
-        size : float | str, default: "auto"
-            New y-size of the rendered signal
-        '''
-        
-        if self.signal_size == size:
+    def set_vertical_size(self, size: float | Literal["auto"] = "auto"):
+        if self.vert_size == size:
             return
         else:
-            self.signal_size = size
+            self.vert_size = size
             self._handle_signal_size()
             self._update_plot()
 
@@ -73,10 +82,10 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
         def norm(data):
             return data / np.max(data)
         
-        if self.signal_size == "auto":
-            self.data = norm(self.data) * self.orig_signal_size
+        if self.vert_size == "auto":
+            self.y_data = norm(self.y_data) * self.orig_vert_size
         else:
-            self.data = norm(self.data) * (self.signal_size / 2)
+            self.y_data = norm(self.y_data) * (self.vert_size / 2)
 
     @override
     def set_position(self, x: int | float, y: int | float):
@@ -122,7 +131,7 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
             self.line_plot.setPen(pg.mkPen(pg.mkColor(style), width=0))
     
     def _update_plot(self):
-        self.line_plot.setData(x=range(self.position[0], len(self.data) + self.position[0]), y=self.data + self.position[1])
+        self.line_plot.setData(x=self.x_data + self.position[0], y=self.y_data + self.position[1])
 
 
     def mouseClickEvent(self, ev: MouseClickEvent):
