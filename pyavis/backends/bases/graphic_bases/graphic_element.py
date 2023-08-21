@@ -8,6 +8,12 @@ class GraphicElement(ABC):
         self.positionChanged = Subject()
         self.activeStateChanged = Subject()
 
+        self.click = Subject()
+
+        self.draggingBegin = Subject()
+        self.dragging = Subject()
+        self.draggingFinish = Subject()
+
         self.position = (0.0, 0.0)
         self.draggable = False
         self.clickable = False

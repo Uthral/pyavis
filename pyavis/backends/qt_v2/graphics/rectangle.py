@@ -134,11 +134,21 @@ class RectangleQt(Rectangle, pg.GraphicsObject, metaclass=M_RectangleQt):
         ev.accept()
         self.sigClicked.emit(self, ev)
 
+        self.click.emit()
+
     def mouseDragEvent(self, ev: MouseDragEvent):
         if self.draggable != True:
             return
         ev.accept()
         self.sigDragged.emit(self, ev)
+
+        if ev.isStart():
+            self.draggingBegin.emit(self, ev.pos())
+        elif ev.isFinish():
+            self.draggingFinish.emit(self, ev.pos())
+        else:
+            self.dragging.emit(self, ev.pos())
+            
     
     def hoverEvent(self, ev: HoverEvent):
         self.sigHovered.emit(self, ev)

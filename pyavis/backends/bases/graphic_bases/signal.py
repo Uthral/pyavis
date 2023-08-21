@@ -3,7 +3,6 @@ from typing import Literal
 from pyavis.shared.util import Subject
 from .graphic_element import GraphicElement
 
-
 class Signal(GraphicElement):
     def __init__(self):
         GraphicElement.__init__(self)
