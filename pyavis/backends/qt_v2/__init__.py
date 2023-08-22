@@ -28,6 +28,7 @@ QtBackend.register_gfx('Axis')(AxisQt)
 QtBackend.register_gfx('Selection')(SelectionQt)
 QtBackend.register_gfx('MultiTrack')(MultiTrackQt)
 QtBackend.register_gfx('Spectrogram')(SpectrogramQt)
+QtBackend.register_gfx('Line')(LineQt)
 
 QtBackend.register_widget('Button')(ButtonQt)
 QtBackend.register_widget('DropDown')(DropDownQt)

@@ -6,3 +6,4 @@ from .axis import Axis
 from .track import Track
 from .multitrack import MultiTrack
 from .spectrogram import Spectrogram
+from .line import Line

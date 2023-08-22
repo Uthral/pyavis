@@ -4,3 +4,4 @@ from .axis import AxisQt
 from .selection import SelectionQt
 from .rectangle import RectangleQt
 from .spectrogram import SpectrogramQt
+from .line import LineQt
