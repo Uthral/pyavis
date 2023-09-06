@@ -4,3 +4,4 @@ from .button import BaseButton
 from .slider import BaseIntSlider, BaseFloatSlider
 from .drop_down import BaseDropDown
 from .scroll import BaseScrollArea
+from.graphic_disp import BaseGraphicDisp

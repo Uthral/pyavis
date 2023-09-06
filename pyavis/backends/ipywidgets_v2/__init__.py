@@ -28,11 +28,17 @@ IPYBackend.register_widget('IntSlider')(IntSliderIPY)
 IPYBackend.register_widget('ScrollArea')(ScrollAreaIPY)
 IPYBackend.register_widget('VBox')(VBoxIPY)
 IPYBackend.register_widget('HBox')(HBoxIPY)
+IPYBackend.register_widget('GraphicDisp')(GraphicDispIPY)
 
 # Deprecated
 from .deprecated import SpectrogramIPY as DepSpectrogramIPY, MultiTrackIPY as DepMultiTrackIPY
 IPYBackend.register_widget('DepMultiTrack')(DepMultiTrackIPY)
 IPYBackend.register_widget('DepSpectrogram')(DepSpectrogramIPY)
+
+# New
+from .graphics_v2 import LayoutIPY as Layout_v2, TrackIPY as Track_v2
+IPYBackend.register_gfx('Layout_v2')(Layout_v2)
+IPYBackend.register_gfx('Track_v2')(Track_v2)
 
 def _show_func(self):
     w = self.get_native_widget()

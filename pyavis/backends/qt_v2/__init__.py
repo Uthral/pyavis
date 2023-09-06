@@ -37,11 +37,17 @@ QtBackend.register_widget('IntSlider')(IntSliderQt)
 QtBackend.register_widget('ScrollArea')(ScrollAreaQt)
 QtBackend.register_widget('VBox')(VBoxQt)
 QtBackend.register_widget('HBox')(HBoxQt)
+QtBackend.register_widget('GraphicDisp')(GraphicDispQt)
 
 # Deprecated
 from .deprecated import SpectrogramQt as DepSpectrogramQt, MultiTrackQt as DepMultiTrackQt
 QtBackend.register_widget('DepMultiTrack')(DepMultiTrackQt)
 QtBackend.register_widget('DepSpectrogram')(DepSpectrogramQt)
+
+# New
+from .graphics_v2 import LayoutQt as Layout_v2, TrackQt as Track_v2
+QtBackend.register_gfx('Layout_v2')(Layout_v2)
+QtBackend.register_gfx('Track_v2')(Track_v2)
 
 def _show_func(self):
     w = self.get_native_widget()

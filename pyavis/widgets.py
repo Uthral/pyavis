@@ -11,7 +11,16 @@ def _get_implementation(widget: str):
     _is_missing_implementation(backend, widget)
     return backend.get_widget_registry()[widget]
 
-from .backends.bases.widget_bases import BaseButton, BaseFloatSlider, BaseHBox, BaseIntSlider, BaseDropDown, BaseScrollArea, BaseVBox
+from .backends.bases.widget_bases import (
+    BaseButton,
+    BaseFloatSlider, 
+    BaseHBox, 
+    BaseIntSlider, 
+    BaseDropDown, 
+    BaseScrollArea, 
+    BaseVBox,
+    BaseGraphicDisp
+)
 
 def Button(*args, **kwargs) -> BaseButton:
     return _get_implementation('Button')(*args, **kwargs)
@@ -33,6 +42,9 @@ def DropDown(*args, **kwargs) -> BaseDropDown:
 
 def ScrollArea(*args, **kwargs) -> BaseScrollArea:
     return _get_implementation('ScrollArea')(*args, **kwargs)
+
+def GraphicDisp(*args, **kwargs) -> BaseGraphicDisp:
+    return _get_implementation('GraphicDisp')(*args, **kwargs)
 
 
 # Deprecated
