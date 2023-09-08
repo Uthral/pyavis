@@ -7,16 +7,22 @@ from pyqtgraph.GraphicsScene.mouseEvents import *
 import pyqtgraph as pg
 
 from pyavis.backends.bases.graphic_bases_v2.track import Track
+from pyavis.backends.qt_v2.graphics_v2.axis import AxisQt
 
 
 class M_TrackQt(type(Track), type(pg.PlotItem)): pass
 class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
 
     def __init__(self, label: str):
+        Track.__init__(self, label)
         pg.PlotItem.__init__(self)
-        self.label = label
 
-        self.setLabel('top', label)
+        self.setTitle(self._label)
+
+        l_axis = AxisQt("left", self.getAxis("left"))
+        b_axis = AxisQt("bottom", self.getAxis("bottom"))
+        self._axis.append(l_axis)
+        self._axis.append(b_axis)
 
     def add_signal(self) -> None:
         pass
@@ -45,5 +51,27 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         else:
             raise ValueError("Not a valid axis")
 
-    def set_axis(self, axis):
-        pass
+
+
+
+
+    def set_axis(self, side: Literal['top', 'bottom', 'left', 'right'], spacing, disp_func):
+        axis = self.get_axis(side)
+
+        if axis is not None:
+            axis.set_disp_func(disp_func)
+            axis.tick_spacing(spacing)
+            axis.toggle_visibility()
+            return
+        
+        axis = pg.AxisItem(side)
+        self.setAxisItems({side: axis})
+
+        axis = AxisQt(side, axis)
+        axis.set_disp_func(disp_func)
+        axis.tick_spacing(spacing)
+        axis.toggle_visibility()
+
+        self._axis.append(axis)
+
+        return axis

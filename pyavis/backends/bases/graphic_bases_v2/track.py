@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
-from typing import Literal
-
+from typing import List, Literal
+from .axis import Axis
 
 class Track(ABC):
     def __init__(self, label: str):
-        self.label = label
+        self._label = label
+        self._axis: List[Axis] = []
 
     def add_signal(self) -> None:
         pass
@@ -34,5 +35,27 @@ class Track(ABC):
     def _link_track(self, track: 'Track', axis: Literal["x", "y"]):
         pass
 
-    def set_axis(self, axis):
+
+
+
+
+
+
+
+
+    def get_axis(self, side: Literal['top', 'bottom', 'left', 'right']) -> Axis:
+        v = [value for value in self._axis if value._side == side]
+        return v[0] if len(v) > 0 else None
+    
+    def toggle_axis(self, side: Literal['top', 'bottom', 'left', 'right'], show=True):
+        axis = self.get_axis(side)
+        if axis is not None:
+            axis.toggle_visibility(show)
+        else:
+            raise ValueError(f"Axis not set for side: {side}")
+    
+    def set_axis(self, side: Literal['top', 'bottom', 'left', 'right'], spacing, disp_func) -> Axis:
         pass
+
+
+    

@@ -9,6 +9,8 @@ from pyavis.backends.bases.graphic_bases_v2.track import Track
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
+from pyavis.backends.ipywidgets_v2.graphics_v2.axis import AxisIPY
+
 class TrackIPY(Track):
     def __init__(self, label: str, ax=None, fig=None):
         Track.__init__(self, label)
@@ -24,6 +26,12 @@ class TrackIPY(Track):
         if fig is not None:
             self.fig: Figure = fig
             self.ax: Axes = self.fig.add_subplot()
+        
+        l_axis = AxisIPY("left", self.ax.yaxis)
+        b_axis = AxisIPY("bottom", self.ax.xaxis)
+
+        self._axis.append(l_axis)
+        self._axis.append(b_axis)
 
 
     def add_signal(self) -> None:
@@ -57,5 +65,41 @@ class TrackIPY(Track):
             else:
                 self.ax.sharex(track.ax)
 
-    def set_axis(self, axis):
-        pass
+
+
+
+
+
+
+
+
+    def set_axis(self, side: Literal['top', 'bottom', 'left', 'right'], spacing, disp_func) -> AxisIPY:
+        axis = self.get_axis(side)
+
+        if axis is not None:
+            axis.set_disp_func(disp_func)
+            axis.tick_spacing(spacing)
+            axis.toggle_visibility(show=True)
+            return
+
+        if side == 'top':
+            n_axes = self.ax.twinx()
+            axis = n_axes.xaxis
+        elif side == 'bottom':
+            axis = self.ax.xaxis
+        elif side == 'right':
+            n_axes = self.ax.twiny()
+            axis = n_axes.yaxis
+        elif side == 'left':
+            axis = self.ax.yaxis
+        else:
+            raise ValueError("Not a valid orientation.")
+        
+        axis = AxisIPY(side, axis)
+        axis.set_disp_func(disp_func)
+        axis.tick_spacing(spacing)
+        axis.toggle_visibility(show=True)
+
+        self._axis.append(axis)
+    
+        return axis
