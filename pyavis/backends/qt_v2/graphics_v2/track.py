@@ -7,7 +7,11 @@ from pyqtgraph.GraphicsScene.mouseEvents import *
 import pyqtgraph as pg
 
 from pyavis.backends.bases.graphic_bases_v2.track import Track
-from pyavis.backends.qt_v2.graphics_v2.axis import AxisQt
+
+
+from .axis import AxisQt
+from .signal import SignalQt
+from .rectangle import RectangleQt
 
 
 class M_TrackQt(type(Track), type(pg.PlotItem)): pass
@@ -24,14 +28,18 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         self._axis.append(l_axis)
         self._axis.append(b_axis)
 
-    def add_signal(self) -> None:
-        pass
+    def add_signal(self, position, size, *args, **kwargs) -> SignalQt:
+        sig = SignalQt(position, size, *args, **kwargs)
+        self.addItem(sig)
+        return sig
 
     def add_line(self) -> None:
         pass
 
-    def add_rect(self) -> None:
-        pass
+    def add_rect(self, position, width, height) -> RectangleQt:
+        rect = RectangleQt(position, width, height)
+        self.addItem(rect)
+        return rect
 
     def add_spectrogram(self) -> None:
         pass

@@ -9,7 +9,9 @@ from pyavis.backends.bases.graphic_bases_v2.track import Track
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from pyavis.backends.ipywidgets_v2.graphics_v2.axis import AxisIPY
+from .axis import AxisIPY
+from .signal import SignalIPY
+from .rectangle import RectangleIPY
 
 class TrackIPY(Track):
     def __init__(self, label: str, ax=None, fig=None):
@@ -34,14 +36,16 @@ class TrackIPY(Track):
         self._axis.append(b_axis)
 
 
-    def add_signal(self) -> None:
-        pass
+    def add_signal(self, position, size, *args, **kwargs) -> SignalIPY:
+        sig = SignalIPY(position, size, *args, **kwargs, ax=self.ax)
+        return sig
 
     def add_line(self) -> None:
         pass
 
-    def add_rect(self) -> None:
-        pass
+    def add_rect(self, position, width, height) -> RectangleIPY:
+        rect = RectangleIPY(position, width, height, ax=self.ax)
+        return rect
 
     def add_spectrogram(self) -> None:
         pass
