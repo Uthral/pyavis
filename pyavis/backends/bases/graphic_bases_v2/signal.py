@@ -1,9 +1,9 @@
 from abc import abstractmethod
-from typing import Literal, Tuple
-from pyavis.shared.util import Subject
-from .graphic_element import GraphicElement
-
+from typing import Any, Literal, Tuple
 import numpy as np
+
+from .graphic_element import GraphicElement
+from pyavis.shared.util import Subject
 
 class Signal(GraphicElement):
     def __init__(
@@ -178,6 +178,23 @@ class Signal(GraphicElement):
 
 
     
-    @abstractmethod
-    def set_style(self, style: dict | Literal["default"]):
+    def set_style(self, line_color: Any | Literal["default"] = "default"):
+        '''
+        Set the color of the signal.
+
+        Parameters
+        ----------
+        line_color : (int,int,int) | (int,int,int,int) | str, default: "default"
+            Either "default" or values accepted by `pg.mkColor`
+        '''
+        if line_color == "default":
+            from pyavis.config import get_style_config_value
+            line_color = get_style_config_value("line_color")
+        else:
+            from pyavis.shared.util import color
+            color._check_color(line_color)
+        
+        self._abstract_set_style(line_color)
+
+    def _abstract_set_style(self, line_color: Any):
         pass

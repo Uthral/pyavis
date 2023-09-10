@@ -1,4 +1,4 @@
-from typing import Literal,  Any, Tuple
+from typing import Literal, Tuple
 
 from pyqtgraph.Qt import QtCore
 from overrides import override
@@ -6,7 +6,6 @@ from pyqtgraph.GraphicsScene.mouseEvents import *
 
 import pyqtgraph as pg
 from pyavis.backends.bases.graphic_bases_v2 import Signal
-
 
 class M_SignalQt(type(Signal), type(pg.GraphicsObject)): pass
 class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
@@ -28,6 +27,7 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
         self.signal = pg.PlotDataItem()
         self.signal.setParentItem(self)
 
+        self.set_style("default")
         self._update_plot()
 
     def _update_plot(self):
@@ -56,33 +56,13 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
 
 
 
+    def _abstract_set_style(self, line_color):
+        from pyavis.shared.util import color
+        line_color = color._convert_color(line_color)
+        self.signal.setPen(pg.mkPen(pg.mkColor(*line_color), width=0))
 
 
-
-
-
-    @override
-    def set_style(self, style: Any | Literal["default"] = "default"):
-        '''
-        Set the color of the signal.
-
-        Parameters
-        ----------
-        signal_kw : Any | str, default: "default"
-            Either "default" or values accepted by `pg.mkColor`
-        '''
-        default_color = (200, 200, 200)
-
-        if style == "default":
-            self.line_plot.setPen(pg.mkPen(pg.mkColor(*default_color), width=0))
-        else:
-            self.line_plot.setPen(pg.mkPen(pg.mkColor(style), width=0))
-    
-
-
-
-
-
+        
 
     def mouseClickEvent(self, ev: MouseClickEvent):
         if self.clickable != True:
@@ -107,7 +87,6 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
     
     def hoverEvent(self, ev: HoverEvent):
         self.sigHovered.emit(self, ev)
-
 
     @override
     def boundingRect(self):

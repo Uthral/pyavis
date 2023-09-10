@@ -1,11 +1,12 @@
 from overrides import override
-from pyavis.backends.bases.graphic_bases_v2 import Layout
+
 
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.gridspec import GridSpec
 
-from pyavis.backends.ipywidgets_v2.graphics_v2.track import TrackIPY
+from pyavis.backends.bases.graphic_bases_v2 import Layout
+from .track import TrackIPY
 
 class LayoutIPY(Layout):
     def __init__(self, rows: int = 1, columns: int = 1):
