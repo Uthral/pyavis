@@ -44,22 +44,3 @@ class SignalIPY(Signal):
         from pyavis.shared.util import color
         line_color = color._convert_color(line_color)
         self._lines.set_color(line_color)
-
-    # @override
-    # def set_style(self, line_color: Tuple[float,float,float] | Tuple[float,float,float,float] | Literal["default"]):
-    #     '''
-    #     Set the color of the signal.
-
-    #     Parameters
-    #     ----------
-    #     line_color : (int,int,int) | (int,int,int,int) | str, default: "default"
-    #         Either "default" or values accepted by `pg.mkColor`
-    #     '''
-    #     default_color = (0.78, 0.78, 0.78)
-
-    #     if line_color == "default":
-    #         self._lines.set_color(default_color)
-    #     elif isinstance(line_color, tuple) and (len(line_color) == 3 or len(line_color) == 4):
-    #         self._lines.set_color(line_color)
-    #     else:
-    #         raise TypeError("line_color has not the appropriate type.")

@@ -42,7 +42,7 @@ class GraphicElement(ABC):
     
     @draggable.setter
     def draggable(self, value: bool):
-        return  self._draggable
+        self._draggable = value
 
     def set_position(self, x: int | float, y: int | float):
         '''

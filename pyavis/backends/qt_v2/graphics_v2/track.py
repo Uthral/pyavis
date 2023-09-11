@@ -12,6 +12,7 @@ from pyavis.backends.bases.graphic_bases_v2.track import Track
 from .axis import AxisQt
 from .signal import SignalQt
 from .rectangle import RectangleQt
+from .inf_line import InfLineQt
 
 
 class M_TrackQt(type(Track), type(pg.PlotItem)): pass
@@ -33,8 +34,10 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         self.addItem(sig)
         return sig
 
-    def add_line(self) -> None:
-        pass
+    def add_line(self, position, angle) -> InfLineQt:
+        line = InfLineQt(position, angle)
+        self.addItem(line)
+        return line
 
     def add_rect(self, position, width, height) -> RectangleQt:
         rect = RectangleQt(position, width, height)

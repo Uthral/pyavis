@@ -1,67 +1,54 @@
-from typing import Literal, Tuple
 
-from pyqtgraph.Qt import QtCore
+import math
+from typing import Any, Tuple
 from overrides import override
-from pyqtgraph.GraphicsScene.mouseEvents import *
 
 import pyqtgraph as pg
-from pyavis.backends.bases.graphic_bases_v2 import Signal
+from pyqtgraph.Qt import QtCore
+from pyqtgraph.GraphicsScene.mouseEvents import *
 
-class M_SignalQt(type(Signal), type(pg.GraphicsObject)): pass
-class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
+from pyavis.backends.bases.graphic_bases_v2.inf_line import InfLine
+
+class M_InfLineQt(type(InfLine), type(pg.InfiniteLine)): pass
+class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):
 
     sigClicked = QtCore.Signal(object, MouseClickEvent)
     sigDragged = QtCore.Signal(object, MouseDragEvent)
     sigHovered = QtCore.Signal(object, HoverEvent)
 
-    def __init__(
+    def __init__(            
             self,
             position: Tuple[float, float] = (0.0, 0.0),
-            vertical_size: Literal["auto"] = "auto",
-            *args,
-            **kwargs
+            angle: float = 0.0, 
     ):
-        Signal.__init__(self, position, vertical_size, *args, **kwargs)
-        pg.GraphicsObject.__init__(self)
-        
-        self.signal = pg.PlotDataItem()
-        self.signal.setParentItem(self)
+        InfLine.__init__(self, position, angle)
+        pg.InfiniteLine.__init__(self, pos=self.position, angle=int(math.degrees(self.line_angle)))
 
         self.set_style("default")
-        self._update_plot()
 
+    
     def _update_plot(self):
-        if self.y_data is not None and self.x_data is not None:
-            self.signal.setData(x=self.x_data + self.position[0], y=self.y_data_sized + self.position[1])
+        self.setPos(self.position)
+        self.setAngle(int(math.degrees(self.line_angle)))
 
-    @override
+
     def _abstract_set_active(self):
         if self.active:
             self.show()
         else:
             self.hide()
     
-    @override
-    def _abstract_set_data(self):
-        self._update_plot()
-    
-    @override
     def _abstract_set_position(self):
         self._update_plot()
-    
-    @override
-    def _abstract_set_vertical_size(self):
+
+    def _abstract_set_angle(self):
         self._update_plot()
 
-
-
-    def _abstract_set_style(self, line_color):
+    def _abstract_set_style(self, line_color: Any):
         from pyavis.shared.util import color
         line_color = color._convert_color(line_color)
-        self.signal.setPen(pg.mkPen(pg.mkColor(*line_color), width=0))
+        self.setPen(pg.mkPen(pg.mkColor(*line_color), width=0))
 
-
-        
 
     def mouseClickEvent(self, ev: MouseClickEvent):
         if self.clickable != True:
@@ -86,7 +73,3 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
     
     def hoverEvent(self, ev: HoverEvent):
         self.sigHovered.emit(self, ev)
-
-    @override
-    def boundingRect(self):
-        return self.signal.curve.boundingRect()

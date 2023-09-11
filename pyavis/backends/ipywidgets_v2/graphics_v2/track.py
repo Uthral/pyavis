@@ -12,6 +12,7 @@ from matplotlib.figure import Figure
 from .axis import AxisIPY
 from .signal import SignalIPY
 from .rectangle import RectangleIPY
+from .inf_line import InfLineIPY
 
 class TrackIPY(Track):
     def __init__(self, label: str, ax=None, fig=None):
@@ -40,7 +41,9 @@ class TrackIPY(Track):
         sig = SignalIPY(position, size, *args, **kwargs, ax=self.ax)
         return sig
 
-    def add_line(self) -> None:
+    def add_line(self, position, angle) -> InfLineIPY:
+        line = InfLineIPY(position, angle, ax=self.ax)
+        return line
         pass
 
     def add_rect(self, position, width, height) -> RectangleIPY:

@@ -184,8 +184,8 @@ class Signal(GraphicElement):
 
         Parameters
         ----------
-        line_color : (int,int,int) | (int,int,int,int) | str, default: "default"
-            Either "default" or values accepted by `pg.mkColor`
+        line_color : color.color | str, default: "default"
+            Either "default" or values of the format 'color.color'
         '''
         if line_color == "default":
             from pyavis.config import get_style_config_value
