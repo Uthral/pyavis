@@ -13,6 +13,7 @@ from .axis import AxisIPY
 from .signal import SignalIPY
 from .rectangle import RectangleIPY
 from .inf_line import InfLineIPY
+from .spectrogram import SpectrogramIPY
 
 class TrackIPY(Track):
     def __init__(self, label: str, ax=None, fig=None):
@@ -44,14 +45,14 @@ class TrackIPY(Track):
     def add_line(self, position, angle) -> InfLineIPY:
         line = InfLineIPY(position, angle, ax=self.ax)
         return line
-        pass
 
     def add_rect(self, position, width, height) -> RectangleIPY:
         rect = RectangleIPY(position, width, height, ax=self.ax)
         return rect
 
-    def add_spectrogram(self) -> None:
-        pass
+    def add_spectrogram(self, data, position, disp_func, with_bar) -> SpectrogramIPY:
+        spec = SpectrogramIPY(data, position, disp_func, with_bar, ax=self.ax)
+        return spec
 
     def add_selection(self) -> None:
         pass
