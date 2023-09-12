@@ -34,9 +34,38 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         self.with_bar = with_bar
         self._c_bar = None
 
-
     def add_corresponding_colorbar(self, cbar: pg.ColorBarItem):
         self._c_bar = cbar
+
+    def _update_plot(self):
+        self.setRect(
+            *self.position,
+            self.orig_spectrogram.times[-1] * self.scale[0], 
+            self.orig_spectrogram.freqs[-1] * self.scale[1]
+        )
+
+    def _abstract_set_active(self):
+        if self.active:
+            self.show()
+        else:
+            self.hide()
+    
+    def _abstract_set_position(self):
+        self._update_plot()
+
+    def _abstract_set_data(self):
+        self.setImage(self.disp_func(self.orig_spectrogram.stft).T)
+    
+    def _abstract_set_scale(self):
+        self._update_plot()
+
+    def get_spectrogram_data(self):
+        return self.image.T
+
+
+
+
+
 
 
 
