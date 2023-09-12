@@ -1,2 +1,2 @@
-from .subject import Subject
+from .subject import *
 from .device_helper import *

@@ -46,12 +46,8 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         return rect
 
     def add_spectrogram(self, data, position, disp_func, with_bar) -> SpectrogramQt:
-        spec = SpectrogramQt(data=data, position=position, disp_func=disp_func, with_bar=with_bar)
+        spec = SpectrogramQt(data=data, position=position, disp_func=disp_func, with_bar=with_bar, plt_item=self)
         self.addItem(spec)
-
-        if spec.with_bar:
-            cbar = self.addColorBar(spec, colorMap='viridis', values=(0,1))
-            spec.add_corresponding_colorbar(cbar)
 
         return spec
 

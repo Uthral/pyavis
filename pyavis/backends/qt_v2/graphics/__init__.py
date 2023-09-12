@@ -5,3 +5,4 @@ from .selection import SelectionQt
 from .rectangle import RectangleQt
 from .spectrogram import SpectrogramQt
 from .line import LineQt
+from .layout import LayoutQt

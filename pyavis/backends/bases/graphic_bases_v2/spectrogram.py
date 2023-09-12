@@ -16,7 +16,7 @@ class Spectrogram(GraphicElement):
         self.dataChanged = Subject()
         self.scaleChanged = Subject()
 
-        self.set_data_silent(data)
+        self._internal_set_data(data)
         self.scale = scale
         self.disp_func = disp_func
 
@@ -31,6 +31,9 @@ class Spectrogram(GraphicElement):
         '''
         self.set_data_silent(data)
         self.dataChanged.emit(self)
+
+    def toggle_color_bar(self, show: bool):
+        pass
         
     def set_data_silent(self, data: Asig | Astft):
         '''

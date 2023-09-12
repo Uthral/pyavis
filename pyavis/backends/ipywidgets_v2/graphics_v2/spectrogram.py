@@ -45,16 +45,27 @@ class SpectrogramIPY(Spectrogram):
         self.spec.remove()
         self.spec = None
 
-        self._c_bar.remove()
-        self._c_bar = None
-
-        self._c_bar_ax.remove()
-        self._c_bar_ax = None
+        if self._c_bar_ax is not None:
+            self._c_bar_ax.remove()
+            self._c_bar_ax = None
+            self._c_bar = None
         
         self._init_mesh()
     
     def get_spectrogram_data(self):
         return self.disp_func(self.orig_spectrogram.stft)
+    
+    def toggle_color_bar(self, show: bool):
+        if show and self._c_bar_ax is None:
+            divider = make_axes_locatable(self._ax)
+            self._c_bar_ax = divider.append_axes('right', size="2%", pad=0.03)
+            self._c_bar = plt.colorbar(self.spec, cax=self._c_bar_ax)
+        else:
+            self._c_bar_ax.remove()
+            self._c_bar_ax = None
+            self._c_bar = None
+
+        self._ax.figure.canvas.draw()
 
     def _abstract_set_active(self):
         self.spec.set_visible(self.active)

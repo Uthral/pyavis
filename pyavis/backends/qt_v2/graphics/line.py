@@ -15,6 +15,8 @@ class LineQt(Line, pg.InfiniteLine, metaclass=M_LineQt):
         super().set_position(x, y)
         self.setValue(self.position)
 
+        self.parentItem()
+
     @property
     @override
     def line_angle(self):

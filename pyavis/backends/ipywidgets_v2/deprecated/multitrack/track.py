@@ -47,5 +47,5 @@ class TrackIPY(BaseTrack, Axes, metaclass=M_TrackIPY):
     def __getitem__(self, index):
         return self.track[index]
 
-import matplotlib.projections as proj
-proj.register_projection(TrackIPY)
+# import matplotlib.projections as proj
+# proj.register_projection(TrackIPY)

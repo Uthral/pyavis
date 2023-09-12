@@ -24,18 +24,29 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         position: Tuple[float, float] = (0.0, 0.0), 
         disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
         with_bar = True,
+        **kwargs
     ):
+        if 'plt_item' not in kwargs:
+            raise KeyError("PlotItem not provided. Cannot instantiate SpectrogramQt.")
+        
+        self.plt_item = kwargs['plt_item']
+
         Spectrogram.__init__(self, data, position, disp_func)
         pg.ImageItem.__init__(self, None)
-
+        
         self.setImage(self.disp_func(self.orig_spectrogram.stft).T)
         self.setRect(*self.position, *(self.orig_spectrogram.times[-1], self.orig_spectrogram.freqs[-1]))
 
-        self.with_bar = with_bar
         self._c_bar = None
+        self.toggle_color_bar(with_bar)
 
-    def add_corresponding_colorbar(self, cbar: pg.ColorBarItem):
-        self._c_bar = cbar
+    def toggle_color_bar(self, show: bool):
+        if show and self._c_bar is None:
+            cbar = self.plt_item.addColorBar(self, colorMap='viridis', values=(0,1))
+            self._c_bar = cbar
+        elif not show and self._c_bar is not None:
+            self.plt_item.getViewBox().removeItem(self._c_bar)
+            self._c_bar = None
 
     def _update_plot(self):
         self.setRect(
