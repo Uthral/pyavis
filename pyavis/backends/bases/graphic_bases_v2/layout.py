@@ -16,21 +16,9 @@ class Layout(ABC):
     def layout_rows(self) -> int:
         return self.__rows
     
-    # @layout_rows.setter
-    # def layout_rows(self, value: int):
-    #     if value < 1:
-    #         raise ValueError("There cannot be fewer than 1 row.")
-    #     self.__rows = value
-    
     @property
     def layout_columns(self) -> int:
         return self.__columns
-    
-    # @layout_columns.setter
-    # def layout_columns(self, value: int):
-    #     if value < 1:
-    #         raise ValueError("There cannot be fewer than 1 column.")
-    #     self.__columns = value
     
     def add_track(self, label: str, row: int, column: int, rowspan: int = 1, colspan: int = 1) -> Track:
         if row > self.layout_rows or row < 0:
@@ -53,8 +41,4 @@ class Layout(ABC):
     
     def remove_track(self, track):
         pass
-        
-    # @abstractmethod
-    # def _handle_layout_change(self):
-    #     pass
 

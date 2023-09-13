@@ -6,7 +6,8 @@ from pyavis.shared.util import Subject
 from .graphic_element import GraphicElement
 
 class Spectrogram(GraphicElement):
-    def __init__(        self,
+    def __init__(        
+        self,
         data: Asig | Astft,
         position: Tuple[float, float] = (0.0, 0.0),
         scale: float = 1.0, 

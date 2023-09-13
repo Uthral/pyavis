@@ -28,6 +28,24 @@ class Signal(GraphicElement):
         
 
     def set_data(self, *args, **kwargs):
+        '''
+        Set the data that should be rendered.
+
+        Parameters
+        ----------
+        y : np.ndarray
+            y values, x values will be ``range(len(y))``
+        x, y : np.ndarray, np.ndarray
+            x, y values
+        (y,) : Tuple[np.ndarray]
+            y values given as tuple, x values will be ``range(len(y))``
+        (x,y) : Tuple[np.ndarray, np.ndarray]
+            x, y values given as tuple
+        y=y : np.ndarray
+            y values given as keyword argument, x values will be ``range(len(y))``
+        x=x, y=y : np.ndarray, np.ndarray
+             x, y values given as keyword argument
+        '''
         self.set_data_silent(*args, **kwargs)
         self.dataChanged.emit(self)
 
