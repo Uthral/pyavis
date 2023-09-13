@@ -2,24 +2,30 @@ from abc import ABC, abstractmethod
 from typing import List, Literal
 from .axis import Axis
 
+from .signal import Signal
+from .rectangle import Rectangle
+from .inf_line import InfLine
+from .spectrogram import Spectrogram
+from .rect_selection import RectSelection
+
 class Track(ABC):
     def __init__(self, label: str):
         self._label = label
         self._axis: List[Axis] = []
 
-    def add_signal(self) -> None:
+    def add_signal(self) -> Signal:
         pass
 
-    def add_line(self) -> None:
+    def add_line(self) -> InfLine:
         pass
 
-    def add_rect(self) -> None:
+    def add_rect(self) -> Rectangle:
         pass
 
-    def add_spectrogram(self) -> None:
+    def add_spectrogram(self) -> Spectrogram:
         pass
 
-    def add_selection(self) -> None:
+    def add_selection(self) -> RectSelection:
         pass
 
     def set_style(self):

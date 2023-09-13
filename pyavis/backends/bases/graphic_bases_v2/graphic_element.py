@@ -13,11 +13,11 @@ class GraphicElement(ABC):
         self.position = None
         self.active = None
 
-        self._internal_set_position(*position)
-        self._interal_set_active(active)
-
         self.positionChanged = Subject()
         self.activeStateChanged = Subject()
+
+        self._internal_set_position(*position)
+        self._interal_set_active(active)
 
         self.onClick = Subject()
         self.onDraggingBegin = Subject()
@@ -75,7 +75,7 @@ class GraphicElement(ABC):
             New y-position of element
         '''
         self._internal_set_position(x, y)
-        self._abstract_set_position(self)
+        self._abstract_set_position()
 
     def _internal_set_position(self, x: int | float, y: int | float):
         self.position = (x, y)
@@ -109,8 +109,8 @@ class GraphicElement(ABC):
         active : bool, default: False
             Hide or show element
         '''
-        self._interal_set_active(self, active)
-        self._abstract_set_active(self)
+        self._interal_set_active(active)
+        self._abstract_set_active()
 
     def _interal_set_active(self, active = True):
         self.active = active

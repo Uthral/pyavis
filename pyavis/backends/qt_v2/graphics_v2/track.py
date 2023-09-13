@@ -14,6 +14,7 @@ from .signal import SignalQt
 from .rectangle import RectangleQt
 from .inf_line import InfLineQt
 from .spectrogram import SpectrogramQt
+from .rect_selection import RectSelectionQt
 
 
 class M_TrackQt(type(Track), type(pg.PlotItem)): pass
@@ -51,8 +52,10 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
 
         return spec
 
-    def add_selection(self) -> None:
-        pass
+    def add_selection(self, pos, width, height) -> RectSelectionQt:
+        sel = RectSelectionQt(pos, width, height)
+        self.addItem(sel)
+        return sel
 
     def set_style(self):
         pass

@@ -55,7 +55,7 @@ class TrackIPY(Track):
         return spec
 
     def add_selection(self) -> None:
-        pass
+        raise NotImplementedError()
 
     def set_style(self):
         pass
@@ -72,13 +72,6 @@ class TrackIPY(Track):
                 self.ax._shared_axes[axis].remove(self.ax)
             else:
                 self.ax.sharex(track.ax)
-
-
-
-
-
-
-
 
 
     def set_axis(self, side: Literal['top', 'bottom', 'left', 'right'], spacing, disp_func) -> AxisIPY:
