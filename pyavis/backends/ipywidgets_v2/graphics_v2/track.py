@@ -4,7 +4,7 @@
 from typing import Literal
 
 from overrides import override
-from pyavis.backends.bases.graphic_bases_v2.track import Track
+from pyavis.backends.bases.graphic_bases_v2 import GraphicElement, Track
 
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
@@ -56,6 +56,11 @@ class TrackIPY(Track):
 
     def add_selection(self) -> None:
         raise NotImplementedError()
+    
+    def remove(self, element: GraphicElement):
+        if isinstance(element, SpectrogramIPY):
+            element.toggle_color_bar(False)
+        element.remove()
 
     def set_style(self):
         pass
@@ -104,3 +109,9 @@ class TrackIPY(Track):
         self._axis.append(axis)
     
         return axis
+    
+    def set_x_view_limits(self, x_start, x_end):
+        self.ax.set_xlim((x_start, x_end))
+
+    def set_y_view_limits(self, y_start, y_end):
+        self.ax.set_ylim((y_start, y_end))

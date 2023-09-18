@@ -5,7 +5,11 @@ from .graphic_element import GraphicElement
 class RectSelection(GraphicElement):
     _handle_type = ["left", "right", "top", "bottom"]
 
-    def __init__(self, position, size):
+    def __init__(
+            self,
+            position: Tuple[float, float],
+            size: Tuple[float, float]
+    ):
         GraphicElement.__init__(self, position, True)
         self._size = size
         self._handles = {}

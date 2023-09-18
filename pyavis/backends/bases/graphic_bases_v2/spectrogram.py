@@ -5,6 +5,8 @@ from pya import Asig, Astft
 from pyavis.shared.util import Subject
 from .graphic_element import GraphicElement
 
+
+
 class Spectrogram(GraphicElement):
     def __init__(        
         self,
@@ -23,7 +25,7 @@ class Spectrogram(GraphicElement):
 
     def set_data(self, data: Asig | Astft):
         '''
-        Set the displayed data of the spectrogram.
+        Set the displayed Asig / Astft.
 
         Parameters
         ----------
@@ -33,12 +35,9 @@ class Spectrogram(GraphicElement):
         self.set_data_silent(data)
         self.dataChanged.emit(self)
 
-    def toggle_color_bar(self, show: bool):
-        pass
-        
     def set_data_silent(self, data: Asig | Astft):
         '''
-        Set the displayed data of the spectrogram.
+        Set the displayed Asig / Astft
         Does not trigger observers.
 
         Parameters
@@ -51,7 +50,7 @@ class Spectrogram(GraphicElement):
 
     def _internal_set_data(self, data: Asig | Astft):
         '''
-        Set the displayed data of the spectrogram.
+        Set the displayed Asig / Astft.
         For internal use only.
 
         Parameters
@@ -70,6 +69,13 @@ class Spectrogram(GraphicElement):
 
     def _abstract_set_data(self):
         pass
+
+    def toggle_color_bar(self, show: bool):
+        pass
+
+    def get_spectrogram_data(self):
+        pass
+        
 
     def set_scale(self, scale: Tuple[float, float]):
         '''
@@ -123,14 +129,83 @@ class Spectrogram(GraphicElement):
         '''
         pass
 
-    def draw(self, draw_info):
+    def draw(self, freq: float, time: float):
         '''
-        Draw into the spectrogram using the provided drawing information.
+        Draw into the spectrogram using at the provided frequency and time.
+        Drawing is limited by resolution of spectrogram.
+
+        Parameters
+        ----------
+        freq: float
+            Frequency to draw at
+        time: float
+            Time to draw at
         '''
         pass
 
-def spec_to_stft(spectrogram: Spectrogram):
-    pass
+    def set_brush(self, brush_data=None, brush_mask=None, brush_center=(0,0), draw_mode="set"):
+        """ 
+        Set the brush shape, values, center and mode.
 
-def spec_to_asig(spectrogram: Spectrogram):
-    pass
+        Parameters
+        ----------
+        brush_data : np.ndarray, default: None
+            Values that should be used for drawing
+        brush_mask : np.ndarray, optional, default: None
+            Mask with values between 0-1. Effect: image * (1-mask) + data * mask
+        brush_center : tuple, default: (0, 0)
+            Center of the brush
+        draw_mode : str, optional, default: "set"
+            Either "add" or "set". If "set", then mask will be ignored.
+        """
+    
+    def clear_brush(self):
+        '''
+        Clear the brush.
+        '''
+
+from copy import deepcopy
+
+def spec_to_stft(spectrogram: Spectrogram, with_original_phase: bool = False) -> Astft:
+    '''
+    Return the displayed spectrogram as an :class:`Astft <pya.Astft>`.
+    Assumes 'np.abs' as the display function.
+
+    Parameters
+    ----------
+    spectrogram: Spectrogram
+        Spectrogram to use
+    with_original_phase: bool
+        If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies
+    '''
+    magnitude = spectrogram.get_spectrogram_data()
+    stft = deepcopy(spectrogram.orig_spectrogram)
+
+    print(spectrogram.orig_spectrogram.stft)
+
+    stft.stft = magnitude * (spectrogram.orig_spectrogram.stft / np.abs(spectrogram.orig_spectrogram.stft))
+    stft.stft = magnitude * (1.0 + 0.0j)
+    stft.label = stft.label + '_edited'
+    return stft
+
+def spec_to_asig(spectrogram: Spectrogram, with_original_phase: bool = False, **kwargs) -> Asig:
+    '''
+    Return the displayed spectrogram as an :class:`Asig <pya.Asig>`.
+    Assumes 'np.abs' as the display function.
+
+    Parameters
+    ----------
+    spectrogram: Spectrogram
+        Spectrogram to use
+    with_orig_phase: bool
+        If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies
+    **kwargs:
+        Keyword arguments for :func:`Astft.to_sig()`
+    '''
+    magnitude = spectrogram.get_spectrogram_data()
+    stft = deepcopy(spectrogram.orig_spectrogram)
+
+    stft.stft = magnitude * (spectrogram.orig_spectrogram.stft / np.abs(spectrogram.orig_spectrogram.stft))
+    stft.stft = magnitude * (1.0 + 0.0j)
+    stft.label = stft.label + '_edited'
+    return stft.to_sig(**kwargs)

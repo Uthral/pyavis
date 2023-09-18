@@ -17,6 +17,12 @@ class Track(ABC):
         self._label = label
         self._axis: List[Axis] = []
 
+    def set_x_view_limits(self, x_start, x_end):
+        pass
+
+    def set_y_view_limits(self, y_start, y_end):
+        pass
+
     def add_signal(
             self,
             position: Tuple[float, float] = (0.0, 0.0),
@@ -128,7 +134,7 @@ class Track(ABC):
     
     def link_track(
             self,
-            track: 'Track' | None,
+            track: 'Track',
             axis: Literal["x", "y"]
     ):
         '''
@@ -149,14 +155,6 @@ class Track(ABC):
     @abstractmethod
     def _link_track(self, track: 'Track', axis: Literal["x", "y"]):
         pass
-
-
-
-
-
-
-
-
 
     def get_axis(self, side: Literal['top', 'bottom', 'left', 'right']) -> Axis | None:
         '''
@@ -194,6 +192,32 @@ class Track(ABC):
         side: 'top' | 'bottom' | 'left' | 'right'
             Side of the new axis
         spacing: 
+        '''
+        pass
+
+    def set_x_view_limits(self, x_start: float, x_end: float):
+        '''
+        Set the visible range of the x axis.
+
+        Parameters
+        ----------
+        x_start: float
+            Start of the x view range
+        x_end: float
+            End of the x view range
+        '''
+        pass
+
+    def set_y_view_limits(self, y_start, y_end):
+        '''
+        Set the visible range of the y axis.
+
+        Parameters
+        ----------
+        y_start: float
+            Start of the y view range
+        y_end: float
+            End of the y view range
         '''
         pass
 

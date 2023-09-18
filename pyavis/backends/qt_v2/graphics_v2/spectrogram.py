@@ -13,11 +13,6 @@ from pyqtgraph.GraphicsScene.mouseEvents import *
 
 class M_SpectrogramQt(type(Spectrogram), type(pg.ImageItem)): pass
 class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
-
-    sigClicked = QtCore.Signal(object, MouseClickEvent)
-    sigDragged = QtCore.Signal(object, MouseDragEvent)
-    sigHovered = QtCore.Signal(object, HoverEvent)
-
     def __init__(
         self,
         data: Asig | Astft,
@@ -47,6 +42,49 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         elif not show and self._c_bar is not None:
             self.plt_item.getViewBox().removeItem(self._c_bar)
             self._c_bar = None
+
+
+
+
+
+    def draw(self, freq: float, time: float):
+        adj_freq = freq / ((self.orig_spectrogram.sr / 2) / len(self.orig_spectrogram.freqs))
+        adj_time = (time / ((self.orig_spectrogram.samples / self.orig_spectrogram.sr))) * len(self.orig_spectrogram.times)
+        pos = QtCore.QPointF(adj_time, adj_freq)
+
+        if hasattr(self, '_brush_set') and self._brush_set:
+            self.setDrawKernel(self._brush_data, self._brush_mask, self._brush_center, self._brush_mode)
+            self.drawAt(pos)
+            self.setDrawKernel()
+        else:
+            raise RuntimeError("No brush was set. Set a brush before drawing")
+
+    def set_brush(self, brush_data=None, brush_mask=None, brush_center=(0,0), draw_mode="set"):
+        """ 
+        See :function:`drawAt` from :class:`ImageItem <pyqtgraph.ImageItem>` for more details.
+        """
+        self._brush_data = brush_data
+        self._brush_mask = brush_mask
+        self._brush_center = brush_center
+        self._brush_mode = draw_mode
+
+        self.setDrawKernel(self._brush_data, self._brush_mask, self._brush_center, self._brush_mode)
+        self._brush_set = True
+
+    def clear_brush(self):
+        '''
+        Clear the brush.
+        '''
+        self._brush_data = None
+        self._brush_mask = None
+        self._brush_center = None
+        self._brush_mode = None
+
+        self.setDrawKernel()
+        self._brush_set = False
+
+    
+
 
     def _update_plot(self):
         self.setRect(
@@ -88,22 +126,20 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         if self.clickable != True:
             return
         ev.accept()
-        self.sigClicked.emit(self, ev)
 
-        self.onClick.emit(self)
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
+        self.onClick.emit(self, viewPos)
 
     def mouseDragEvent(self, ev: MouseDragEvent):
         if self.draggable != True:
             return
         ev.accept()
-        self.sigDragged.emit(self, ev)
+
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
 
         if ev.isStart():
-            self.onDraggingBegin.emit(self, ev.pos())
+            self.onDraggingBegin.emit(self, viewPos)
         elif ev.isFinish():
-            self.onDraggingFinish.emit(self, ev.pos())
+            self.onDraggingFinish.emit(self, viewPos)
         else:
-            self.onDragging.emit(self, ev.pos())
-    
-    def hoverEvent(self, ev: HoverEvent):
-        self.sigHovered.emit(self, ev)
+            self.onDragging.emit(self, viewPos)

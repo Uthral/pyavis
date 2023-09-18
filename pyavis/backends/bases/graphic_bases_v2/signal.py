@@ -21,7 +21,7 @@ class Signal(GraphicElement):
         self.x_data = None
         self.y_data = None
         self.y_data_sized = None
-        self.vert_size = None
+        self.vert_size = vertical_size
 
         self._internal_set_data(*args, **kwargs)
         self._internal_set_vertical_size(vertical_size)
@@ -128,6 +128,8 @@ class Signal(GraphicElement):
         else:
             self.x_data = x     
 
+        self._internal_set_vertical_size(self.vert_size)
+
     @abstractmethod
     def _abstract_set_data(self):
         pass
@@ -142,7 +144,9 @@ class Signal(GraphicElement):
         vert_size : float | str, default: "auto"
             New vetical size of the signal if float, else the orignal values as size
         '''
-        if vert_size == vert_size:
+
+        
+        if self.vert_size == vert_size:
             return
 
         self.set_vertical_size_silent(vert_size)
@@ -171,9 +175,11 @@ class Signal(GraphicElement):
             New vetical size of the signal if float, else the orignal values as size
         '''
         self.vert_size = vert_size
-
+        
         if self.x_data is None or self.y_data is None:
             return
+        
+        
 
         if self.vert_size == "auto":
             self.y_data_sized = self.y_data.view()

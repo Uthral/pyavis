@@ -39,10 +39,10 @@ def createLine(*args, **kwargs) -> Line:
 
 
 
-from .backends.bases.graphic_bases_v2 import Layout as Layout_v2, Track as Track_v2
+from .backends.bases.graphic_bases_v2 import Layout, Track 
 
-def Layout_v2(*args, **kwargs) -> Layout_v2:
+def Layout_v2(*args, **kwargs) -> Layout:
     return _get_implementation('Layout_v2')(*args, **kwargs)
 
-def Track_v2(*args, **kwargs) -> Track_v2:
+def Track_v2(*args, **kwargs) -> Track:
     return _get_implementation('Track_v2')(*args, **kwargs)

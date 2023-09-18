@@ -1,12 +1,11 @@
-from typing import List, Literal, Tuple
 from overrides import override
+from typing import Literal
 
-from pyqtgraph.Qt import QtCore, QtWidgets
-from pyqtgraph.GraphicsScene.mouseEvents import *
+from pyavis.backends.bases.graphic_bases_v2 import GraphicElement, Track
 
 import pyqtgraph as pg
+from pyqtgraph.GraphicsScene.mouseEvents import *
 
-from pyavis.backends.bases.graphic_bases_v2.track import Track
 
 
 from .axis import AxisQt
@@ -49,13 +48,18 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
     def add_spectrogram(self, data, position, disp_func, with_bar) -> SpectrogramQt:
         spec = SpectrogramQt(data=data, position=position, disp_func=disp_func, with_bar=with_bar, plt_item=self)
         self.addItem(spec)
-
         return spec
 
     def add_selection(self, pos, width, height) -> RectSelectionQt:
         sel = RectSelectionQt(pos, width, height)
         self.addItem(sel)
         return sel
+    
+    def remove(self, element: GraphicElement):
+        if isinstance(element, SpectrogramQt):
+            element.toggle_color_bar(False)
+        self.removeItem(element)
+
 
     def set_style(self):
         pass
@@ -93,3 +97,8 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         self._axis.append(axis)
 
         return axis
+    
+    def set_x_view_limits(self, x_start, x_end):
+        self.getViewBox().setXRange(x_start, x_end)
+    def set_y_view_limits(self, y_start, y_end):
+        self.getViewBox().setYRange(y_start, y_end)

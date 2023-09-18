@@ -60,12 +60,15 @@ class SpectrogramIPY(Spectrogram):
             divider = make_axes_locatable(self._ax)
             self._c_bar_ax = divider.append_axes('right', size="2%", pad=0.03)
             self._c_bar = plt.colorbar(self.spec, cax=self._c_bar_ax)
-        else:
+        elif not show and self._c_bar is not None:
             self._c_bar_ax.remove()
             self._c_bar_ax = None
             self._c_bar = None
 
         self._ax.figure.canvas.draw()
+
+    def draw(self):
+        raise NotImplementedError()
 
     def _abstract_set_active(self):
         self.spec.set_visible(self.active)
