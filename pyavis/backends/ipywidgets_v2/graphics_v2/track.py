@@ -76,7 +76,7 @@ class TrackIPY(Track):
             if track is None:
                 self.ax._shared_axes[axis].remove(self.ax)
             else:
-                self.ax.sharex(track.ax)
+                self.ax.sharey(track.ax)
 
 
     def set_axis(self, side: Literal['top', 'bottom', 'left', 'right'], spacing, disp_func) -> AxisIPY:

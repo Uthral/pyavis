@@ -183,7 +183,12 @@ class Track(ABC):
         else:
             raise ValueError(f"Axis not set for side: {side}")
     
-    def set_axis(self, side: Literal['top', 'bottom', 'left', 'right'], spacing, disp_func) -> Axis:
+    def set_axis(
+            self,
+            side: Literal['top', 'bottom', 'left', 'right'],
+            spacing: Tuple[float, float]=None,
+            disp_func: Callable[[float], str]=None
+    ) -> Axis:
         '''
         Set a new axis for the choosen side. 
 
@@ -191,7 +196,10 @@ class Track(ABC):
         ----------
         side: 'top' | 'bottom' | 'left' | 'right'
             Side of the new axis
-        spacing: 
+        spacing: (float, float) | None:
+            Default spacing if None, else (major, minor) spacing
+        disp_func: (float) -> str | None,
+            Default displace function if None, else function values. 
         '''
         pass
 

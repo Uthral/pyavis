@@ -13,7 +13,7 @@ class AxisQt(Axis):
         self.axis = axis
         self.func = None
 
-        self.axis.tickStrings = MethodType(tick_render_func, self.axis)
+        self.axis.tickStrings = MethodType(tick_render_func, self)
 
     def set_disp_func(self, func: Callable[[float], str]):
         self.func = func
@@ -34,6 +34,9 @@ class AxisQt(Axis):
 from math import ceil, log10
 
 def tick_render_func(self, values, scale, spacing):
+    if self.func is not None:
+        return [f'{self.func(value)}' for value in values] 
+
     places = max(0, ceil(-log10(spacing * scale)))
     strings = []
     for v in values:
