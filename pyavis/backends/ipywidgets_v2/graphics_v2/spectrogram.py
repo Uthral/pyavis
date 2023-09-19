@@ -6,6 +6,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 import numpy as np
 from typing import Callable, Tuple
+from overrides import override
 from pya import Asig, Astft
 from pyavis.backends.bases.graphic_bases_v2.spectrogram import Spectrogram
 
@@ -28,22 +29,49 @@ class SpectrogramIPY(Spectrogram):
         self._c_bar_ax = None
 
         self._init_mesh()
-        self._abstract_set_position()
 
     def _init_mesh(self):
-        self.spec = self._ax.pcolormesh(
+        self._spec = self._ax.pcolormesh(
             self.orig_spectrogram.times,
             self.orig_spectrogram.freqs,
             self.disp_func(self.orig_spectrogram.stft))
         
-        if self.with_bar:
+        self._abstract_set_position()
+        self.toggle_color_bar(self.with_bar)
+     
+    def toggle_color_bar(self, show: bool):
+        self.with_bar = show
+
+        if self.with_bar and self._c_bar_ax is None:
             divider = make_axes_locatable(self._ax)
             self._c_bar_ax = divider.append_axes('right', size="2%", pad=0.03)
-            self._c_bar = plt.colorbar(self.spec, cax=self._c_bar_ax)
-    
+            self._c_bar = plt.colorbar(self._spec, cax=self._c_bar_ax)
+        elif not self.with_bar and self._c_bar is not None:
+            self._c_bar_ax.remove()
+            self._c_bar_ax = None
+            self._c_bar = None
+
+        self._ax.figure.canvas.draw()
+
+    def get_spectrogram_data(self):
+        return self.disp_func(self.orig_spectrogram.stft)
+
+    def draw(self):
+        raise NotImplementedError()
+
+    def remove(self):
+        if self._c_bar_ax is not None:
+            self._c_bar_ax.remove()
+            self._c_bar_ax = None
+            self._c_bar = None
+        self._spec.remove()
+        self._spec = None
+        self._ax = None
+
+    @override
     def _abstract_set_data(self):
-        self.spec.remove()
-        self.spec = None
+        self._spec.remove()
+        self._spec = None
 
         if self._c_bar_ax is not None:
             self._c_bar_ax.remove()
@@ -51,32 +79,20 @@ class SpectrogramIPY(Spectrogram):
             self._c_bar = None
         
         self._init_mesh()
-    
-    def get_spectrogram_data(self):
-        return self.disp_func(self.orig_spectrogram.stft)
-    
-    def toggle_color_bar(self, show: bool):
-        if show and self._c_bar_ax is None:
-            divider = make_axes_locatable(self._ax)
-            self._c_bar_ax = divider.append_axes('right', size="2%", pad=0.03)
-            self._c_bar = plt.colorbar(self.spec, cax=self._c_bar_ax)
-        elif not show and self._c_bar is not None:
-            self._c_bar_ax.remove()
-            self._c_bar_ax = None
-            self._c_bar = None
 
-        self._ax.figure.canvas.draw()
-
-    def draw(self):
-        raise NotImplementedError()
-
+    @override
     def _abstract_set_active(self):
-        self.spec.set_visible(self.active)
+        self._spec.set_visible(self.active)
     
+    @override
     def _abstract_set_position(self):
         translation = Affine2D().translate(*self.position)
-        self.spec.set_transform(translation + self.spec.get_transform())
+        self._spec.set_transform(translation + self._spec.get_transform())
 
+    @override
     def _abstract_set_scale(self):
         scale = Affine2D().scale(*self.scale)
-        return super()._abstract_set_scale(scale + self.spec.get_transform())
+        return super()._abstract_set_scale(scale + self._spec.get_transform())
+
+    def set_style(self):
+        pass

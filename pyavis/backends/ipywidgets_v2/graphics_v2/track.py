@@ -78,7 +78,7 @@ class TrackIPY(Track):
             else:
                 self.ax.sharey(track.ax)
 
-
+    @override
     def set_axis(self, side: Literal['top', 'bottom', 'left', 'right'], spacing, disp_func) -> AxisIPY:
         axis = self.get_axis(side)
 
@@ -110,8 +110,10 @@ class TrackIPY(Track):
     
         return axis
     
+    @override
     def set_x_view_limits(self, x_start, x_end):
         self.ax.set_xlim((x_start, x_end))
 
+    @override
     def set_y_view_limits(self, y_start, y_end):
         self.ax.set_ylim((y_start, y_end))

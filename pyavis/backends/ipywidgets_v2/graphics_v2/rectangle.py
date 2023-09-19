@@ -4,6 +4,7 @@ from typing import Literal, Tuple
 
 from matplotlib.axes import Axes
 from matplotlib.patches import Rectangle as MPLRectangle
+from overrides import override
 from pyavis.backends.bases.graphic_bases_v2.rectangle import Rectangle
 
 
@@ -22,23 +23,31 @@ class RectangleIPY(Rectangle):
         self._ax: Axes = kwargs["ax"]
         self._rectangle = self._ax.add_artist(MPLRectangle(self.position, self.rect_width, self.rect_height))
 
+    def remove(self):
+        self._rectangle.remove()
+        self._rectangle = None
+        self._ax = None
+
     def _update_plot(self):
         self._rectangle.set(xy=self.position, width=self.rect_width, height=self.rect_height)
         self._rectangle.axes.figure.canvas.draw_idle()
 
+    @override
     def _abstract_set_width(self):
         self._update_plot()
 
+    @override
     def _abstract_set_height(self):
         self._update_plot()
 
+    @override
     def _abstract_set_position(self):
         self._update_plot()
 
+    @override
     def _abstract_set_active(self):
         self._rectangle.set_visible(self.active)
         self._rectangle.axes.figure.canvas.draw_idle()
-
 
     def set_style(self, style: dict | Literal["default"]):
         pass

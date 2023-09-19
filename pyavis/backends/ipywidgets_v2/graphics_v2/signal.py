@@ -20,6 +20,11 @@ class SignalIPY(Signal):
         self._lines, = self._ax.plot(self.x_data + self.position[0], self.y_data_sized + self.position[1])
         self.set_style("default")
 
+    def remove(self):
+        self._lines.remove()
+        self._lines = None
+        self._ax = None
+
     def _update_plot(self):
         self._lines.set_data((self.x_data + self.position[0], self.y_data_sized + self.position[1]))
 
@@ -40,6 +45,7 @@ class SignalIPY(Signal):
     def _abstract_set_vertical_size(self):
         self._update_plot()
 
+    @override
     def _abstract_set_style(self, line_color):
         from pyavis.shared.util import color
         line_color = color._convert_color(line_color)
