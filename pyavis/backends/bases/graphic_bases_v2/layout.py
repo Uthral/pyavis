@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any, Literal
 
 from pyavis.shared.util import Subject
 from .track import Track
@@ -42,3 +43,23 @@ class Layout(ABC):
     def remove_track(self, track):
         pass
 
+    def set_style(self, background_color: Any | Literal["default"]):
+        '''
+        Set the background color of the layout.
+
+        Parameters
+        ----------
+        background_color : color.color | str, default: "default"
+            Either "default" or values of the format 'color.color'
+        '''
+        if background_color == "default":
+            from pyavis.config import get_style_config_value
+            background_color = get_style_config_value("background_color")
+        else:
+            from pyavis.shared.util import color
+            color._check_color(background_color)
+
+        self._abstract_set_style(background_color)
+    
+    def _abstract_set_style(self, background_color: Any):
+        pass

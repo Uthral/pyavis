@@ -12,10 +12,6 @@ from pyavis.backends.bases.graphic_bases_v2.inf_line import InfLine
 class M_InfLineQt(type(InfLine), type(pg.InfiniteLine)): pass
 class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):
 
-    sigClicked = QtCore.Signal(object, MouseClickEvent)
-    sigDragged = QtCore.Signal(object, MouseDragEvent)
-    sigHovered = QtCore.Signal(object, HoverEvent)
-
     def __init__(            
             self,
             position: Tuple[float, float] = (0.0, 0.0),
@@ -54,7 +50,6 @@ class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):
         if self.clickable != True:
             return
         ev.accept()
-        self.sigClicked.emit(self, ev)
 
         self.onClick.emit(self)
 
@@ -62,7 +57,6 @@ class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):
         if self.draggable != True:
             return
         ev.accept()
-        self.sigDragged.emit(self, ev)
 
         if ev.isStart():
             self.onDraggingBegin.emit(self, ev.pos())
@@ -70,6 +64,3 @@ class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):
             self.onDraggingFinish.emit(self, ev.pos())
         else:
             self.onDragging.emit(self, ev.pos())
-    
-    def hoverEvent(self, ev: HoverEvent):
-        self.sigHovered.emit(self, ev)

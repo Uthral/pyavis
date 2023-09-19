@@ -114,5 +114,22 @@ class Rectangle(GraphicElement):
     def _abstract_set_height(self):
         pass
 
-    def set_style(self, style: dict):
+    def set_style(self, border_color, fill_color):
+        if border_color == "default":
+            from pyavis.config import get_style_config_value
+            border_color = get_style_config_value("border_color")
+        else:
+            from pyavis.shared.util import color
+            color._check_color(border_color)
+
+        if fill_color == "default":
+            from pyavis.config import get_style_config_value
+            fill_color = get_style_config_value("fill_color")
+        else:
+            from pyavis.shared.util import color
+            color._check_color(fill_color)
+        
+        self._abstract_set_style(border_color, fill_color)
+
+    def _abstract_set_style(self, border_color, fill_color):
         pass

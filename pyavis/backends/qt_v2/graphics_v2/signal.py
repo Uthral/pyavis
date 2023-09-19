@@ -10,10 +10,6 @@ from pyavis.backends.bases.graphic_bases_v2 import Signal
 class M_SignalQt(type(Signal), type(pg.GraphicsObject)): pass
 class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
 
-    sigClicked = QtCore.Signal(object, MouseClickEvent)
-    sigDragged = QtCore.Signal(object, MouseDragEvent)
-    sigHovered = QtCore.Signal(object, HoverEvent)
-
     def __init__(
             self,
             position: Tuple[float, float] = (0.0, 0.0),
@@ -75,7 +71,6 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
         if self.draggable != True:
             return
         ev.accept()
-        self.sigDragged.emit(self, ev)
 
         if ev.isStart():
             self.onDraggingBegin.emit(self, ev.pos())
@@ -83,9 +78,6 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
             self.onDraggingFinish.emit(self, ev.pos())
         else:
             self.onDragging.emit(self, ev.pos())
-    
-    def hoverEvent(self, ev: HoverEvent):
-        self.sigHovered.emit(self, ev)
 
     @override
     def boundingRect(self):

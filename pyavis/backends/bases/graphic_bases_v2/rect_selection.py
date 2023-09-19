@@ -84,3 +84,23 @@ class RectSelection(GraphicElement):
             Side to remove the handle from
         '''
         pass
+
+    def set_style(self, line_color, handle_color):
+        if line_color == "default":
+            from pyavis.config import get_style_config_value
+            line_color = get_style_config_value("border_color")
+        else:
+            from pyavis.shared.util import color
+            color._check_color(line_color)
+
+        if handle_color == "default":
+            from pyavis.config import get_style_config_value
+            handle_color = get_style_config_value("fill_color")
+        else:
+            from pyavis.shared.util import color
+            color._check_color(handle_color)
+        
+        self._abstract_set_style(line_color, handle_color)
+
+    def _abstract_set_style(self, line_color, fill_color):
+        pass

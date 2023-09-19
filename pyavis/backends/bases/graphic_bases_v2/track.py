@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Callable, List, Literal, Tuple
+from typing import Any, Callable, List, Literal, Tuple
 
 import numpy as np
 from pya import Asig, Astft
@@ -16,12 +16,6 @@ class Track(ABC):
     def __init__(self, label: str):
         self._label = label
         self._axis: List[Axis] = []
-
-    def set_x_view_limits(self, x_start, x_end):
-        pass
-
-    def set_y_view_limits(self, y_start, y_end):
-        pass
 
     def add_signal(
             self,
@@ -81,9 +75,9 @@ class Track(ABC):
     def add_spectrogram(        
         self, 
         data: Asig | Astft,
-        position: Tuple[float, float] = (0.0, 0.0),
-        scale: float = 1.0, 
-        disp_func: Callable[[np.ndarray], np.ndarray] = np.abs
+        position: Tuple[float, float] = (0.0, 0.0), 
+        disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
+        with_bar: bool = True,
     ) -> Spectrogram:
         '''
         Add a new spectrogram to the track.
@@ -94,10 +88,10 @@ class Track(ABC):
             Data to display as spectrogram
         position: (float, float)
             Position of the spectrogram
-        scale: float
-            Scale of the spectrogram
         disp_func: (np.ndarray) -> np.ndarray
             Function to apply to the stft data
+        with_bar: bool
+            Optional color bar added to the plot
         '''
         pass
 
@@ -127,9 +121,6 @@ class Track(ABC):
         element: GraphicElement
             Element to remove
         '''
-        pass
-
-    def set_style(self):
         pass
     
     def link_track(
@@ -227,6 +218,30 @@ class Track(ABC):
         y_end: float
             End of the y view range
         '''
+        pass
+
+
+
+
+    def set_style(self, background_color: Any | Literal["default"]):
+        '''
+        Set the background color of the layout.
+
+        Parameters
+        ----------
+        background_color : color.color | str, default: "default"
+            Either "default" or values of the format 'color.color'
+        '''
+        if background_color == "default":
+            from pyavis.config import get_style_config_value
+            background_color = get_style_config_value("background_color")
+        else:
+            from pyavis.shared.util import color
+            color._check_color(background_color)
+
+        self._abstract_set_style(background_color)
+    
+    def _abstract_set_style(self, background_color):
         pass
 
 

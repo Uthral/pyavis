@@ -50,5 +50,10 @@ class RectangleIPY(Rectangle):
         self._rectangle.axes.figure.canvas.draw_idle()
 
     def set_style(self, style: dict | Literal["default"]):
-        pass
+        from pyavis.shared.util import color
+        border_color = color._convert_color(border_color)
+        fill_color = color._convert_color(fill_color)
+
+        self._rectangle.set_facecolor(fill_color)
+        self._rectangle.set_edgecolor(border_color)
         

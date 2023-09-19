@@ -1,12 +1,13 @@
 from overrides import override
-from typing import Literal
+from typing import Callable, Literal, Tuple
 
 from pyavis.backends.bases.graphic_bases_v2 import GraphicElement, Track
 
 import pyqtgraph as pg
 from pyqtgraph.GraphicsScene.mouseEvents import *
 
-
+from pya import Asig, Astft
+import numpy as np
 
 from .axis import AxisQt
 from .signal import SignalQt
@@ -30,6 +31,8 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         self._axis.append(l_axis)
         self._axis.append(b_axis)
 
+        self.set_style('default')
+
     def add_signal(self, position, size, *args, **kwargs) -> SignalQt:
         sig = SignalQt(position, size, *args, **kwargs)
         self.addItem(sig)
@@ -45,7 +48,13 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         self.addItem(rect)
         return rect
 
-    def add_spectrogram(self, data, position, disp_func, with_bar) -> SpectrogramQt:
+    def add_spectrogram(        
+        self, 
+        data: Asig | Astft,
+        position: Tuple[float, float] = (0.0, 0.0), 
+        disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
+        with_bar: bool = True
+    ) -> SpectrogramQt:
         spec = SpectrogramQt(data=data, position=position, disp_func=disp_func, with_bar=with_bar, plt_item=self)
         self.addItem(spec)
         return spec
@@ -59,10 +68,6 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         if isinstance(element, SpectrogramQt):
             element.toggle_color_bar(False)
         self.removeItem(element)
-
-
-    def set_style(self):
-        pass
     
     @override
     def _link_track(self, track: 'Track', axis: Literal["x", "y"]):
@@ -100,5 +105,11 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
     
     def set_x_view_limits(self, x_start, x_end):
         self.getViewBox().setXRange(x_start, x_end)
+        
     def set_y_view_limits(self, y_start, y_end):
         self.getViewBox().setYRange(y_start, y_end)
+
+    def _abstract_set_style(self, background_color):
+        from pyavis.shared.util import color
+        background_color = color._convert_color(background_color)
+        self.getViewBox().setBackgroundColor(background_color)

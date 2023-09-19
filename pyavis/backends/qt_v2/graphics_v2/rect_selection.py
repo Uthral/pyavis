@@ -122,4 +122,14 @@ class RectSelectionQt(RectSelection, pg.ROI, metaclass=M_RectSelectionQt):
             self.onDraggingFinish.emit(self, ev.pos())
         else:
             self.onDragging.emit(self, ev.pos())
+
+
+
+    def _abstract_set_style(self, line_color, handle_color):
+        from pyavis.shared.util import color
+        line_color = color._convert_color(line_color)
+        handle_color = color._convert_color(handle_color)
+        
+        self.setPen(pg.mkPen(pg.mkColor(*line_color), width=0))
+        self.handlePen = pg.mkPen(pg.mkColor(*handle_color), width=0)
         

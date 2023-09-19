@@ -16,6 +16,8 @@ class LayoutQt(Layout, pg.GraphicsLayout, metaclass=M_LayoutQt):
 
         for column in range(self.layout_columns):
             self.layout.setColumnStretchFactor(column, 1)
+
+        self.set_style("default")
     
     @override
     def remove_track(self, track):
@@ -26,23 +28,13 @@ class LayoutQt(Layout, pg.GraphicsLayout, metaclass=M_LayoutQt):
         track = TrackQt(label)
         self.addItem(track, row, column, rowspan, colspan)
         return track
-
     
-    # @override
-    # def add_track(self, track, row, column, rowspan=1, colspan=1):
-    #     if row > self._rows - 1 or column > self._columns - 1:
-    #         raise Exception("Exceeding size of layout.")
-        
-    #     self.addItem(track, row=row, col=column, rowspan=rowspan, colspan=colspan)
+    def _abstract_set_style(self, background_color):
+        from pyavis.shared.util import color
+        background_color = color._convert_color(background_color)
+        v = self.getViewBox()
 
-    # @override
-    # def remove_track(self, track):
-    #     self.removeItem(track)
-    #     self._set_column_stretch()
-
-    # def _set_column_stretch(self):
-    #     for row in range(self._rows):
-    #         self.layout.setRowStretchFactor(row, 1)
-
-    #     for column in range(self._columns):
-    #         self.layout.setColumnStretchFactor(column, 1)
+        if isinstance(v, pg.ViewBox):
+            v.setBackgroundColor(background_color)
+        elif isinstance(v, pg.GraphicsView):
+            v.setBackground(background_color)

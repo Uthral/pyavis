@@ -1,13 +1,16 @@
 
 
 
-from typing import Literal
+from typing import Callable, Literal, Tuple
 
 from overrides import override
 from pyavis.backends.bases.graphic_bases_v2 import GraphicElement, Track
 
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
+
+from pya import Asig, Astft
+import numpy as np
 
 from .axis import AxisIPY
 from .signal import SignalIPY
@@ -37,6 +40,8 @@ class TrackIPY(Track):
         self._axis.append(l_axis)
         self._axis.append(b_axis)
 
+        self.set_style('default')
+
 
     def add_signal(self, position, size, *args, **kwargs) -> SignalIPY:
         sig = SignalIPY(position, size, *args, **kwargs, ax=self.ax)
@@ -50,7 +55,13 @@ class TrackIPY(Track):
         rect = RectangleIPY(position, width, height, ax=self.ax)
         return rect
 
-    def add_spectrogram(self, data, position, disp_func, with_bar) -> SpectrogramIPY:
+    def add_spectrogram(
+        self, 
+        data: Asig | Astft,
+        position: Tuple[float, float] = (0.0, 0.0), 
+        disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
+        with_bar: bool = True
+    ) -> SpectrogramIPY:
         spec = SpectrogramIPY(data, position, disp_func, with_bar, ax=self.ax)
         return spec
 
@@ -61,9 +72,6 @@ class TrackIPY(Track):
         if isinstance(element, SpectrogramIPY):
             element.toggle_color_bar(False)
         element.remove()
-
-    def set_style(self):
-        pass
     
     @override
     def _link_track(self, track: Track, axis: Literal['x', 'y']):
@@ -117,3 +125,8 @@ class TrackIPY(Track):
     @override
     def set_y_view_limits(self, y_start, y_end):
         self.ax.set_ylim((y_start, y_end))
+
+    def _abstract_set_style(self, background_color):
+        from pyavis.shared.util import color
+        background_color = color._convert_color(background_color)
+        self.ax.set_facecolor(background_color)

@@ -14,6 +14,8 @@ class LayoutIPY(Layout):
 
         self.fig: Figure = plt.figure()
         self.grid: GridSpec = self.fig.add_gridspec(rows, columns)
+
+        self.set_style('default')
     
     @override
     def remove_track(self, track):
@@ -32,3 +34,8 @@ class LayoutIPY(Layout):
         ax.set_title(label)
         track = TrackIPY(label, ax=ax)
         return track
+    
+    def _abstract_set_style(self, background_color):
+        from pyavis.shared.util import color
+        background_color = color._convert_color(background_color)
+        self.fig.set_facecolor(background_color)
