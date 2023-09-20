@@ -86,6 +86,16 @@ class RectSelection(GraphicElement):
         pass
 
     def set_style(self, line_color, handle_color):
+        '''
+        Set the color of the selection lines and handels.
+
+        Parameters
+        ----------
+        line_color : color.color | str, default: "default"
+            Either "default" or values of the format 'color.color'
+        handle_color : color.color | str, default: "default"
+            Either "default" or values of the format 'color.color'
+        '''
         if line_color == "default":
             from pyavis.config import get_style_config_value
             line_color = get_style_config_value("border_color")

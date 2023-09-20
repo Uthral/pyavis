@@ -36,9 +36,9 @@ class DropDownQt(BaseDropDown):
         return self.drop_down.currentData()
 
     @override
-    def add_on_selection_changed(self, func: Callable[[Any], None]):
+    def add_on_selection_changed(self, func: Callable[[int], None]):
         self.drop_down.currentIndexChanged.connect(func)
 
     @override
-    def remove_on_selection_changed(self, func: Callable[[Any], None]):
+    def remove_on_selection_changed(self, func: Callable[[int], None]):
         self.drop_down.currentIndexChanged.disconnect(func)

@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from .widget import Widget
-from ..graphic_bases import Layout, Track
+from ..graphic_bases_v2 import Layout
 
 class BaseGraphicDisp(Widget):
     @abstractmethod
@@ -8,5 +8,5 @@ class BaseGraphicDisp(Widget):
         pass
     
     @abstractmethod
-    def set_displayed_item(self, item: Layout | Track):
+    def set_displayed_item(self, item: Layout):
         pass

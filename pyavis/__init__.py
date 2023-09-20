@@ -31,6 +31,10 @@ def use_backend(backend: str = "qt"):
         _backend_str = "qt"
     elif new_backend == "ipywidgets":
         from .backends.ipywidgets_v2 import IPYBackend
+
+        import matplotlib
+        matplotlib.pyplot.ioff()
+
         _backend = IPYBackend
         _backend_str = "ipywidgets"
     else:

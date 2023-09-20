@@ -6,11 +6,11 @@ from ipywidgets import Dropdown
 class DropDownIPY(BaseDropDown):
 
     @override
-    def __init__(self, description: str, options: List[Any], default: Any):
+    def __init__(self, description: str, options: List[Any], default: Any = None):
         self.drop_down = Dropdown(
             description=description,
             options=options,
-            value=default
+            value=default if default is not None else options[0]
         )
 
     @override
@@ -22,9 +22,9 @@ class DropDownIPY(BaseDropDown):
         return self.drop_down.value
     
     @override
-    def add_on_selection_changed(self, func: Callable[[Any], None]):
-        self.drop_down.observe(func, names="value")
+    def add_on_selection_changed(self, func: Callable[[int], None]):
+        self.drop_down.observe(lambda x: func(x['owner'].index), names="value")
 
     @override
-    def remove_on_selection_changed(self, func: Callable[[Any], None]):
+    def remove_on_selection_changed(self, func: Callable[[int], None]):
         self.drop_down.unobserve(func, names="value")

@@ -4,7 +4,7 @@ from pyqtgraph.Qt import QtWidgets, QtCore
 from pyavis.backends.bases.widget_bases import BaseHBox, BaseVBox, Widget
 
 class VBoxQt(BaseVBox):
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.widget = QtWidgets.QWidget()
         self.vbox = QtWidgets.QVBoxLayout()
 
@@ -23,7 +23,7 @@ class VBoxQt(BaseVBox):
         return self.widget
     
 class HBoxQt(BaseHBox):
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.widget = QtWidgets.QWidget()
         self.hbox = QtWidgets.QHBoxLayout()
 

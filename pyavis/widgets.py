@@ -1,3 +1,4 @@
+from typing import Any, List, Literal
 from . import _get_backend
 from .backends import Backend
 
@@ -22,29 +23,43 @@ from .backends.bases.widget_bases import (
     BaseGraphicDisp
 )
 
-def Button(*args, **kwargs) -> BaseButton:
-    return _get_implementation('Button')(*args, **kwargs)
+def Button(label: str) -> BaseButton:
+    return _get_implementation('Button')(label)
 
-def VBox(*args, **kwargs) -> BaseVBox:
-    return _get_implementation('VBox')(*args, **kwargs)
+def VBox() -> BaseVBox:
+    return _get_implementation('VBox')()
 
-def HBox(*args, **kwargs) -> BaseHBox:
-    return _get_implementation('HBox')(*args, **kwargs)
+def HBox() -> BaseHBox:
+    return _get_implementation('HBox')()
 
-def IntSlider(*args, **kwargs) -> BaseIntSlider:
-    return _get_implementation('IntSlider')(*args, **kwargs)
+def IntSlider(
+    description: str, 
+    orientation: Literal["vertical", "horizontal"], 
+    default: int = 50, 
+    min: int = 1,
+    max: int = 100, 
+    step: int = 1
+) -> BaseIntSlider:
+    return _get_implementation('IntSlider')(description, orientation, default, min, max, step)
 
-def FloatSlider(*args, **kwargs) -> BaseFloatSlider:
-    return _get_implementation('FloatSlider')(*args, **kwargs)
+def FloatSlider(
+        description: str,
+        orientation: Literal["vertical", "horizontal"], 
+        default: float = 5.0, 
+        min: float = 1.0, 
+        max: float = 10.0, 
+        step: float = 0.1
+) -> BaseFloatSlider:
+    return _get_implementation('FloatSlider')(description, orientation, default, min, max, step)
 
-def DropDown(*args, **kwargs) -> BaseDropDown:
-    return _get_implementation('DropDown')(*args, **kwargs)
+def DropDown(description: str, options: List[Any], default: Any = None) -> BaseDropDown:
+    return _get_implementation('DropDown')(description, options, default)
 
-def ScrollArea(*args, **kwargs) -> BaseScrollArea:
-    return _get_implementation('ScrollArea')(*args, **kwargs)
+def ScrollArea(height: int = 100) -> BaseScrollArea:
+    return _get_implementation('ScrollArea')(height)
 
-def GraphicDisp(*args, **kwargs) -> BaseGraphicDisp:
-    return _get_implementation('GraphicDisp')(*args, **kwargs)
+def GraphicDisp() -> BaseGraphicDisp:
+    return _get_implementation('GraphicDisp')()
 
 
 # Deprecated

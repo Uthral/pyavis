@@ -109,19 +109,23 @@ class RectSelectionQt(RectSelection, pg.ROI, metaclass=M_RectSelectionQt):
             return
         ev.accept()
 
-        self.onClick.emit(self)
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
+
+        self.onClick.emit(self, (viewPos.x(), viewPos.y()))
 
     def mouseDragEvent(self, ev: MouseDragEvent):
         if self.draggable != True:
             return
         ev.accept()
 
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
+
         if ev.isStart():
-            self.onDraggingBegin.emit(self, ev.pos())
+            self.onDraggingBegin.emit(self, (viewPos.x(), viewPos.y()))
         elif ev.isFinish():
-            self.onDraggingFinish.emit(self, ev.pos())
+            self.onDraggingFinish.emit(self, (viewPos.x(), viewPos.y()))
         else:
-            self.onDragging.emit(self, ev.pos())
+            self.onDragging.emit(self, (viewPos.x(), viewPos.y()))
 
 
 

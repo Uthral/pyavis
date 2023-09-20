@@ -26,7 +26,7 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         
         self.plt_item = kwargs['plt_item']
 
-        Spectrogram.__init__(self, data, position, disp_func)
+        Spectrogram.__init__(self, data, position, 1, disp_func)
         pg.ImageItem.__init__(self, None)
         
         self.setImage(self.disp_func(self.orig_spectrogram.stft).T)
@@ -128,7 +128,7 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         ev.accept()
 
         viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
-        self.onClick.emit(self, viewPos)
+        self.onClick.emit(self, (viewPos.x(), viewPos.y()))
 
     def mouseDragEvent(self, ev: MouseDragEvent):
         if self.draggable != True:
@@ -138,8 +138,8 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
 
         if ev.isStart():
-            self.onDraggingBegin.emit(self, viewPos)
+            self.onDraggingBegin.emit(self, (viewPos.x(), viewPos.y()))
         elif ev.isFinish():
-            self.onDraggingFinish.emit(self, viewPos)
+            self.onDraggingFinish.emit(self, (viewPos.x(), viewPos.y()))
         else:
-            self.onDragging.emit(self, viewPos)
+            self.onDragging.emit(self, (viewPos.x(), viewPos.y()))

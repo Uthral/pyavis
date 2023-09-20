@@ -3,7 +3,7 @@ from pyavis.backends.bases.widget_bases import BaseVBox, Widget, BaseHBox
 from ipywidgets import VBox, HBox
 
 class VBoxIPY(BaseVBox):
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.vbox = VBox()
     
     @override
@@ -21,7 +21,7 @@ class VBoxIPY(BaseVBox):
         return self.vbox
     
 class HBoxIPY(BaseHBox):
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.hbox = HBox()
     
     @override

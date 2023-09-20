@@ -4,7 +4,7 @@ from .widget import Widget
 
 class BaseScrollArea(Widget):
     @abstractmethod
-    def __init__(self):
+    def __init__(self, height: int):
         pass
 
     @abstractmethod

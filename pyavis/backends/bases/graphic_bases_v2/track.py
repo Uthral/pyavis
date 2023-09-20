@@ -97,8 +97,9 @@ class Track(ABC):
 
     def add_selection(
             self,
-            position: Tuple[float, float],
-            size: Tuple[float, float]
+            pos: Tuple[float, float],
+            width: float,
+            height: float,
     ) -> RectSelection:
         '''
         Add an adjustable selection to the track.
@@ -106,9 +107,11 @@ class Track(ABC):
         Parameters
         ----------
         positon: (float, float)
-            Position of the selection (bottol-left corner)
-        size: (float, float)
-            Size of the selection
+            Position of the selection (bottom-left corner)
+        width: float
+            Width of the selection
+        height: float
+            Height of the selection
         '''
         pass
 

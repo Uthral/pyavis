@@ -23,6 +23,8 @@ class RectangleIPY(Rectangle):
         self._ax: Axes = kwargs["ax"]
         self._rectangle = self._ax.add_artist(MPLRectangle(self.position, self.rect_width, self.rect_height))
 
+        self.set_style("default", "default")
+
     def remove(self):
         self._rectangle.remove()
         self._rectangle = None
@@ -49,7 +51,7 @@ class RectangleIPY(Rectangle):
         self._rectangle.set_visible(self.active)
         self._rectangle.axes.figure.canvas.draw_idle()
 
-    def set_style(self, style: dict | Literal["default"]):
+    def _abstract_set_style(self, border_color, fill_color):
         from pyavis.shared.util import color
         border_color = color._convert_color(border_color)
         fill_color = color._convert_color(fill_color)

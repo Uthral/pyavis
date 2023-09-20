@@ -3,6 +3,8 @@ from copy import deepcopy
 from pya import Astft, Asig
 from pyavis.backends.bases.graphic_bases_v2 import Spectrogram
 
+import numpy as np
+
 def spec_to_stft(spectrogram: Spectrogram, with_original_phase: bool = False) -> Astft:
     '''
     Return the displayed spectrogram as an :class:`Astft <pya.Astft>`.
@@ -18,10 +20,12 @@ def spec_to_stft(spectrogram: Spectrogram, with_original_phase: bool = False) ->
     magnitude = spectrogram.get_spectrogram_data()
     stft = deepcopy(spectrogram.orig_spectrogram)
 
-    print(spectrogram.orig_spectrogram.stft)
+    if with_original_phase:
+        stft.stft = magnitude * (spectrogram.orig_spectrogram.stft / np.abs(spectrogram.orig_spectrogram.stft))
+        print(stft)
+    else:
+        stft.stft = magnitude * (1.0 + 0.0j)
 
-    stft.stft = magnitude * (spectrogram.orig_spectrogram.stft / np.abs(spectrogram.orig_spectrogram.stft))
-    stft.stft = magnitude * (1.0 + 0.0j)
     stft.label = stft.label + '_edited'
     return stft
 
@@ -42,7 +46,10 @@ def spec_to_asig(spectrogram: Spectrogram, with_original_phase: bool = False, **
     magnitude = spectrogram.get_spectrogram_data()
     stft = deepcopy(spectrogram.orig_spectrogram)
 
-    stft.stft = magnitude * (spectrogram.orig_spectrogram.stft / np.abs(spectrogram.orig_spectrogram.stft))
-    stft.stft = magnitude * (1.0 + 0.0j)
+    if with_original_phase:
+        stft.stft = magnitude * (spectrogram.orig_spectrogram.stft / np.abs(spectrogram.orig_spectrogram.stft))
+    else:
+        stft.stft = magnitude * (1.0 + 0.0j)
+
     stft.label = stft.label + '_edited'
     return stft.to_sig(**kwargs)
