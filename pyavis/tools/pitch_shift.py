@@ -1,6 +1,6 @@
 from pyavis.backends.bases.widget_bases.widget import Widget
 from pyavis.widgets import HBox, GraphicDisp, Button
-from pyavis.graphics import Layout_v2
+from pyavis.graphics import Layout
 
 import math
 import pya
@@ -17,8 +17,8 @@ class PitchShift(Widget):
         self._disp = GraphicDisp()
         self._signal_disp = GraphicDisp()
 
-        layout = Layout_v2(1,1)
-        signal_layout = Layout_v2(1,1)
+        layout = Layout(1,1)
+        signal_layout = Layout(1,1)
 
         self._track = layout.add_track("Shift", 0, 0)
         self._sig_track = signal_layout.add_track("Signal", 0, 0)

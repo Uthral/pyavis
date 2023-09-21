@@ -2,9 +2,9 @@ import abc
 from overrides import override
 
 from pyavis.backends import Backend
-from .graphics import *
 from .widgets import *
-from IPython.display import display
+from .graphics_v2 import *
+
 
 
 class IPYBackend(Backend):
@@ -20,6 +20,9 @@ class IPYBackend(Backend):
             return backend._widget_registry
         else:
             raise ValueError(registry_name, 'Not a valid registry name')
+        
+IPYBackend.register_gfx('Layout')(LayoutIPY)
+IPYBackend.register_gfx('Track')(TrackIPY)
 
 IPYBackend.register_widget('Button')(ButtonIPY)
 IPYBackend.register_widget('DropDown')(DropDownIPY)
@@ -30,15 +33,10 @@ IPYBackend.register_widget('VBox')(VBoxIPY)
 IPYBackend.register_widget('HBox')(HBoxIPY)
 IPYBackend.register_widget('GraphicDisp')(GraphicDispIPY)
 
-# Deprecated
-from .deprecated import SpectrogramIPY as DepSpectrogramIPY, MultiTrackIPY as DepMultiTrackIPY
-IPYBackend.register_widget('DepMultiTrack')(DepMultiTrackIPY)
-IPYBackend.register_widget('DepSpectrogram')(DepSpectrogramIPY)
 
-# New
-from .graphics_v2 import LayoutIPY as Layout_v2, TrackIPY as Track_v2
-IPYBackend.register_gfx('Layout_v2')(Layout_v2)
-IPYBackend.register_gfx('Track_v2')(Track_v2)
+
+
+from IPython.display import display
 
 def _show_func(self):
     w = self.get_native_widget()

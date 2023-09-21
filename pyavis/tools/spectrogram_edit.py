@@ -2,11 +2,9 @@
 
 from pyavis.backends.bases.widget_bases.widget import Widget
 from pyavis.widgets import HBox, GraphicDisp, Button
-from pyavis.graphics import Layout_v2
+from pyavis.graphics import Layout
 
 from pyavis.shared.util.util import spec_to_asig
-
-import numpy as np
 
 class SpectrogramEdit(Widget):
     def __init__(self):
@@ -16,8 +14,8 @@ class SpectrogramEdit(Widget):
         self._spec_disp = GraphicDisp()
         self._signal_disp = GraphicDisp()
 
-        spec_layout = Layout_v2(1,1)
-        signal_layout = Layout_v2(1,1)
+        spec_layout = Layout(1,1)
+        signal_layout = Layout(1,1)
 
         self._spec_track = spec_layout.add_track("Spectrogram", 0, 0)
         self._sig_track = signal_layout.add_track("Signal", 0, 0)

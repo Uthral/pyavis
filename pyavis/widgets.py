@@ -60,13 +60,3 @@ def ScrollArea(height: int = 100) -> BaseScrollArea:
 
 def GraphicDisp() -> BaseGraphicDisp:
     return _get_implementation('GraphicDisp')()
-
-
-# Deprecated
-from .backends.bases.deprecated.base_classes import BaseMultiTrack, BaseSpectrogram
-
-def DepMultiTrack(*args, **kwargs) -> BaseMultiTrack:
-    return _get_implementation('DepMultiTrack')(*args, **kwargs)
-
-def DepSpectrogram(*args, **kwargs) -> BaseSpectrogram:
-    return _get_implementation('DepSpectrogram')(*args, **kwargs)

@@ -1,6 +1,6 @@
 from pyavis.backends.bases.widget_bases.widget import Widget
 from pyavis.widgets import VBox, GraphicDisp, Button
-from pyavis.graphics import Layout_v2
+from pyavis.graphics import Layout
 
 from pyavis.shared.multitrack import Track
 from pyavis.shared import AudioSignal
@@ -19,7 +19,7 @@ class SignalDisplay(Widget):
         self._disp = GraphicDisp()
         
         # Graphic display items
-        layout = Layout_v2(1,1)
+        layout = Layout(1,1)
         self._gfx_track = layout.add_track("Signal", 0, 0)
         self._gfx_track.add_line((0,0), 0).set_style((0,0,0))
         self._gfx_signal = None
