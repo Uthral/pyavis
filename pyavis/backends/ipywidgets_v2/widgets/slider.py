@@ -5,7 +5,9 @@ from ipywidgets import IntSlider, FloatSlider
 
 class IntSliderIPY(BaseIntSlider):
     @override
-    def __init__(self, description="IntSlider", orientation: str = "horizontal", default: int = 50, min: int = 1, max: int = 100, step: int = 1, *args, **kwargs):
+    def __init__(self, description: str, orientation: str, default: int = 50, min: int = 1, max: int = 100, step: int = 1):
+        super().__init__(description, orientation, default, min, max, step)
+        
         self.slider = IntSlider(
             value=default,
             min=min,
@@ -29,7 +31,7 @@ class IntSliderIPY(BaseIntSlider):
 
     @override
     def add_on_value_changed(self, func: Callable[[Any], None]):
-        self.slider.observe(func, 'value')
+        self.slider.observe(lambda x: func(x["new"]), 'value')
 
     @override
     def remove_on_value_changed(self, func: Callable[[Any], None]):
@@ -38,7 +40,9 @@ class IntSliderIPY(BaseIntSlider):
 class FloatSliderIPY(BaseFloatSlider):
     @override
     def __init__(self, description: str, orientation: str, default: float, min: float, max: float, step: float):
-            self.slider = FloatSlider(
+        super().__init__(description, orientation, default, min, max, step)
+
+        self.slider = FloatSlider(
             value=default,
             min=min,
             max=max,
@@ -61,7 +65,7 @@ class FloatSliderIPY(BaseFloatSlider):
 
     @override
     def add_on_value_changed(self, func: Callable[[Any], None]):
-        self.slider.observe(func, 'value')
+        self.slider.observe(lambda x: func(x["new"]), 'value')
 
     @override
     def remove_on_value_changed(self, func: Callable[[Any], None]):

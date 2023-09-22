@@ -5,8 +5,6 @@ from pyavis.backends import Backend
 from .widgets import *
 from .graphics_v2 import *
 
-
-
 class IPYBackend(Backend):
     _widget_registry = {}
     _gfx_registry = {}

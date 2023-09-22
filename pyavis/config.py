@@ -1,4 +1,3 @@
-from typing import Tuple
 from pyavis.shared.util import color
 
 

@@ -1,9 +1,6 @@
 from typing import Tuple
 from pyavis import _get_backend_str
 
-from pyavis.backends.qt_v2 import QtBackend
-from pyavis.backends.ipywidgets_v2 import IPYBackend
-
 color = Tuple[float,float,float] | Tuple[float,float,float,float] | Tuple[int,int,int] | Tuple[int,int,int,int] 
 
 def _check_color(color):
