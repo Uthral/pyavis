@@ -21,7 +21,8 @@ from .backends.bases.widget_bases import (
     BaseDropDown, 
     BaseScrollArea, 
     BaseVBox,
-    BaseGraphicDisp
+    BaseGraphicDisp,
+    BaseToolbar
 )
 
 def Button(label: str) -> BaseButton:
@@ -29,6 +30,9 @@ def Button(label: str) -> BaseButton:
 
 def ToggleButton(label: str, icon: Any = None, default_toggle_state: bool = False) -> BaseToggleButton:
     return _get_implementation('ToggleButton')(label, icon, default_toggle_state)
+
+def Toolbar(labels: List[str], values: List[str]) -> BaseToolbar:
+    return _get_implementation('Toolbar')(labels, values)
 
 def VBox() -> BaseVBox:
     return _get_implementation('VBox')()

@@ -24,6 +24,7 @@ IPYBackend.register_gfx('Track')(TrackIPY)
 
 IPYBackend.register_widget('Button')(ButtonIPY)
 IPYBackend.register_widget('ToggleButton')(ToggleButtonIPY)
+IPYBackend.register_widget('Toolbar')(ToolbarIPY)
 IPYBackend.register_widget('DropDown')(DropDownIPY)
 IPYBackend.register_widget('FloatSlider')(FloatSliderIPY)
 IPYBackend.register_widget('IntSlider')(IntSliderIPY)
