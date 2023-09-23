@@ -3,7 +3,7 @@ from types import MethodType
 from typing import Callable, Literal, Tuple
 from overrides import override
 import pyqtgraph as pg
-from pyavis.backends.bases.graphic_bases_v2.axis import Axis
+from pyavis.backends.bases.graphic_bases.axis import Axis
 
 
 class AxisQt(Axis):

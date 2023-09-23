@@ -6,7 +6,7 @@ from math import cos, sin
 from matplotlib.axes import Axes
 from matplotlib.lines import Line2D
 from overrides import override
-from pyavis.backends.bases.graphic_bases_v2.inf_line import InfLine
+from pyavis.backends.bases.graphic_bases.inf_line import InfLine
 
 
 class InfLineIPY(InfLine):

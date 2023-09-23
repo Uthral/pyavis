@@ -7,7 +7,7 @@ import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore
 from pyqtgraph.GraphicsScene.mouseEvents import *
 
-from pyavis.backends.bases.graphic_bases_v2.inf_line import InfLine
+from pyavis.backends.bases.graphic_bases.inf_line import InfLine
 
 class M_InfLineQt(type(InfLine), type(pg.InfiniteLine)): pass
 class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):

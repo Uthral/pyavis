@@ -5,7 +5,7 @@ from overrides import override
 from pyqtgraph.GraphicsScene.mouseEvents import *
 
 import pyqtgraph as pg
-from pyavis.backends.bases.graphic_bases_v2 import Signal
+from pyavis.backends.bases.graphic_bases import Signal
 
 class M_SignalQt(type(Signal), type(pg.GraphicsObject)): pass
 class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):

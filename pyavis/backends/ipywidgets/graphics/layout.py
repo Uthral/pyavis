@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.gridspec import GridSpec
 
-from pyavis.backends.bases.graphic_bases_v2 import Layout
+from pyavis.backends.bases.graphic_bases import Layout
 from .track import TrackIPY
 
 class LayoutIPY(Layout):

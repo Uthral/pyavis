@@ -2,7 +2,7 @@
 from typing import Tuple
 
 from overrides import override
-from pyavis.backends.bases.graphic_bases_v2.rectangle import Rectangle
+from pyavis.backends.bases.graphic_bases.rectangle import Rectangle
 
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtWidgets, QtCore

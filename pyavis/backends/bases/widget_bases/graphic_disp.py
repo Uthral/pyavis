@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from .widget import Widget
-from ..graphic_bases_v2 import Layout
+from ..graphic_bases import Layout
 
 class BaseGraphicDisp(Widget):
     @abstractmethod

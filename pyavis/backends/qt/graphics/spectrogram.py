@@ -5,7 +5,7 @@ import numpy as np
 from typing import Tuple, Callable
 
 from pya import Asig, Astft
-from pyavis.backends.bases.graphic_bases_v2.spectrogram import Spectrogram
+from pyavis.backends.bases.graphic_bases.spectrogram import Spectrogram
 
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore

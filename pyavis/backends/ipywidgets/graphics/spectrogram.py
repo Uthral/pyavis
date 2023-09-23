@@ -8,7 +8,7 @@ import numpy as np
 from typing import Callable, Tuple
 from overrides import override
 from pya import Asig, Astft
-from pyavis.backends.bases.graphic_bases_v2.spectrogram import Spectrogram
+from pyavis.backends.bases.graphic_bases.spectrogram import Spectrogram
 
 class SpectrogramIPY(Spectrogram):
     def __init__(

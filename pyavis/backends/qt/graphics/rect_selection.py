@@ -1,4 +1,4 @@
-from pyavis.backends.bases.graphic_bases_v2 import RectSelection
+from pyavis.backends.bases.graphic_bases import RectSelection
 
 import pyqtgraph as pg
 from pyqtgraph.GraphicsScene.mouseEvents import *

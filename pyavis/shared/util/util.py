@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 from pya import Astft, Asig
-from pyavis.backends.bases.graphic_bases_v2 import Spectrogram
+from pyavis.backends.bases.graphic_bases import Spectrogram
 
 import numpy as np
 

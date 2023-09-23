@@ -1,9 +1,9 @@
 from overrides import override
-from pyavis.backends.bases.graphic_bases_v2 import Layout
+from pyavis.backends.bases.graphic_bases import Layout
 
 import pyqtgraph as pg
 
-from pyavis.backends.qt_v2.graphics_v2.track import TrackQt
+from pyavis.backends.qt.graphics.track import TrackQt
 
 class M_LayoutQt(type(Layout), type(pg.GraphicsLayout)): pass
 class LayoutQt(Layout, pg.GraphicsLayout, metaclass=M_LayoutQt):

@@ -1,7 +1,7 @@
 from overrides import override
 from typing import Callable, Literal, Tuple
 
-from pyavis.backends.bases.graphic_bases_v2 import GraphicElement, Track
+from pyavis.backends.bases.graphic_bases import GraphicElement, Track
 
 import pyqtgraph as pg
 from pyqtgraph.GraphicsScene.mouseEvents import *

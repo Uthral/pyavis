@@ -26,11 +26,11 @@ def use_backend(backend: str = "qt"):
     global _backend_str
     new_backend = backend.lower()
     if new_backend == "qt":
-        from .backends.qt_v2 import QtBackend
+        from .backends.qt import QtBackend
         _backend = QtBackend
         _backend_str = "qt"
     elif new_backend == "ipywidgets":
-        from .backends.ipywidgets_v2 import IPYBackend
+        from .backends.ipywidgets import IPYBackend
 
         import matplotlib
         matplotlib.pyplot.ioff()

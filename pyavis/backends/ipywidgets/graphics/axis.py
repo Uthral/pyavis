@@ -1,6 +1,6 @@
 
 from typing import Callable, Literal, Tuple
-from pyavis.backends.bases.graphic_bases_v2.axis import Axis
+from pyavis.backends.bases.graphic_bases.axis import Axis
 
 from matplotlib import axes, ticker
 from matplotlib.axis import XAxis, YAxis

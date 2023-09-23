@@ -4,7 +4,7 @@ from overrides import override
 from pyavis.backends import Backend
 
 from .widgets import *
-from .graphics_v2 import *
+from .graphics import *
 
 
 class QtBackend(Backend):

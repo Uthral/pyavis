@@ -5,7 +5,7 @@ from typing import Literal, Tuple
 from matplotlib.axes import Axes
 from matplotlib.patches import Rectangle as MPLRectangle
 from overrides import override
-from pyavis.backends.bases.graphic_bases_v2.rectangle import Rectangle
+from pyavis.backends.bases.graphic_bases.rectangle import Rectangle
 
 
 class RectangleIPY(Rectangle):

@@ -22,7 +22,7 @@ class Axis:
         ---------
         spacing : (float, float) | None, default: None
             Set the spacing between ticks. Format: (major, minor).
-            If None, uses default value.
+            If None, uses default configuration of backend.
         '''
 
     def toggle_visibility(self, show: bool = True):
@@ -32,7 +32,7 @@ class Axis:
         Parameters
         ----------
         show: bool
-            To show or hide
+            To show or hide axis
         '''
 
 

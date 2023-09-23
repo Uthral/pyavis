@@ -1,5 +1,5 @@
 from overrides import override
-from pyavis.backends.bases.graphic_bases_v2.signal import Signal
+from pyavis.backends.bases.graphic_bases.signal import Signal
 
 from matplotlib.axes import Axes
 

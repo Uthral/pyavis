@@ -6,6 +6,8 @@ from pyavis.graphics import Layout
 
 from pyavis.shared.util.util import spec_to_asig
 
+import numpy as np
+
 class SpectrogramEdit(Widget):
     def __init__(self):
         self._signal = None

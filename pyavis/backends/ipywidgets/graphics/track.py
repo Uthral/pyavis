@@ -4,7 +4,7 @@
 from typing import Callable, Literal, Tuple
 
 from overrides import override
-from pyavis.backends.bases.graphic_bases_v2 import GraphicElement, Track
+from pyavis.backends.bases.graphic_bases import GraphicElement, Track
 
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
