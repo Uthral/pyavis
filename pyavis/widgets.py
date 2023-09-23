@@ -14,6 +14,7 @@ def _get_implementation(widget: str):
 
 from .backends.bases.widget_bases import (
     BaseButton,
+    BaseToggleButton,
     BaseFloatSlider, 
     BaseHBox, 
     BaseIntSlider, 
@@ -25,6 +26,9 @@ from .backends.bases.widget_bases import (
 
 def Button(label: str) -> BaseButton:
     return _get_implementation('Button')(label)
+
+def ToggleButton(label: str, icon: Any = None, default_toggle_state: bool = False) -> BaseToggleButton:
+    return _get_implementation('ToggleButton')(label, icon, default_toggle_state)
 
 def VBox() -> BaseVBox:
     return _get_implementation('VBox')()

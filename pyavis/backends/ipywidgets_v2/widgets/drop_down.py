@@ -13,6 +13,8 @@ class DropDownIPY(BaseDropDown):
             value=default if default is not None else options[0]
         )
 
+        self.functions = {}
+
     @override
     def get_native_widget(self):
         return self.drop_down
@@ -23,8 +25,11 @@ class DropDownIPY(BaseDropDown):
     
     @override
     def add_on_selection_changed(self, func: Callable[[int], None]):
-        self.drop_down.observe(lambda x: func(x['owner'].index), names="value")
+        internal_function = lambda x: func(x['owner'].index)
+        self.functions[func] = internal_function
+        self.drop_down.observe(self.functions[func], names="value")
 
     @override
     def remove_on_selection_changed(self, func: Callable[[int], None]):
-        self.drop_down.unobserve(func, names="value")
+        internal_function = self.functions.pop(func)
+        self.drop_down.unobserve(internal_function, names="value")

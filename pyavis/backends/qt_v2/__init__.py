@@ -25,6 +25,7 @@ QtBackend.register_gfx('Layout')(LayoutQt)
 QtBackend.register_gfx('Track')(TrackQt)
 
 QtBackend.register_widget('Button')(ButtonQt)
+QtBackend.register_widget('ToggleButton')(ToggleButtonQt)
 QtBackend.register_widget('DropDown')(DropDownQt)
 QtBackend.register_widget('FloatSlider')(FloatSliderQt)
 QtBackend.register_widget('IntSlider')(IntSliderQt)

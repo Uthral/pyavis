@@ -16,6 +16,8 @@ class IntSliderIPY(BaseIntSlider):
             description=description,
             orientation=orientation
         )
+
+        self.functions = {}
         
     @override
     def get_native_widget(self):
@@ -31,11 +33,14 @@ class IntSliderIPY(BaseIntSlider):
 
     @override
     def add_on_value_changed(self, func: Callable[[Any], None]):
-        self.slider.observe(lambda x: func(x["new"]), 'value')
+        internal_func = lambda x: func(x["new"])
+        self.functions[func] = internal_func
+        self.slider.observe(self.functions[func], 'value')
 
     @override
     def remove_on_value_changed(self, func: Callable[[Any], None]):
-        self.slider.unobserve(func, 'value')
+        internal_func = self.functions.pop(func)
+        self.slider.unobserve(internal_func, 'value')
 
 class FloatSliderIPY(BaseFloatSlider):
     @override
@@ -50,6 +55,8 @@ class FloatSliderIPY(BaseFloatSlider):
             description=description,
             orientation=orientation
         )
+
+        self.functions = {}
     
     @override
     def get_native_widget(self):
@@ -65,8 +72,11 @@ class FloatSliderIPY(BaseFloatSlider):
 
     @override
     def add_on_value_changed(self, func: Callable[[Any], None]):
-        self.slider.observe(lambda x: func(x["new"]), 'value')
+        internal_func = lambda x: func(x["new"])
+        self.functions[func] = internal_func
+        self.slider.observe(self.functions[func], 'value')
 
     @override
     def remove_on_value_changed(self, func: Callable[[Any], None]):
-        self.slider.unobserve(func, 'value')
+        internal_func = self.functions.pop(func)
+        self.slider.unobserve(internal_func, 'value')
