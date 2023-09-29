@@ -35,7 +35,8 @@ class SignalDisplay(Widget):
         self._vb.add_widget(self._disp)
 
         # Add callback
-        self._button.add_on_click(self._play)
+        play_func = lambda ev: self._play()
+        self._button.add_on_click(play_func)
     
     def set_signal(self, signal, channel=0):
         '''

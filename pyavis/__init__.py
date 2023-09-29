@@ -32,6 +32,7 @@ def use_backend(backend: str = "qt"):
     elif new_backend == "ipywidgets":
         from .backends.ipywidgets import IPYBackend
 
+        # Prevent immediate display after calling plt.figure()
         import matplotlib
         matplotlib.pyplot.ioff()
 

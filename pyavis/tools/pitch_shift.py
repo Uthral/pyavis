@@ -1,37 +1,20 @@
 from pyavis.backends.bases.widget_bases.widget import Widget
-from pyavis.widgets import HBox, GraphicDisp, Button
+from pyavis.widgets import VBox, GraphicDisp, Button, Toolbar
 from pyavis.graphics import Layout
 
-import math
 import pya
 import numpy as np
 
 
-class PitchShift(Widget):
+class PitchShift:
     def __init__(self):
-        self._signal = None
-        self._sr = 44100
-        self.signal_size = 8
+        self.internal_signal = None
+        self.signal_size = 6
 
-        self._hb = HBox()
-        self._disp = GraphicDisp()
-        self._signal_disp = GraphicDisp()
+        self._prepare_pitch_shift()
+        self._prepare_signal()
 
-        layout = Layout(1,1)
-        signal_layout = Layout(1,1)
-
-        self._track = layout.add_track("Shift", 0, 0)
-        self._sig_track = signal_layout.add_track("Signal", 0, 0)
-
-        self._disp.set_displayed_item(layout)
-        self._signal_disp.set_displayed_item(signal_layout)
-
-        self._hb.add_widget(self._disp)
-        self._hb.add_widget(self._signal_disp)
-
-        self._track.set_axis('left', spacing=None, disp_func=midi_conv)
-        self._track.set_axis('bottom', spacing=None, disp_func=lambda value: f'{round(value / self._sr, 2)}')
-        self._sig_track.set_axis('bottom', spacing=None, disp_func=lambda value: f'{round(value / self._sr, 2)}')
+        self.handle_toolbar_mode()
 
         self.selections = []
         self.sub_signals = []
@@ -41,39 +24,96 @@ class PitchShift(Widget):
         self._event2signal = {}
         self._selection2signal = {}
 
-        self.mode = "shift_pitch"
+        self.mode = "move"
 
+    def _prepare_pitch_shift(self):
+        # Create necessary widgets for displaying and shifting signal
+        self.pitch_shift_toolbar = Toolbar(["Move", "Edit"], ["move", "edit"])
+        self.pitch_shift_display = GraphicDisp()
+
+        # Create layout and add view
+        layout = Layout(1,1)
+        self.pitch_shift_view = layout.add_track("Pitch shift", 0, 0)
+        self.pitch_shift_display.set_displayed_item(layout)
+
+        self.pitch_shift_view.set_axis(
+            'left',
+            spacing=None,
+            disp_func=midi_conv
+        )
+
+        self.pitch_shift_view.set_axis(
+            'bottom',
+            spacing=None,
+            disp_func=lambda value: f'{round(value / self.internal_signal.sr, 2)}'
+        )
+
+        # Combine widgets in box
+        vertical_box = VBox()
+        vertical_box.add_widget(self.pitch_shift_toolbar)
+        vertical_box.add_widget(self.pitch_shift_display)
+
+        self.pitch_shift = vertical_box
+        
+
+    def _prepare_signal(self):
+        # Create necessary widgets for displaying and playing signal
+        self.signal_play_button = Button("Play")
+        self.signal_display = GraphicDisp()
+
+        # Create layout and add view
+        layout = Layout(1,1)
+        self.signal_view = layout.add_track("Signal", 0, 0)
+        self.signal_display.set_displayed_item(layout)
+
+        self.signal_view.set_axis('bottom', spacing=None, disp_func=lambda value: f'{round(value / self.signal.sr, 2)}')
+
+        # Combine widgets in box
+        vertical_box = VBox()
+        vertical_box.add_widget(self.signal_play_button)
+        vertical_box.add_widget(self.signal_display)
+
+        self.signal_play_button.add_on_click(self.play_audio)
+
+        self.signal = vertical_box
 
     def set_signal(self, signal):
+        if self.internal_signal is not None:
+            for x in self.sub_signals:
+                self.pitch_shift_view.remove(x)
+            for x in self.selections:
+                self.pitch_shift_view.remove(x)
+            self.pitch_shift_view.remove(self.pitch_curve)
+
+            self.signal_view.remove(self.signal_graphic)
+
         if isinstance(signal, pya.Esig):
-            self._signal = signal
-            self._sr = self._signal.asig.sr
+            self.internal_signal = signal
         elif isinstance(signal, pya.Asig):
-            self._signal = pya.Esig(signal.mono())
-            self._sr = self._signal.asig.sr
+            self.internal_signal = pya.Esig(signal.mono())
         else:
             raise TypeError("Signal must either be of type 'Esig' or 'Asig'.")
+        
+        self.signal_graphic = self.signal_view.add_signal((0,0), "auto", y=self.internal_signal.cache.asig.sig)
 
-        if hasattr(self, "_gfx_spec"):
-            self._track.remove(self._gfx_sig_1)
-            self._sig_track.remove(self._gfx_sig_2)
-
-            for s in self.sub_signals:
-                self._track.remove(s)
-            
-            for s in self.selections:
-                self._track.remove(s)
-
-        self._gfx_sig_2 = self._sig_track.add_signal((0,0), "auto", y=self._signal.cache.asig.sig)
-
-        for event in self._signal.cache.events:
-            center = hz_2_midi(self._signal._avg_pitch(event))
-
-            sig = self._track.add_signal((event.start, center), self.signal_size, self._signal.asig.sig[event.start:event.end])
+        for event in self.internal_signal.cache.events:
+            center = hz_2_midi(self.internal_signal._avg_pitch(event))
+            sig = self.pitch_shift_view.add_signal(
+                (event.start, center),
+                self.signal_size,
+                self.internal_signal.asig.sig[event.start:event.end]
+            )
             sig.set_style((255,0,0))
 
-            selection = self._track.add_selection((event.start, center - self.signal_size / 2), event.end - event.start, self.signal_size)
+            selection = self.pitch_shift_view.add_selection(
+                (event.start, center - self.signal_size / 2),
+                event.end - event.start,
+                self.signal_size
+            )
+
             selection.set_style((150, 50, 150), (0, 255, 255))
+            selection.onDragging.connect(lambda args: self.move_selection_event(args[0], *args[1]))
+            selection.onDraggingFinish.connect(lambda args: self.finish_move_selection_event(args[0], *args[1]))
 
             self.sub_signals.append(sig)
             self.selections.append(selection)
@@ -83,67 +123,65 @@ class PitchShift(Widget):
             self._event2signal[event] = sig
             self._selection2signal[selection] = sig
 
-
-            self._handle_mode(selection)
-
-        self.pitch_curve = None
-        self._handle_pitch_curve()
-
-    def _handle_mode_change(self, selection, previous_mode):
-        if previous_mode == "shift_pitch":
-                selection.draggable = False
-                selection.clickable = False
-
-                selection.onClick.clear()
-                selection.onDraggingBegin.clear()
-                selection.onDragging.clear()
-                selection.onDraggingFinish.clear()
-
-    def _handle_mode(self, selection):
-        if self.mode == "shift_pitch":
-            selection.draggable = True
-            selection.onDragging.connect(lambda args: self._move_event(args[0], *args[1]))
-            selection.onDraggingFinish.connect(lambda args: self._finish_move_event(args[0], *args[1]))
-
-    def _move_event(self, selection, x, y):
-        old_pos = selection.position
-        selection.set_position(old_pos[0], y)
-
-    def _finish_move_event(self, selection, x, y):
-        event = self._selection2event[selection]
-        event_id = self._signal.cache.events.index(event)
-
-        # Adjust for size of signal / rectangle
-        y += self.signal_size / 2
-
-        self._signal.correct_event_pitch(event_id, np.array([(0,y),(1, y)]))
         
-        # Change position of signal & adjust for signal size
-        sig = self._event2signal[event]
-        sig.set_position(x=sig.position[0], y=y)
+        self.pitch_curve = None
+        self.handle_pitch_curve()
+        self.handle_mode_change()
 
-        self._gfx_sig_2.set_data(y=self._signal.cache.asig.sig)
-
-        self._handle_pitch_curve()
-
-    def _handle_pitch_curve(self):
+    def handle_pitch_curve(self):
         if self.pitch_curve is not None:
-            self._track.remove(self.pitch_curve)
+            self.pitch_shift_view.remove(self.pitch_curve)
 
-        self.pitch_curve = self._track.add_signal(
+        self.pitch_curve = self.pitch_shift_view.add_signal(
             (0,0),
             "auto",
-            y=hz_2_midi(self._signal.cache.pitch),
-            x=self._signal.cache.frame_jump * np.linspace(0, len(self._signal.cache.pitch), num=len(self._signal.cache.pitch))
+            y=hz_2_midi(self.internal_signal.cache.pitch),
+            x=self.internal_signal.cache.frame_jump * np.linspace(0, len(self.internal_signal.cache.pitch), num=len(self.internal_signal.cache.pitch))
         )
         self.pitch_curve.set_style((0,0,0))
 
-    def get_native_widget(self):
-        return self._hb.get_native_widget()
+    def handle_toolbar_mode(self):
+        self.pitch_shift_toolbar.add_on_active_changed(self.handle_mode_change)
+
+    def handle_mode_change(self, _ = None):
+        if self.pitch_shift_toolbar.get_active_value() == "move":
+            for x in self.selections:
+                x.draggable = False
+                x.clickable = False
+        elif self.pitch_shift_toolbar.get_active_value() == "edit":
+            for x in self.selections:
+                x.draggable = True
+                x.clickable = True
+
+    def move_selection_event(self, selection, x, y):
+        selection.set_position(selection.position[0], y)
+
+    def finish_move_selection_event(self, selection, x, y):
+        event = self._selection2event[selection]
+        event_id = self.internal_signal.cache.events.index(event)
+
+        # Change position of signal & adjust for signal size
+        sig = self._event2signal[event]
+        sig_position = sig.position
+        
+
+        y += self.signal_size / 2
+
+        print(y)
+
+        self.internal_signal.correct_event_pitch(event_id, np.array([(0, y),(1, y)]))
+        sig.set_position(x=sig.position[0], y=y)
+
+        self.signal_graphic.set_data(y=self.internal_signal.cache.asig.sig)
+        self.handle_pitch_curve()
+
+    def play_audio(self, args):
+        # Play the asig
+        self.internal_signal.cache.asig.play()
 
     def show(self):
-        self._hb.show()
-
+        self.signal.show()
+        self.pitch_shift.show()
 
 
 def midi_conv(value) -> str:

@@ -33,8 +33,14 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
 
         self.set_style('default')
 
-    def add_signal(self, position, size, *args, **kwargs) -> SignalQt:
-        sig = SignalQt(position, size, *args, **kwargs)
+    def add_signal(            
+            self,
+            position: Tuple[float, float] = (0.0, 0.0),
+            vertical_size: float | Literal["auto"] = "auto",
+            *args,
+            **kwargs
+    ) -> SignalQt:
+        sig = SignalQt(position, vertical_size, *args, **kwargs)
         self.addItem(sig)
         return sig
 

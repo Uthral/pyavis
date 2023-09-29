@@ -2,8 +2,6 @@ from typing import Callable, Any, List
 from overrides import override
 from pyqtgraph.Qt import QtWidgets, QtCore
 
-# from PySide2 import QtWidgets, QtCore
-
 from pyavis.backends.bases.widget_bases import BaseToolbar
 
 class ToolbarQt(BaseToolbar):
@@ -24,6 +22,11 @@ class ToolbarQt(BaseToolbar):
 
             self.toolbar_internal.addButton(button, id)
             self.layout.addWidget(button)
+
+            if id == 0:
+                button.setChecked(True)
+
+        
 
         
         self.widget.setLayout(self.layout)

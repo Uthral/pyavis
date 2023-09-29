@@ -43,11 +43,21 @@ class TrackIPY(Track):
         self.set_style('default')
 
 
-    def add_signal(self, position, size, *args, **kwargs) -> SignalIPY:
-        sig = SignalIPY(position, size, *args, **kwargs, ax=self.ax)
+    def add_signal(            
+            self,
+            position: Tuple[float, float] = (0.0, 0.0),
+            vertical_size: float | Literal["auto"] = "auto",
+            *args,
+            **kwargs
+    ) -> SignalIPY:
+        sig = SignalIPY(position, vertical_size, *args, **kwargs, ax=self.ax)
         return sig
 
-    def add_line(self, position, angle) -> InfLineIPY:
+    def add_line(
+            self,
+            position: Tuple[float, float]=(1.0, 1.0),
+            angle: float = 0.0
+    ) -> InfLineIPY:
         line = InfLineIPY(position, angle, ax=self.ax)
         return line
 

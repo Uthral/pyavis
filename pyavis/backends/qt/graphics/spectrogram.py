@@ -38,6 +38,11 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
     def toggle_color_bar(self, show: bool):
         if show and self._c_bar is None:
             cbar = self.plt_item.addColorBar(self, colorMap='viridis', values=(0,1))
+            
+            # Colorbar does not adjust automatically, set on creation
+            min_val, max_val = np.min(self.image), np.max(self.image)
+            cbar.setLevels((min_val, max_val))
+
             self._c_bar = cbar
         elif not show and self._c_bar is not None:
             self.plt_item.getViewBox().removeItem(self._c_bar)
