@@ -1,23 +1,22 @@
 
 import math
 from typing import Any, Tuple
-from overrides import override
 
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore
 from pyqtgraph.GraphicsScene.mouseEvents import *
 
-from pyavis.backends.bases.graphic_bases.inf_line import InfLine
+from pyavis.backends.bases.graphic_bases.infinite_line import InfiniteLine
 
-class M_InfLineQt(type(InfLine), type(pg.InfiniteLine)): pass
-class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):
+class M_InfLineQt(type(InfiniteLine), type(pg.InfiniteLine)): pass
+class InfLineQt(InfiniteLine, pg.InfiniteLine, metaclass=M_InfLineQt):
 
     def __init__(            
             self,
             position: Tuple[float, float] = (0.0, 0.0),
             angle: float = 0.0, 
     ):
-        InfLine.__init__(self, position, angle)
+        InfiniteLine.__init__(self, position, angle)
         pg.InfiniteLine.__init__(self, pos=self.position, angle=int(math.degrees(self.line_angle)))
 
         self.set_style("default")
@@ -37,7 +36,7 @@ class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):
     def _abstract_set_position(self):
         self._update_plot()
 
-    def _abstract_set_angle(self):
+    def _abstract_set_line_angle(self):
         self._update_plot()
 
     def _abstract_set_style(self, line_color: Any):
@@ -51,16 +50,20 @@ class InfLineQt(InfLine, pg.InfiniteLine, metaclass=M_InfLineQt):
             return
         ev.accept()
 
-        self.onClick.emit(self)
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
+
+        self.onClick.emit(self, (viewPos.x(), viewPos.y()))
 
     def mouseDragEvent(self, ev: MouseDragEvent):
         if self.draggable != True:
             return
         ev.accept()
 
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
+
         if ev.isStart():
-            self.onDraggingBegin.emit(self, ev.pos())
+            self.onDraggingBegin.emit(self, (viewPos.x(), viewPos.y()))
         elif ev.isFinish():
-            self.onDraggingFinish.emit(self, ev.pos())
+            self.onDraggingFinish.emit(self, (viewPos.x(), viewPos.y()))
         else:
-            self.onDragging.emit(self, ev.pos())
+            self.onDragging.emit(self, (viewPos.x(), viewPos.y()))

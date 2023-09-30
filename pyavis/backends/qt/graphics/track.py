@@ -1,4 +1,3 @@
-from overrides import override
 from typing import Callable, Literal, Tuple
 
 from pyavis.backends.bases.graphic_bases import GraphicElement, Track
@@ -12,7 +11,7 @@ import numpy as np
 from .axis import AxisQt
 from .signal import SignalQt
 from .rectangle import RectangleQt
-from .inf_line import InfLineQt
+from .infinite_line import InfLineQt
 from .spectrogram import SpectrogramQt
 from .rect_selection import RectSelectionQt
 
@@ -36,11 +35,11 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
     def add_signal(            
             self,
             position: Tuple[float, float] = (0.0, 0.0),
-            vertical_size: float | Literal["auto"] = "auto",
+            scale: float = 1.0,
             *args,
             **kwargs
     ) -> SignalQt:
-        sig = SignalQt(position, vertical_size, *args, **kwargs)
+        sig = SignalQt(position, scale, *args, **kwargs)
         self.addItem(sig)
         return sig
 
@@ -75,7 +74,6 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
             element.toggle_color_bar(False)
         self.removeItem(element)
     
-    @override
     def _link_track(self, track: 'Track', axis: Literal["x", "y"]):
         if axis == 'x':
             self.getViewBox().setXLink(track.getViewBox() if track is not None else None)

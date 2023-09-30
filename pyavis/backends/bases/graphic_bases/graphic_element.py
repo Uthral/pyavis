@@ -5,19 +5,17 @@ from pyavis.shared.util import Subject
 
 
 class GraphicElement(ABC):
+
     def __init__(
             self,
             position: Tuple[int | float, int | float] = (0.0, 0.0),
             active = True
     ):
-        self.position = None
-        self.active = None
+        self.position = position
+        self.active = active
 
         self.positionChanged = Subject()
         self.activeStateChanged = Subject()
-
-        self._internal_set_position(*position)
-        self._interal_set_active(active)
 
         self.onClick = Subject()
         self.onDraggingBegin = Subject()
@@ -44,76 +42,52 @@ class GraphicElement(ABC):
     def draggable(self, value: bool):
         self._draggable = value
 
-    def set_position(self, x: int | float, y: int | float):
-        '''
-        Set position of graphic element.
+    def set_position(self, x: int | float, y: int | float, trigger = True):
+        """
+        Set the position of the element.
 
         Parameters
         ----------
-        x : float
-            New x-position of element
-        y : float
-            New y-position of element
-        '''
+        x : int | float
+            New x-position of the element
+        y : int | float
+            New y-position of the element
+        trigger : bool, optional
+            Trigger observer, by default True
+        """
         old_position = self.position
         if old_position[0] == x and old_position[1] == y:
             return
         
-        self.set_position_silent(x, y)
-        self.positionChanged.emit(self, self.position, old_position)
-
-    def set_position_silent(self, x: int | float, y: int | float):
-        '''
-        Set position of graphic element.
-        Does not trigger observers.
-
-        Parameters
-        ----------
-        x : float
-            New x-position of element
-        y : float
-            New y-position of element
-        '''
-        self._internal_set_position(x, y)
-        self._abstract_set_position()
-
-    def _internal_set_position(self, x: int | float, y: int | float):
         self.position = (x, y)
+        self._abstract_set_position()
+        
+        if trigger:
+            self.positionChanged.emit(self, self.position, old_position)
 
-    def _abstract_set_position(self):
-        pass
-
-    def set_active(self, active = True):
-        '''
-        Hide / Show element.
+    def set_active(self, active = True, trigger = True):
+        """
+        Hide or show the element.
 
         Parameters
         ----------
-        active : bool, default: False
-            Hide or show element
-        '''
+        active : bool, optional
+            Change active state to hide or show element, by default True
+        trigger : bool, optional
+            Trigger observer, by default True
+        """
         old_active_state = self.active
         if old_active_state == active:
             return
-
-        self.set_active_silent(active)
-        self.activeStateChanged.emit(self, self.active, old_active_state)
-
-    def set_active_silent(self, active = True):
-        '''
-        Hide / Show element.
-        Does not trigger observers.
-
-        Parameters
-        ----------
-        active : bool, default: False
-            Hide or show element
-        '''
-        self._interal_set_active(active)
+        
+        self.active = active
         self._abstract_set_active()
 
-    def _interal_set_active(self, active = True):
-        self.active = active
+        if trigger:
+            self.activeStateChanged.emit(self, self.active, old_active_state)
+
+    def _abstract_set_position(self):
+        pass
 
     def _abstract_set_active(self):
         pass

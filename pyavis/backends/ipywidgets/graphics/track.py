@@ -15,7 +15,7 @@ import numpy as np
 from .axis import AxisIPY
 from .signal import SignalIPY
 from .rectangle import RectangleIPY
-from .inf_line import InfLineIPY
+from .infinite_line import InfLineIPY
 from .spectrogram import SpectrogramIPY
 
 class TrackIPY(Track):
@@ -46,11 +46,11 @@ class TrackIPY(Track):
     def add_signal(            
             self,
             position: Tuple[float, float] = (0.0, 0.0),
-            vertical_size: float | Literal["auto"] = "auto",
+            scale: float = 1.0,
             *args,
             **kwargs
     ) -> SignalIPY:
-        sig = SignalIPY(position, vertical_size, *args, **kwargs, ax=self.ax)
+        sig = SignalIPY(position, scale, *args, **kwargs, ax=self.ax)
         return sig
 
     def add_line(

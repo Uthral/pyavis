@@ -8,7 +8,7 @@ from .axis import Axis
 from .graphic_element import GraphicElement
 from .signal import Signal
 from .rectangle import Rectangle
-from .inf_line import InfLine
+from .infinite_line import InfiniteLine
 from .spectrogram import Spectrogram
 from .rect_selection import RectSelection
 
@@ -20,7 +20,7 @@ class Track(ABC):
     def add_signal(
             self,
             position: Tuple[float, float] = (0.0, 0.0),
-            vertical_size: float | Literal["auto"] = "auto",
+            scale: float = 1.0,
             *args,
             **kwargs
     ) -> Signal:
@@ -31,8 +31,8 @@ class Track(ABC):
         ----------
         position: (float, float)
             Position of the signal
-        vertical_size: float | "auto"
-            New vertical size of the signal. If "auto" then use of orignal values for size.
+        scale: float
+            Scale of the y values, by default 1.0
         *args & **kwargs 
             See `Signal.set_data()` for more information.
         '''
@@ -41,7 +41,7 @@ class Track(ABC):
             self,
             position: Tuple[float, float]=(1.0, 1.0),
             angle: float = 0.0
-    ) -> InfLine:
+    ) -> InfiniteLine:
         '''
         Add a new infinite line to the track.
 

@@ -55,23 +55,6 @@ class RectSelectionQt(RectSelection, pg.ROI, metaclass=M_RectSelectionQt):
         self.removeHandle(self._handles[side])
         del self._handles[side]
 
-
-    def _abstract_set_active(self):
-        if self.active:
-            self.show()
-        else:
-            self.hide()
-    
-    def _abstract_set_position(self):
-        self._handle_callback_connections(False)
-        self.setPos(self.position)
-        self._handle_callback_connections(True)
-
-    def _abstract_set_size(self):
-        self._handle_callback_connections(False)
-        self.setSize(self.size)
-        self._handle_callback_connections(True)
-
     def _handle_callback_connections(self, connect: bool):
         '''
         Connect or disconnect callbacks.
@@ -97,11 +80,37 @@ class RectSelectionQt(RectSelection, pg.ROI, metaclass=M_RectSelectionQt):
         pos = s.state["pos"]
         size = s.state["size"]
 
-        self._internal_set_position(pos[0], pos[1])
-        self._internal_set_size((size[0], size[1]))
+        self.set_position(pos[0], pos[1], trigger=False)
+        self.set_size((size[0], size[1]), trigger=False)
 
         self.positionChanged.emit(self, self.position, old_position)
         self.sizeChanged.emit(self, self.size, old_size)
+
+
+    def _abstract_set_active(self):
+        if self.active:
+            self.show()
+        else:
+            self.hide()
+    
+    def _abstract_set_position(self):
+        self._handle_callback_connections(False)
+        self.setPos(self.position)
+        self._handle_callback_connections(True)
+
+    def _abstract_set_size(self):
+        self._handle_callback_connections(False)
+        self.setSize(self.size)
+        self._handle_callback_connections(True)
+
+    
+    def _abstract_set_style(self, line_color, handle_color):
+        from pyavis.shared.util import color
+        line_color = color._convert_color(line_color)
+        handle_color = color._convert_color(handle_color)
+        
+        self.setPen(pg.mkPen(pg.mkColor(*line_color), width=0))
+        self.handlePen = pg.mkPen(pg.mkColor(*handle_color), width=0)
 
 
     def mouseClickEvent(self, ev: MouseClickEvent):
@@ -110,7 +119,6 @@ class RectSelectionQt(RectSelection, pg.ROI, metaclass=M_RectSelectionQt):
         ev.accept()
 
         viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
-
         self.onClick.emit(self, (viewPos.x(), viewPos.y()))
 
     def mouseDragEvent(self, ev: MouseDragEvent):
@@ -119,7 +127,6 @@ class RectSelectionQt(RectSelection, pg.ROI, metaclass=M_RectSelectionQt):
         ev.accept()
 
         viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
-
         if ev.isStart():
             self.onDraggingBegin.emit(self, (viewPos.x(), viewPos.y()))
         elif ev.isFinish():
@@ -129,11 +136,4 @@ class RectSelectionQt(RectSelection, pg.ROI, metaclass=M_RectSelectionQt):
 
 
 
-    def _abstract_set_style(self, line_color, handle_color):
-        from pyavis.shared.util import color
-        line_color = color._convert_color(line_color)
-        handle_color = color._convert_color(handle_color)
-        
-        self.setPen(pg.mkPen(pg.mkColor(*line_color), width=0))
-        self.handlePen = pg.mkPen(pg.mkColor(*handle_color), width=0)
         

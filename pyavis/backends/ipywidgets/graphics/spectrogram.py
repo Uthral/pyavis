@@ -6,9 +6,10 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 import numpy as np
 from typing import Callable, Tuple
-from overrides import override
 from pya import Asig, Astft
 from pyavis.backends.bases.graphic_bases.spectrogram import Spectrogram
+
+import warnings
 
 class SpectrogramIPY(Spectrogram):
     def __init__(
@@ -56,8 +57,14 @@ class SpectrogramIPY(Spectrogram):
     def get_spectrogram_data(self):
         return self.disp_func(self.orig_spectrogram.stft)
 
-    def draw(self):
-        raise NotImplementedError()
+    def clear_brush(self):
+        warnings.warn("'clear_brush' not implemented for ipywidget backend.")
+    
+    def set_brush(self, brush_data=None, brush_mask=None, brush_center=..., draw_mode="set"):
+        warnings.warn("'set_brush' not implemented for ipywidget backend.")
+
+    def draw(self, freq: float, time: float):
+        warnings.warn("'draw' not implemented for ipywidget backend.")
 
     def remove(self):
         if self._c_bar_ax is not None:
@@ -68,7 +75,6 @@ class SpectrogramIPY(Spectrogram):
         self._spec = None
         self._ax = None
 
-    @override
     def _abstract_set_data(self):
         self._spec.remove()
         self._spec = None
@@ -80,16 +86,13 @@ class SpectrogramIPY(Spectrogram):
         
         self._init_mesh()
 
-    @override
     def _abstract_set_active(self):
         self._spec.set_visible(self.active)
     
-    @override
     def _abstract_set_position(self):
         translation = Affine2D().translate(*self.position)
         self._spec.set_transform(translation + self._spec.get_transform())
 
-    @override
     def _abstract_set_scale(self):
         scale = Affine2D().scale(*self.scale)
         return super()._abstract_set_scale(scale + self._spec.get_transform())

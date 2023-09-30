@@ -1,10 +1,9 @@
 from typing import Literal, Tuple
 
-from pyqtgraph.Qt import QtCore
-from overrides import override
-from pyqtgraph.GraphicsScene.mouseEvents import *
 
 import pyqtgraph as pg
+from pyqtgraph.GraphicsScene.mouseEvents import *
+
 from pyavis.backends.bases.graphic_bases import Signal
 
 class M_SignalQt(type(Signal), type(pg.GraphicsObject)): pass
@@ -13,11 +12,11 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
     def __init__(
             self,
             position: Tuple[float, float] = (0.0, 0.0),
-            vertical_size: Literal["auto"] = "auto",
+            scale: float = 1.0,
             *args,
             **kwargs
     ):
-        Signal.__init__(self, position, vertical_size, *args, **kwargs)
+        Signal.__init__(self, position, scale, *args, **kwargs)
         pg.GraphicsObject.__init__(self)
         
         self.signal = pg.PlotDataItem()
@@ -28,28 +27,22 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
 
     def _update_plot(self):
         if self.y_data is not None and self.x_data is not None:
-            self.signal.setData(x=self.x_data + self.position[0], y=self.y_data_sized + self.position[1])
+            self.signal.setData(x=self.x_data + self.position[0], y=self.y_data_scaled + self.position[1])
 
-    @override
     def _abstract_set_active(self):
         if self.active:
             self.show()
         else:
             self.hide()
     
-    @override
     def _abstract_set_data(self):
         self._update_plot()
     
-    @override
     def _abstract_set_position(self):
         self._update_plot()
     
-    @override
-    def _abstract_set_vertical_size(self):
+    def _abstract_set_scale(self):
         self._update_plot()
-
-
 
     def _abstract_set_style(self, line_color):
         from pyavis.shared.util import color
@@ -57,28 +50,26 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
         self.signal.setPen(pg.mkPen(pg.mkColor(*line_color), width=0))
 
 
-        
-
     def mouseClickEvent(self, ev: MouseClickEvent):
         if self.clickable != True:
             return
         ev.accept()
-        self.sigClicked.emit(self, ev)
 
-        self.onClick.emit(self)
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
+        self.onClick.emit(self, (viewPos.x(), viewPos.y()))
 
     def mouseDragEvent(self, ev: MouseDragEvent):
         if self.draggable != True:
             return
         ev.accept()
 
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
         if ev.isStart():
-            self.onDraggingBegin.emit(self, ev.pos())
+            self.onDraggingBegin.emit(self, (viewPos.x(), viewPos.y()))
         elif ev.isFinish():
-            self.onDraggingFinish.emit(self, ev.pos())
+            self.onDraggingFinish.emit(self, (viewPos.x(), viewPos.y()))
         else:
-            self.onDragging.emit(self, ev.pos())
+            self.onDragging.emit(self, (viewPos.x(), viewPos.y()))
 
-    @override
     def boundingRect(self):
         return self.signal.curve.boundingRect()

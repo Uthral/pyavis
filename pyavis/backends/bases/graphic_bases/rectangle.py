@@ -14,105 +14,41 @@ class Rectangle(GraphicElement):
     ):
         GraphicElement.__init__(self, position)
         self.sizeChanged = Subject()
-
-        self._width = width
-        self._height = height
+        self._size = (width, height)
 
     @property
     def rect_size(self):
-        return (self._width, self._height)
+        return self._size
 
     @property
     def rect_width(self):
-        return self._width
+        return self._size[0]
     
     @property
     def rect_height(self):
-        return self._height
+        return self._size[1]
     
-    def set_width(self, width: float):
-        '''
-        Set width of the rectangle.
+    def set_size(self, size: Tuple[float, float], trigger = True):
+        """
+        Set the size of the rectangle.
 
         Parameters
         ----------
-        width: float
-            New width of the rectangle
-        '''
+        size : Tuple[float, float]
+            New size of the rectangle
+        trigger : bool, optional
+            Trigger observer, by default True
+        """
+
         old_size = self.rect_size
-
-        self.set_width_silent(width)
-        self.sizeChanged.emit(self, self.rect_size, old_size)
-
-    def set_width_silent(self, width: float):
-        '''
-        Set width of the rectangle.
-        Does not trigger observers.
-
-        Parameters
-        ----------
-        width: float
-            New width of the rectangle
-        '''
-        self._internal_set_width(width)
-        self._abstract_set_width()
-
-    def _internal_set_width(self, width: float):
-        '''
-        Set width of the rectangle.
-        For internal use only.
-
-        Parameters
-        ----------
-        width: float
-            New width of the rectangle
-        '''
-        self._width = width
-
-    def _abstract_set_width(self):
-        pass
-
-    def set_height(self, height: float):
-        '''
-        Set height of the rectangle.
-
-        Parameters
-        ----------
-        height: float
-            New height of the rectangle
-        '''
-        old_size = self.rect_size
-
-        self.set_height_silent(height)
-        self.sizeChanged.emit(self, self.rect_size, old_size)
-
-    def set_height_silent(self, height: float):
-        '''
-        Set height of the rectangle.
-        Does not trigger observers.
-
-        Parameters
-        ----------
-        height: float
-            New height of the rectangle
-        '''
-        self._internal_set_height(height)
-        self._abstract_set_height()
-
-    def _internal_set_height(self, height: float):
-        '''
-        Set height of the rectangle.
-        For internal use only.
-
-        Parameters
-        ----------
-        height: float
-            New height of the rectangle
-        '''
-        self._height = height
+        if old_size[0] == size[0] and old_size[1] == size[1]:
+            return 
         
-    def _abstract_set_height(self):
-        pass
+        self._size = size
+        self._abstract_set_size()
+
+        if trigger:
+            self.sizeChanged.emit(self, self.rect_height, old_size)
 
     def set_style(self, border_color, fill_color):
         if border_color == "default":
@@ -130,6 +66,10 @@ class Rectangle(GraphicElement):
             color._check_color(fill_color)
         
         self._abstract_set_style(border_color, fill_color)
+
+
+    def _abstract_set_size(self):
+        pass
 
     def _abstract_set_style(self, border_color, fill_color):
         pass

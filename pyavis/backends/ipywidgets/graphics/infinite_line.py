@@ -4,12 +4,10 @@ from typing import Any, Tuple
 from math import cos, sin
 
 from matplotlib.axes import Axes
-from matplotlib.lines import Line2D
-from overrides import override
-from pyavis.backends.bases.graphic_bases.inf_line import InfLine
+from pyavis.backends.bases.graphic_bases.infinite_line import InfiniteLine
 
 
-class InfLineIPY(InfLine):
+class InfLineIPY(InfiniteLine):
     def __init__(
             self,
             position: Tuple[float, float] = (0.0, 0.0),
@@ -29,7 +27,7 @@ class InfLineIPY(InfLine):
         if 'ax' not in kwargs:
             raise KeyError("Axes not provided. Cannot instantiate SignalIPY.")
         
-        InfLine.__init__(self, position, angle)
+        InfiniteLine.__init__(self, position, angle)
         self._ax: Axes = kwargs['ax']
         self._line = self._ax.axline(xy1=self.position, xy2=self._calc_pos2())
 
@@ -52,20 +50,16 @@ class InfLineIPY(InfLine):
         self._line = self._ax.axline(xy1=self.position, xy2=self._calc_pos2())
         self._line.axes.figure.canvas.draw_idle()
 
-    @override
     def _abstract_set_active(self):
         self._line.set_visible(self.active)
         self._line.axes.figure.canvas.draw_idle()
     
-    @override
     def _abstract_set_position(self):
         self._update_plot()
 
-    @override
-    def _abstract_set_angle(self):
+    def _abstract_set_line_angle(self):
         self._update_plot()
 
-    @override
     def _abstract_set_style(self, line_color: Any):
         from pyavis.shared.util import color
         line_color = color._convert_color(line_color)

@@ -66,7 +66,7 @@ class SignalDisplay(Widget):
         
         # Set signal and add graphical display
         self._signal = signal
-        self._gfx_signal = self._gfx_track.add_signal((0,0), "auto", y=self._signal.sig)
+        self._gfx_signal = self._gfx_track.add_signal((0,0), 1.0, y=self._signal.sig)
         
         # Prepare internal track to allow better replay functionality
         self._track.sampling_rate = self._signal.sr

@@ -6,7 +6,6 @@ from .track import Track
 
 class Layout(ABC):
     def __init__(self, rows: int = 1, columns: int = 1):
-        self.layoutChanged = Subject()
         self.trackAdded = Subject()
         self.trackRemoved = Subject()
 

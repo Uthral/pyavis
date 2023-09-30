@@ -9,23 +9,23 @@ class Signal(GraphicElement):
     def __init__(
             self,
             position: Tuple[float, float] = (0.0, 0.0),
-            vertical_size: float | Literal["auto"] = "auto",
+            scale: float = 1.0,
             *args,
             **kwargs,
 
         ):
         GraphicElement.__init__(self, position)
         self.dataChanged = Subject()
-        self.sizeChanged = Subject()
+        self.scaleChanged = Subject()
 
         self.x_data = None
         self.y_data = None
-        self.y_data_sized = None
-        self.vert_size = vertical_size
-
-        self._internal_set_data(*args, **kwargs)
-        self._internal_set_vertical_size(vertical_size)
+        self.y_data_scaled = None
         
+        self.scale = scale
+
+        self._update_data(*args, **kwargs)
+        self._update_scale()
 
     def set_data(self, *args, **kwargs):
         '''
@@ -46,56 +46,38 @@ class Signal(GraphicElement):
         x=x, y=y : np.ndarray, np.ndarray
              x, y values given as keyword argument
         '''
-        self.set_data_silent(*args, **kwargs)
-        self.dataChanged.emit(self)
-
-    def set_data_silent(self, *args, **kwargs):
-        '''
-        Set the data that should be rendered.
-        Does not trigger observers.
-
-        Parameters
-        ----------
-        y : np.ndarray
-            y values, x values will be ``range(len(y))``
-        x, y : np.ndarray, np.ndarray
-            x, y values
-        (y,) : Tuple[np.ndarray]
-            y values given as tuple, x values will be ``range(len(y))``
-        (x,y) : Tuple[np.ndarray, np.ndarray]
-            x, y values given as tuple
-        y=y : np.ndarray
-            y values given as keyword argument, x values will be ``range(len(y))``
-        x=x, y=y : np.ndarray, np.ndarray
-             x, y values given as keyword argument
-        '''
-        self._internal_set_data(*args, **kwargs)
-        if self.vert_size != "auto":
-            self._internal_set_vertical_size(self.vert_size)
-
+        self._update_data(*args, **kwargs)  
+        self._update_scale()
         self._abstract_set_data()
 
+        self.dataChanged.emit(self)
 
-    def _internal_set_data(self, *args, **kwargs):
-        '''
-        For interal use only.
-        Set the data that should be rendered.
+    def set_scale(self, scale: float = 1.0, trigger = True):
+        """
+        Set the scale of the y values.
 
         Parameters
         ----------
-        y : np.ndarray
-            y values, x values will be ``range(len(y))``
-        x, y : np.ndarray, np.ndarray
-            x, y values
-        (y,) : Tuple[np.ndarray]
-            y values given as tuple, x values will be ``range(len(y))``
-        (x,y) : Tuple[np.ndarray, np.ndarray]
-            x, y values given as tuple
-        y=y : np.ndarray
-            y values given as keyword argument, x values will be ``range(len(y))``
-        x=x, y=y : np.ndarray, np.ndarray
-             x, y values given as keyword argument
-        '''
+        scale : float, optional
+            Scale of the y values, by default 1.0
+        trigger : bool, optional
+            Trigger observer, by default True
+        """
+        
+        old_scale = self.scale
+        if old_scale == scale:
+            return
+        
+        self.scale = scale
+        if self.x_data is None or self.y_data is None:
+            return
+        
+        self._update_scale()
+        self._abstract_set_scale()
+
+        self.scaleChanged.emit(self, self.scale, old_scale)
+
+    def _update_data(self, *args, **kwargs):
         x = None
         y = None
 
@@ -126,81 +108,13 @@ class Signal(GraphicElement):
         if x is None:
             self.x_data = np.arange(len(self.y_data))
         else:
-            self.x_data = x     
+            self.x_data = x 
 
-        self._internal_set_vertical_size(self.vert_size)
-
-    @abstractmethod
-    def _abstract_set_data(self):
-        pass
-
-
-    def set_vertical_size(self, vert_size: float | Literal["auto"] = "auto"):
-        '''
-        Set the vertical size of the signal. "auto" uses the orignal values as size.
-
-        Parameters:
-        -----------
-        vert_size : float | str, default: "auto"
-            New vetical size of the signal if float, else the orignal values as size
-        '''
-
-        
-        if self.vert_size == vert_size:
-            return
-
-        self.set_vertical_size_silent(vert_size)
-        self.sizeChanged.emit(self)
-    
-    def set_vertical_size_silent(self, vert_size: float | Literal["auto"] = "auto"):
-        '''
-        Set the vertical size of the signal. "auto" uses the orignal values as size.
-        Does not trigger observers.
-
-        Parameters:
-        -----------
-        vert_size : float | str, default: "auto"
-            New vetical size of the signal if float, else the orignal values as size
-        '''
-        self._internal_set_vertical_size(vert_size)
-        self._abstract_set_vertical_size()
-
-    
-    def _internal_set_vertical_size(self, vert_size: float | Literal["auto"] = "auto"):
-        '''
-        For internal usage only.
-        Set the size of the signal.
-
-        vert_size : float | str, default: "auto"
-            New vetical size of the signal if float, else the orignal values as size
-        '''
-        self.vert_size = vert_size
-        
-        if self.x_data is None or self.y_data is None:
-            return
-        
-        
-
-        if self.vert_size == "auto":
-            self.y_data_sized = self.y_data.view()
+    def _update_scale(self):
+        if self.scale == 1.0:
+            self.y_data_scaled = self.y_data.view()
         else:
-            self.y_data_sized = (self.y_data / np.max(self.y_data)) * (self.vert_size / 2)
-
-    @abstractmethod
-    def _abstract_set_vertical_size(self):
-        pass
-
-
-
-
-
-
-
-
-
-
-
-
+            self.y_data_scaled = self.y_data * self.scale
     
     def set_style(self, line_color: Any | Literal["default"] = "default"):
         '''
@@ -219,6 +133,14 @@ class Signal(GraphicElement):
             color._check_color(line_color)
         
         self._abstract_set_style(line_color)
+
+    @abstractmethod
+    def _abstract_set_data(self):
+        pass
+
+    @abstractmethod
+    def _abstract_set_scale(self):
+        pass
 
     def _abstract_set_style(self, line_color: Any):
         pass

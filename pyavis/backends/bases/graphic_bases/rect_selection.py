@@ -3,14 +3,12 @@ from pyavis.shared.util.subject import Subject
 from .graphic_element import GraphicElement
 
 class RectSelection(GraphicElement):
-    _handle_type = ["left", "right", "top", "bottom"]
-
     def __init__(
             self,
             position: Tuple[float, float],
             size: Tuple[float, float]
     ):
-        GraphicElement.__init__(self, position, True)
+        GraphicElement.__init__(self, position)
         self._size = size
         self._handles = {}
         
@@ -20,46 +18,26 @@ class RectSelection(GraphicElement):
     def size(self):
         return self._size
     
-    def set_size(self, size: Tuple[float, float]):
-        '''
+    def set_size(self, size: Tuple[float, float], trigger = True):
+        """
         Set the size of the of the rectangle.
 
         Parameters
         ----------
-        size: (float, float)
+        size : Tuple[float, float]
             New width and height 
-        '''
-        self.set_size_silent(size)
-        self.sizeChanged.emit(self, self.size)
-
-    def set_size_silent(self, size: Tuple[float, float]):
-        '''
-        Set the size of the of the rectangle.
-        Does not trigger observers.
-
-        Parameters
-        ----------
-        size: (float, float)
-            New width and height 
-        '''
-        self._internal_set_size(size)
+        trigger : bool, optional
+            Trigger observer, by default True
+        """
+        old_size = self.size
+        if old_size[0] == size[0] and old_size[1] == size[1]:
+            return
+        
+        self._size = size
         self._abstract_set_size()
 
-    def _internal_set_size(self, size: Tuple[float, float]):
-        '''
-        Set the size of the of the rectangle.
-        Only for internal usage.
-
-        Parameters
-        ----------
-        size: (float, float)
-            New width and height 
-        '''
-        self._size = size
-
-    def _abstract_set_size(self):
-        pass
-        
+        if trigger:
+            self.sizeChanged.emit(self, self.size, old_size)
     
     def add_handle(self, side: str, mirror: bool = False):
         '''
@@ -112,5 +90,10 @@ class RectSelection(GraphicElement):
         
         self._abstract_set_style(line_color, handle_color)
 
+
+
     def _abstract_set_style(self, line_color, fill_color):
+        pass
+
+    def _abstract_set_size(self):
         pass

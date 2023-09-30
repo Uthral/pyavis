@@ -1,7 +1,5 @@
 
 from typing import Tuple
-
-from overrides import override
 from pyavis.backends.bases.graphic_bases.rectangle import Rectangle
 
 import pyqtgraph as pg
@@ -28,13 +26,10 @@ class RectangleQt(Rectangle, pg.GraphicsObject, metaclass=M_RectangleQt):
     def _update_plot(self):
         self.rectangle.setRect(*self.position, *(self.rect_width, self.rect_height))
 
-    def _abstract_set_width(self):
-        self._update_plot()
-
-    def _abstract_set_height(self):
-        self._update_plot()
-
     def _abstract_set_position(self):
+        self._update_plot()
+
+    def _abstract_set_size(self):
         self._update_plot()
 
     def _abstract_set_active(self):
@@ -42,32 +37,7 @@ class RectangleQt(Rectangle, pg.GraphicsObject, metaclass=M_RectangleQt):
             self.show()
         else:
             self.hide()
-    
-
-    def mouseClickEvent(self, ev: MouseClickEvent):
-        if self.clickable != True:
-            return
-        ev.accept()
-
-        self.onClick.emit(self)
-
-    def mouseDragEvent(self, ev: MouseDragEvent):
-        if self.draggable != True:
-            return
-        ev.accept()
-
-        if ev.isStart():
-            self.onDraggingBegin.emit(self, ev.pos())
-        elif ev.isFinish():
-            self.onDraggingFinish.emit(self, ev.pos())
-        else:
-            self.onDragging.emit(self, ev.pos())
-
-    @override
-    def boundingRect(self):
-        return self.rectangle.boundingRect()
-
-    
+        
     def _abstract_set_style(self, border_color, fill_color):
         from pyavis.shared.util import color
         border_color = color._convert_color(border_color)
@@ -75,4 +45,31 @@ class RectangleQt(Rectangle, pg.GraphicsObject, metaclass=M_RectangleQt):
         
         self.rectangle.setBrush(pg.mkBrush(pg.mkColor(*fill_color)))
         self.rectangle.setPen(pg.mkPen(pg.mkColor(*border_color), width=0))
+    
+
+    def mouseClickEvent(self, ev: MouseClickEvent):
+        if self.clickable != True:
+            return
+        ev.accept()
+
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
+        self.onClick.emit(self, (viewPos.x(), viewPos.y()))
+
+    def mouseDragEvent(self, ev: MouseDragEvent):
+        if self.draggable != True:
+            return
+        ev.accept()
+
+        viewPos = self.getViewBox().mapSceneToView(ev.scenePos())
+        if ev.isStart():
+            self.onDraggingBegin.emit(self, (viewPos.x(), viewPos.y()))
+        elif ev.isFinish():
+            self.onDraggingFinish.emit(self, (viewPos.x(), viewPos.y()))
+        else:
+            self.onDragging.emit(self, (viewPos.x(), viewPos.y()))
+
+    def boundingRect(self):
+        return self.rectangle.boundingRect()
+
+
     

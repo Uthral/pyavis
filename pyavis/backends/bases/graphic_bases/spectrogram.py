@@ -5,8 +5,6 @@ from pya import Asig, Astft
 from pyavis.shared.util import Subject
 from .graphic_element import GraphicElement
 
-
-
 class Spectrogram(GraphicElement):
     def __init__(        
         self,
@@ -19,45 +17,31 @@ class Spectrogram(GraphicElement):
         self.dataChanged = Subject()
         self.scaleChanged = Subject()
 
-        self._internal_set_data(data)
+        self._set_data(data)
         self.scale = scale
         self.disp_func = disp_func
 
-    def set_data(self, data: Asig | Astft):
-        '''
+    def toggle_color_bar(self, show: bool):
+        pass
+
+    def set_data(self, data: Asig | Astft, trigger = True):
+        """
         Set the displayed Asig / Astft.
 
         Parameters
         ----------
-        data: Asig | Astft
+        data : Asig | Astft
             Audio data to display
-        '''
-        self.set_data_silent(data)
-        self.dataChanged.emit(self)
-
-    def set_data_silent(self, data: Asig | Astft):
-        '''
-        Set the displayed Asig / Astft
-        Does not trigger observers.
-
-        Parameters
-        ----------
-        data: Asig | Astft
-            Audio data to display
-        '''
-        self._internal_set_data(data)
+        trigger : bool, optional
+            Trigger obeserver, by default True
+        """
+        self._set_data(data)
         self._abstract_set_data()
 
-    def _internal_set_data(self, data: Asig | Astft):
-        '''
-        Set the displayed Asig / Astft.
-        For internal use only.
+        if trigger:
+            self.dataChanged.emit(self)
 
-        Parameters
-        ----------
-        data: Asig | Astft
-            Audio data to display
-        '''
+    def _set_data(self, data: Asig | Astft):
         if type(data) == Asig:
             self.orig_signal = data
             self.orig_spectrogram = data.to_stft()
@@ -67,61 +51,31 @@ class Spectrogram(GraphicElement):
         else:
             raise TypeError("Unknown data, should be either Asig or Astft")
 
-    def _abstract_set_data(self):
-        pass
-
-    def toggle_color_bar(self, show: bool):
-        pass
-
-    def get_spectrogram_data(self):
-        pass
-        
-
-    def set_scale(self, scale: Tuple[float, float]):
-        '''
+    def set_scale(self, scale: Tuple[float, float], trigger = True):
+        """
         Set the displayed scale of the spectrogram. Default size
         is corresponds to signal length in seconds and highest frequency of the STFT.
 
         Parameter
         ---------
         scale: (float, float)
-            x and y scale
-        '''
+            
+
+        Parameters
+        ----------
+        scale : Tuple[float, float]
+            x and y scale of the spectrogram
+        """
         old_scale = self.scale
-
-        self.set_scale_silent(scale)
-        self.scaleChanged.emit(self, self.scale, old_scale)
-
-    def set_scale_silent(self, scale: Tuple[float, float]):
-        '''
-        Set the displayed scale of the spectrogram. Default size
-        is corresponds to signal length in seconds and highest frequency of the STFT.
-        Does not trigger observers.
-
-        Parameter
-        ---------
-        scale: (float, float)
-            x and y scale
-        '''
-
-        self._internal_set_scale(scale)
-        self._abstract_set_scale()
-
-    def _internal_set_scale(self, scale: Tuple[float, float]):
-        '''
-        Set the displayed scale of the spectrogram. Default size
-        is corresponds to signal length in seconds and highest frequency of the STFT.
-        For internal use only.
-
-        Parameter
-        ---------
-        scale: (float, float)
-            x and y scale
-        '''
+        if old_scale[0] == scale[0] and old_scale[1] == scale[1]:
+            return
+        
         self.scale = scale
-
-    def _abstract_set_scale(self):
-        pass
+        self._abstract_set_scale()
+        
+        if trigger:
+            self.scaleChanged.emit(self, self.scale, old_scale)
+        
     
     def get_spectrogram_data(self):
         '''
@@ -163,3 +117,7 @@ class Spectrogram(GraphicElement):
         '''
         Clear the brush.
         '''
+
+
+    def _abstract_set_scale(self):
+        pass

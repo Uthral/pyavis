@@ -9,7 +9,7 @@ import numpy as np
 class PitchShift:
     def __init__(self):
         self.internal_signal = None
-        self.signal_size = 6
+        self.signal_size = 2
 
         self._prepare_pitch_shift()
         self._prepare_signal()
@@ -94,7 +94,7 @@ class PitchShift:
         else:
             raise TypeError("Signal must either be of type 'Esig' or 'Asig'.")
         
-        self.signal_graphic = self.signal_view.add_signal((0,0), "auto", y=self.internal_signal.cache.asig.sig)
+        self.signal_graphic = self.signal_view.add_signal((0,0), 1.0, y=self.internal_signal.cache.asig.sig)
 
         for event in self.internal_signal.cache.events:
             center = hz_2_midi(self.internal_signal._avg_pitch(event))
@@ -134,7 +134,7 @@ class PitchShift:
 
         self.pitch_curve = self.pitch_shift_view.add_signal(
             (0,0),
-            "auto",
+            1.0,
             y=hz_2_midi(self.internal_signal.cache.pitch),
             x=self.internal_signal.cache.frame_jump * np.linspace(0, len(self.internal_signal.cache.pitch), num=len(self.internal_signal.cache.pitch))
         )
@@ -164,12 +164,11 @@ class PitchShift:
         sig = self._event2signal[event]
         sig_position = sig.position
         
-
         y += self.signal_size / 2
+        print(y - sig_position[1])
 
-        print(y)
-
-        self.internal_signal.correct_event_pitch(event_id, np.array([(0, y),(1, y)]))
+        #self.internal_signal.correct_event_pitch(event_id, np.array([(0, y),(1, y)]))
+        self.internal_signal.change_event_pitch(event_id, y - sig_position[1])
         sig.set_position(x=sig.position[0], y=y)
 
         self.signal_graphic.set_data(y=self.internal_signal.cache.asig.sig)
@@ -196,4 +195,5 @@ def midi_2_hz(value):
     return 440 * np.power(2, power)
 
 def hz_2_midi(value):
-    return 12 * np.log2(value / 440) + 69
+    result = 12 * np.log2(value / 440, where=value > 0) + 69
+    return np.clip(result, 0,130)

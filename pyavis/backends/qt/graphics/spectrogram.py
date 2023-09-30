@@ -88,7 +88,6 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         self.setDrawKernel()
         self._brush_set = False
 
-    
 
 
     def _update_plot(self):
