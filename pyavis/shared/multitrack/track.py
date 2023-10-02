@@ -3,7 +3,7 @@ import numpy as np
 from typing import List, Tuple
 
 from pyavis.shared.util import Subject
-from ..signal import AudioSignal
+from .signal import AudioSignal
 
 
 class Track:

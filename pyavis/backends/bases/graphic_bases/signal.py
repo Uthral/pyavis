@@ -108,6 +108,8 @@ class Signal(GraphicElement):
         if x is None:
             self.x_data = np.arange(len(self.y_data))
         else:
+            if len(x) != len(y):
+                raise ValueError("Length missmatch")
             self.x_data = x 
 
     def _update_scale(self):
@@ -134,11 +136,9 @@ class Signal(GraphicElement):
         
         self._abstract_set_style(line_color)
 
-    @abstractmethod
     def _abstract_set_data(self):
         pass
 
-    @abstractmethod
     def _abstract_set_scale(self):
         pass
 

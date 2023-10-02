@@ -14,7 +14,5 @@ class AudioSignal:
         else:
             return self.asig.sig
 
-            
-    
     def sampling_rate(self):
         return self.asig.sr

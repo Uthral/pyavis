@@ -1,1 +1,1 @@
-from .signal import AudioSignal
+from .multitrack import AudioSignal, Track, MultiTrack

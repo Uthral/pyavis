@@ -12,7 +12,7 @@ class TestTrackIndexing(TestCase):
         self.val_2 = np.sin(2 * np.pi * 50 * np.linspace(0, 1, self.sr), dtype="float32")
         self.sig_1 = AudioSignal(Asig(self.val_1))
         self.sig_2 = AudioSignal(Asig(self.val_2))
-        self.pos_1 = 1
+        self.pos_1 = 0
         self.pos_2 = self.sr * 3
 
         zeros = np.zeros((self.sr * 2 - self.pos_1))

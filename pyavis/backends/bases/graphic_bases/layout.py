@@ -35,7 +35,6 @@ class Layout(ABC):
         
         return self._add_track(label, row, column, rowspan, colspan)
     
-    @abstractmethod
     def _add_track(self, label: str, row: int, column: int, rowspan: int = 1, colspan: int = 1) -> Track:
         pass
     

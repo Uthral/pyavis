@@ -17,7 +17,10 @@ def spec_to_stft(spectrogram: Spectrogram, inverted_display_func = None, with_or
     with_original_phase: bool
         If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies
     '''
-    magnitude = spectrogram.get_spectrogram_data()
+    if inverted_display_func is not None:
+        magnitude = inverted_display_func(spectrogram.get_spectrogram_data())
+    else:
+        magnitude = spectrogram.get_spectrogram_data()
     stft = deepcopy(spectrogram.orig_spectrogram)
 
     if with_original_phase:

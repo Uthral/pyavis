@@ -12,7 +12,7 @@ class Subject:
 
     def emit(self, *arguments : typing.Any):
         for observer in self.observers:
-            observer(arguments)
+            observer(*arguments)
 
     def clear(self):
         self.observers = []
