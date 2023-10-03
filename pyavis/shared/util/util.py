@@ -6,17 +6,24 @@ from pyavis.backends.bases.graphic_bases import Spectrogram
 import numpy as np
 
 def spec_to_stft(spectrogram: Spectrogram, inverted_display_func = None, with_original_phase: bool = False) -> Astft:
-    '''
+    """
     Return the displayed spectrogram as an :class:`Astft <pya.Astft>`.
-    Assumes 'np.abs' as the display function.
+    Assumes `np.abs` as the display function.
 
     Parameters
     ----------
-    spectrogram: Spectrogram
-        Spectrogram to use
-    with_original_phase: bool
+    spectrogram : Spectrogram
+        Spectrogram to convert
+    inverted_display_func :optional
+        If `np.abs` is not used, provide inverted display function
+    with_original_phase : bool, optional
         If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies
-    '''
+
+    Returns
+    -------
+    :class:`Astft <pya.Astft>`
+        :class:`Astft <pya.Astft>` of the displayed spectrogram
+    """
     if inverted_display_func is not None:
         magnitude = inverted_display_func(spectrogram.get_spectrogram_data())
     else:
@@ -32,21 +39,26 @@ def spec_to_stft(spectrogram: Spectrogram, inverted_display_func = None, with_or
     return stft
 
 def spec_to_asig(spectrogram: Spectrogram, inverted_display_func = None, with_original_phase: bool = False, **kwargs) -> Asig:
-    '''
+    """
     Return the displayed spectrogram as an :class:`Asig <pya.Asig>`.
-    Assumes 'np.abs' as the display function.
+    Assumes `np.abs` as the display function.
 
     Parameters
     ----------
-    spectrogram: Spectrogram
-        Spectrogram to use
-    inverted_display_func: (np.ndarray) -> np.ndarray
-        If not np.abs
-    with_orig_phase: bool
+    spectrogram : Spectrogram
+        Spectrogram to convert
+    inverted_display_func :optional
+        If `np.abs` is not used, provide inverted display function
+    with_original_phase : bool, optional
         If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies
     **kwargs:
         Keyword arguments for :func:`Astft.to_sig()`
-    '''
+
+    Returns
+    -------
+    :class:`Asig <pya.Asig>`
+        :class:`Asig <pya.Asig>` of the displayed spectrogram
+    """
     if inverted_display_func is not None:
         magnitude = inverted_display_func(spectrogram.get_spectrogram_data())
     else:

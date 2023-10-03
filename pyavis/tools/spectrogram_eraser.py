@@ -94,14 +94,14 @@ class SpectrogramEraser:
             self.spectrogram_graphic.draggable = True
             self.spectrogram_graphic.clickable = True
 
-    def draw_on_spectrogram(self, args):
+    def draw_on_spectrogram(self, element, pos):
         # Draw on the spectrogram image
-        freq, time = args[1][1], args[1][0]
+        freq, time = pos[1], pos[0]
         self.spectrogram_graphic.set_brush(brush_data = self.eraser, brush_center = self.center)
         self.spectrogram_graphic.draw(freq, time)
         self.spectrogram_graphic.clear_brush()
 
-    def update_signal(self, args):
+    def update_signal(self, element, pos):
         # Convert spectrogram back to audio signal using the original phase
         self.signal_view.remove(self.signal_graphic)
         self.display_signal = spec_to_asig(self.spectrogram_graphic, inverted_display_func=pya.dbamp, with_original_phase=True)

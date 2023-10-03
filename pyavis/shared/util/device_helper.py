@@ -3,6 +3,9 @@ from typing import Tuple, List
 
 
 class DeviceInfo:
+    """
+    Class to collect basic informations of a device
+    """
     def __init__(self, index, name, sr, nr_input, nr_output):
         self.index = index
         self.name = name
@@ -11,13 +14,37 @@ class DeviceInfo:
         self.nr_output = nr_output
 
     def as_output_str(self) -> str:
+        """
+        Return the device as string with output information
+
+        Returns
+        -------
+        str
+            Device information with output channels
+        """
         return f"{self.index}: {self.name:50s} ({self.nr_output} chns @ {self.sampling_rate:5.0f} Hz)"
 
     def as_input_str(self) -> str:
+        """
+        Return the device as string with input information
+
+        Returns
+        -------
+        str
+            Device information with input channels
+        """
         return f"{self.index}: {self.name:50s} ({self.nr_input} chns @ {self.sampling_rate:5.0f} Hz)"
 
 
 def getInOutDevices() -> Tuple[List[DeviceInfo], List[DeviceInfo]]:
+    """
+    Return all devices that can be used for input and output.
+
+    Returns
+    -------
+    Tuple[List[DeviceInfo], List[DeviceInfo]]
+        tuple of input and output devices
+    """
     input_list, output_list = [], []
 
     for device in helper.device_info():

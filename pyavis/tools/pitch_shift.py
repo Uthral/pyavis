@@ -112,8 +112,8 @@ class PitchShift:
             )
 
             selection.set_style((150, 50, 150), (0, 255, 255))
-            selection.onDragging.connect(lambda args: self.move_selection_event(args[0], *args[1]))
-            selection.onDraggingFinish.connect(lambda args: self.finish_move_selection_event(args[0], *args[1]))
+            selection.onDragging.connect(lambda selection, pos: self.move_selection_event(selection, *pos))
+            selection.onDraggingFinish.connect(lambda selection, pos: self.finish_move_selection_event(selection, *pos))
 
             self.sub_signals.append(sig)
             self.selections.append(selection)
