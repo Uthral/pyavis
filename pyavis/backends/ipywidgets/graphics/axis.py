@@ -23,7 +23,7 @@ class AxisIPY(Axis):
 
     def tick_spacing(self, spacing: Tuple[float, float]=None):
         if spacing is None:
-            self.axis.set_minor_locator(ticker.AutoMinorLocator(None))
+            self.axis.set_minor_locator(ticker.NullLocator())
             self.axis.set_major_locator(ticker.AutoLocator())
         else:
             self.axis.set_minor_locator(ticker.MultipleLocator(spacing[1]))

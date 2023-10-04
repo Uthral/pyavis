@@ -14,6 +14,7 @@ class SpectrogramEraser:
 
         self.internal_signal = None
         self.display_signal = None
+        self.sr = 44100
         
 
     def _build_spectrogram(self):
@@ -24,14 +25,14 @@ class SpectrogramEraser:
         # Create layout and add view
         layout = Layout(1,1)
         self.spectrogram_view = layout.add_track("Spectrogram", 0, 0)
-        self.spectrogram_display.set_displayed_item(self.spectrogram_view)
+        self.spectrogram_display.set_displayed_item(layout)
 
         # Combine widgets in box
         vertical_box = VBox()
         vertical_box.add_widget(self.spectrogram_toolbar)
         vertical_box.add_widget(self.spectrogram_display)
 
-        self.spectrogram = vertical_box
+        self.spectrogram_box = vertical_box
 
 
     def _build_signal(self):
@@ -42,16 +43,16 @@ class SpectrogramEraser:
         # Create layout and add view
         layout = Layout(1,1)
         self.signal_view = layout.add_track("Signal", 0, 0)
-        self.signal_display.set_displayed_item(self.signal_view)
+        self.signal_display.set_displayed_item(layout)
 
-        self.signal_view.set_axis('bottom', spacing=None, disp_func=lambda value: f'{round(value / self.signal.sr, 2)}')
+        self.signal_view.set_axis('bottom', spacing=None, disp_func=lambda value: f'{round(value / self.sr, 2)}')
 
         # Combine widgets in box
         vertical_box = VBox()
         vertical_box.add_widget(self.signal_play_button)
         vertical_box.add_widget(self.signal_display)
 
-        self.signal = vertical_box
+        self.signal_box = vertical_box
 
     def set_singal(self, signal):
         if self.internal_signal is not None:
@@ -60,6 +61,7 @@ class SpectrogramEraser:
         
         self.internal_signal = signal
         self.display_signal = signal
+        self.sr = signal.sr
 
         self.signal_graphic = self.signal_view.add_signal(y=self.display_signal.sig)
         self.spectrogram_graphic = self.spectrogram_view.add_spectrogram(
@@ -113,6 +115,6 @@ class SpectrogramEraser:
 
     def show(self):
         # Show both widgets
-        self.spectrogram.show()
-        self.signal.show()
+        self.spectrogram_box.show()
+        self.signal_box.show()
 
