@@ -3,6 +3,9 @@ from .track import Track
 from ..util import Subject
 
 class MultiTrack:
+    """
+    Class representing a collection of tracks.
+    """
     def __init__(self):
         self.tracks: List[Track] = []
 
@@ -10,6 +13,24 @@ class MultiTrack:
         self.onTrackRemoved = Subject()
     
     def get_track(self, track: Track | str |int) -> Track | None:
+        """
+        Get a track.
+
+        Parameters
+        ----------
+        track : Track | str | int
+            The track, its name or its index
+
+        Returns
+        -------
+        Track | None
+            The track or None, if the track is not present
+
+        Raises
+        ------
+        TypeError
+            Raises if 'track' is not one of the listed types
+        """
         result: Track = None
         if isinstance(track, Track):
             try:
@@ -28,10 +49,36 @@ class MultiTrack:
         return result
 
     def add_track(self, track: Track):
+        """
+        Add a track.
+
+        Parameters
+        ----------
+        track : Track
+            Track to add
+        """
         self.tracks.append(track)
         self.onTrackAdded.emit(self, track)
     
     def remove_track(self, track: Track | str | int) -> Track:
+        """
+        Remove a track
+
+        Parameters
+        ----------
+        track : Track | str | int
+            Either the track, it's name or its index
+
+        Returns
+        -------
+        Track
+            The removed track
+
+        Raises
+        ------
+        TypeError
+            Raises if 'track' is not one of the listed types
+        """
         removed: Track = None
         if isinstance(track, Track):
             self.tracks.remove(track)

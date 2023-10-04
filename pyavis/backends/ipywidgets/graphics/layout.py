@@ -1,6 +1,3 @@
-from overrides import override
-
-
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.gridspec import GridSpec
@@ -17,14 +14,12 @@ class LayoutIPY(Layout):
 
         self.set_style('default')
     
-    @override
     def remove_track(self, track):
         if track.ax.fig == self.fig:
             track.ax.remove()
 
         self.fig.canvas.draw_idle()
 
-    @override
     def _add_track(self, label: str, row: int, column: int, rowspan: int = 1, colspan: int = 1, *args, **kwargs) -> TrackIPY:
         row_start, row_end = row, row + rowspan
         col_start, col_end = column, column + colspan

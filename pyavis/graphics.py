@@ -1,6 +1,6 @@
 from . import _get_backend
 from .backends import Backend
-from .backends.bases.graphic_bases import Layout as GFXLayout, Track as GFXTrack 
+from .backends.bases.graphic_bases import Layout 
 
 def _is_missing_implementation(backend: Backend, gfx: str):
     if gfx not in backend.get_gfx_registry():
@@ -12,8 +12,20 @@ def _get_implementation(gfx: str):
     _is_missing_implementation(backend, gfx)
     return backend.get_gfx_registry()[gfx]
 
-def Layout(*args, **kwargs) -> GFXLayout:
-    return _get_implementation('Layout')(*args, **kwargs)
+def Layout(rows: int = 1, columns: int = 1) -> Layout:
+    """
+    Construct a new layout.
 
-def Track(*args, **kwargs) -> GFXTrack:
-    return _get_implementation('Track')(*args, **kwargs)
+    Parameters
+    ----------
+    rows : int, optional
+        Row count, by default 1
+    columns : int, optional
+        Column count, by default 1
+
+    Returns
+    -------
+    Layout
+        Newly constructed layout
+    """
+    return _get_implementation('Layout')(rows, columns)

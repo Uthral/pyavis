@@ -1,9 +1,5 @@
-
-
-
 from typing import Callable, Literal, Tuple
 
-from overrides import override
 from pyavis.backends.bases.graphic_bases import GraphicElement, Track
 
 from matplotlib.axes import Axes
@@ -83,7 +79,6 @@ class TrackIPY(Track):
             element.toggle_color_bar(False)
         element.remove()
     
-    @override
     def _link_track(self, track: Track, axis: Literal['x', 'y']):
         if axis == 'x':
             if track is None:
@@ -96,7 +91,6 @@ class TrackIPY(Track):
             else:
                 self.ax.sharey(track.ax)
 
-    @override
     def set_axis(self, side: Literal['top', 'bottom', 'left', 'right'], spacing, disp_func) -> AxisIPY:
         axis = self.get_axis(side)
 
@@ -128,11 +122,9 @@ class TrackIPY(Track):
     
         return axis
     
-    @override
     def set_x_view_limits(self, x_start, x_end):
         self.ax.set_xlim((x_start, x_end))
 
-    @override
     def set_y_view_limits(self, y_start, y_end):
         self.ax.set_ylim((y_start, y_end))
 

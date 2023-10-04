@@ -21,7 +21,7 @@ def spec_to_stft(spectrogram: Spectrogram, inverted_display_func = None, with_or
 
     Returns
     -------
-    :class:`Astft <pya.Astft>`
+    Astft
         :class:`Astft <pya.Astft>` of the displayed spectrogram
     """
     if inverted_display_func is not None:
@@ -56,7 +56,7 @@ def spec_to_asig(spectrogram: Spectrogram, inverted_display_func = None, with_or
 
     Returns
     -------
-    :class:`Asig <pya.Asig>`
+    Asig
         :class:`Asig <pya.Asig>` of the displayed spectrogram
     """
     if inverted_display_func is not None:

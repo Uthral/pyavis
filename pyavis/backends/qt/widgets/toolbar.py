@@ -1,5 +1,4 @@
 from typing import Callable, Any, List
-from overrides import override
 from pyqtgraph.Qt import QtWidgets, QtCore
 
 from pyavis.backends.bases.widget_bases import BaseToolbar
@@ -31,7 +30,6 @@ class ToolbarQt(BaseToolbar):
         
         self.widget.setLayout(self.layout)
 
-    @override
     def get_native_widget(self):
         return self.widget
     

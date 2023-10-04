@@ -1,17 +1,14 @@
-from overrides import override
 from pyavis.backends.bases.widget_bases import BaseScrollArea, Widget
 from ipywidgets import HBox, Layout
 
 class ScrollAreaIPY(BaseScrollArea):
-    @override
-    def __init__(self, height: int = 100):
+    def __init__(self, height: int = 100, width: int = 100):
         self.scroll = None
         self.height = height
+        self.width = width
 
-    @override
     def get_native_widget(self):
         return self.scroll
 
-    @override
     def set_widget(self, widget: Widget):
-        self.scroll = HBox([widget.get_native_widget()], layout=Layout(height=f'{self.height}px', overflow='scroll', display='inline-block'))
+        self.scroll = HBox([widget.get_native_widget()], layout=Layout(width=f'{self.width}px', height=f'{self.height}px', overflow='scroll', display='inline-block'))

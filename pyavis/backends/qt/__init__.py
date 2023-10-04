@@ -1,6 +1,4 @@
 import abc
-from overrides import override
-
 from pyavis.backends import Backend
 
 from .widgets import *
@@ -12,7 +10,6 @@ class QtBackend(Backend):
     _gfx_registry = {}
     
     @classmethod
-    @override
     def _get_registry(backend, registry_name) -> dict:
         if registry_name == backend._gfx_registry_name:
             return backend._gfx_registry

@@ -6,6 +6,9 @@ from pyavis.shared.util import Subject
 from .graphic_element import GraphicElement
 
 class Spectrogram(GraphicElement):
+    """
+    Base class representing a renderable spectrogram.
+    """
     def __init__(        
         self,
         data: Asig | Astft,
@@ -13,6 +16,20 @@ class Spectrogram(GraphicElement):
         scale: float = 1.0, 
         disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
     ):
+        """
+        Construct a new spectrogram render.
+
+        Parameters
+        ----------
+        data : Asig | Astft
+            Signal / STFT to render
+        position : Tuple[float, float], optional
+            Position of the spectrogram, by default (0.0, 0.0)
+        scale : float, optional
+            Scale of the spectrogram, by default 1.0
+        disp_func : Callable[[np.ndarray], np.ndarray], optional
+            Function applied to the spectrogram data, by default np.abs
+        """
         GraphicElement.__init__(self, position)
         self.dataChanged = Subject()
         self.scaleChanged = Subject()

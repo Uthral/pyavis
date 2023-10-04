@@ -1,9 +1,8 @@
-from overrides import override
 from pyavis.backends.bases.graphic_bases import Layout
+from pyavis.backends.qt.graphics.track import TrackQt
 
 import pyqtgraph as pg
 
-from pyavis.backends.qt.graphics.track import TrackQt
 
 class M_LayoutQt(type(Layout), type(pg.GraphicsLayout)): pass
 class LayoutQt(Layout, pg.GraphicsLayout, metaclass=M_LayoutQt):
@@ -19,11 +18,9 @@ class LayoutQt(Layout, pg.GraphicsLayout, metaclass=M_LayoutQt):
 
         self.set_style("default")
     
-    @override
     def remove_track(self, track):
         self.removeItem(track)
     
-    @override
     def _add_track(self, label: str, row: int, column: int, rowspan: int = 1, colspan: int = 1) -> TrackQt:
         track = TrackQt(label)
         self.addItem(track, row, column, rowspan, colspan)

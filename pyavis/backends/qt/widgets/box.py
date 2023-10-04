@@ -1,4 +1,3 @@
-from overrides import override
 from pyqtgraph.Qt import QtWidgets, QtCore
 
 from pyavis.backends.bases.widget_bases import BaseHBox, BaseVBox, Widget
@@ -10,15 +9,12 @@ class VBoxQt(BaseVBox):
 
         self.widget.setLayout(self.vbox)
     
-    @override
     def add_widget(self, widget: Widget):
         self.vbox.addWidget(widget.get_native_widget())
 
-    @override
     def remove_widget(self, widget: Widget):
         self.vbox.removeWidget(widget.get_native_widget())
 
-    @override
     def get_native_widget(self):
         return self.widget
     
@@ -29,14 +25,11 @@ class HBoxQt(BaseHBox):
 
         self.widget.setLayout(self.hbox)
     
-    @override
     def add_widget(self, widget: Widget):
         self.hbox.addWidget(widget.get_native_widget())
 
-    @override
     def remove_widget(self, widget: Widget):
         self.hbox.removeWidget(widget.get_native_widget())
 
-    @override
     def get_native_widget(self):
         return self.widget

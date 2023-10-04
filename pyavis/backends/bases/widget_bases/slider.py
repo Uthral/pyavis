@@ -1,28 +1,81 @@
 from abc import abstractmethod
-from typing import Callable, Any
+from typing import Callable, Any, Literal
 from .widget import Widget
 
 class BaseIntSlider(Widget):
+    """
+    Abstract base class represenitng a integer slider.
+    """
     
     @abstractmethod
-    def __init__(self, description: str, orientation: str, default: int, min: int, max: int, step: int):
+    def __init__(self, description: str, orientation: Literal["horizontal", "vertical"], default: int, min: int, max: int, step: int):
+        """
+        Initalizes integer slider.
+
+        Parameters
+        ----------
+        description : str
+            Description of the slider
+        orientation : str
+            Orientation of the slider
+        default : int
+            Default value of the slider
+        min : int
+            Minimum value of the slider
+        max : int
+            Maximum value of the slider
+        step : int
+            Step size in which the slider can be incremented
+        """
         self._validate_slider_values(default, min, max, step)
         self._validate_orientation(orientation)
 
     @abstractmethod
     def set_value(self, value: int):
+        """
+        Set the value of the slider.
+
+        Parameters
+        ----------
+        value : int
+            Value to set
+        """
         pass
 
     @abstractmethod
     def get_value(self) -> int:
+        """
+        Get the current value of the slider
+
+        Returns
+        -------
+        int
+            Current value of the slider
+        """
         pass
 
     @abstractmethod
-    def add_on_value_changed(self, func: Callable[[Any], None]):
+    def add_on_value_changed(self, func: Callable[[int], None]):
+        """
+        Add a callback that is called on slider value change.
+
+        Parameters
+        ----------
+        func : Callable[[int], None]
+            Function to call
+        """
         pass
 
     @abstractmethod
-    def remove_on_value_changed(self, func: Callable[[Any], None]):
+    def remove_on_value_changed(self, func: Callable[[int], None]):
+        """
+        Remove a callback.
+
+        Parameters
+        ----------
+        func : Callable[[int], None]
+            Function to remove
+        """
         pass
 
     def _validate_slider_values(self, default: int, min: int, max: int, step: int):
@@ -47,26 +100,79 @@ class BaseIntSlider(Widget):
             raise ValueError("orientation must be either 'horizontal' or 'vertical'")
 
 class BaseFloatSlider(Widget):
+    """
+    Abstract base class represenitng a float slider.
+    """
         
     @abstractmethod
-    def __init__(self, description: str, orientation: str, default: float, min: float, max: float, step: float):
+    def __init__(self, description: str, orientation: Literal["horizontal", "vertical"], default: float, min: float, max: float, step: float):
+        """
+        Initalizes float slider.
+
+        Parameters
+        ----------
+        description : str
+            Description of the slider
+        orientation : str
+            Orientation of the slider
+        default : float
+            Default value of the slider
+        min : float
+            Minimum value of the slider
+        max : float
+            Maximum value of the slider
+        step : float
+            Step size in which the slider can be incremented
+        """
         self._validate_slider_values(default, min, max, step)
         self._validate_orientation(orientation)
 
     @abstractmethod
     def set_value(self, value: float):
+        """
+        Set the value of the slider.
+
+        Parameters
+        ----------
+        value : float
+            Value to set
+        """
         pass
 
     @abstractmethod
     def get_value(self) -> float:
+        """
+        Get the current value of the slider
+
+        Returns
+        -------
+        float
+            Current value of the slider
+        """
         pass
 
     @abstractmethod
-    def add_on_value_changed(self, func: Callable[[Any], None]):
+    def add_on_value_changed(self, func: Callable[[float], None]):
+        """
+        Add a callback that is called on slider value change.
+
+        Parameters
+        ----------
+        func : Callable[[float], None]
+            Function to call
+        """
         pass
 
     @abstractmethod
-    def remove_on_value_changed(self, func: Callable[[Any], None]):
+    def remove_on_value_changed(self, func: Callable[[float], None]):
+        """
+        Remove a callback.
+
+        Parameters
+        ----------
+        func : Callable[[float], None]
+            Function to remove
+        """
         pass
 
     def _validate_slider_values(self, default: float, min: float, max: float, step: float):

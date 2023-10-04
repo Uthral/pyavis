@@ -13,7 +13,18 @@ from .spectrogram import Spectrogram
 from .rect_selection import RectSelection
 
 class Track(ABC):
+    """
+    Base class representing a plot.
+    """
     def __init__(self, label: str):
+        """
+        Construct a new track
+
+        Parameters
+        ----------
+        label : str
+            Label of the track
+        """
         self._label = label
         self._axis: List[Axis] = []
 

@@ -1,14 +1,11 @@
 from typing import Callable, Any
-from overrides import override
 from pyqtgraph.Qt import QtWidgets, QtCore
 
 from pyavis.backends.bases.widget_bases import BaseIntSlider, BaseFloatSlider
 
-# from PySide2 import QtWidgets, QtCore
 
 class IntSliderQt(BaseIntSlider):
     
-    @override
     def __init__(self, description: str, orientation: str, default: int, min: int, max: int, step: int):
         super().__init__(description, orientation, default, min, max, step)
         
@@ -36,29 +33,23 @@ class IntSliderQt(BaseIntSlider):
 
         self.add_on_value_changed(lambda x: self.value_text.setText(str(x)))
         
-    @override
     def get_native_widget(self):
         return self.widget
 
-    @override
     def set_value(self, value: int):
         self.slider.setValue(value)
 
-    @override
     def get_value(self) -> int:
         return self.slider.value()
 
-    @override
     def add_on_value_changed(self, func: Callable[[Any], None]):
         self.slider.sliderValueChanged.connect(func)
 
-    @override
     def remove_on_value_changed(self, func: Callable[[Any], None]):
         self.slider.sliderValueChanged.disconnect(func)
 
 class FloatSliderQt(BaseFloatSlider):
         
-    @override
     def __init__(self, description: str, orientation: str, default: float, min: float, max: float, step: float):
         super().__init__(description, orientation, default, min, max, step)
 
@@ -87,24 +78,18 @@ class FloatSliderQt(BaseFloatSlider):
         self.add_on_value_changed(lambda x: self.value_text.setText(str(x)))
 
         
-
-    @override
     def get_native_widget(self):
         return self.widget
 
-    @override
     def set_value(self, value: float):
         self.slider.setValue(value)
 
-    @override
     def get_value(self) -> float:
         return self.slider.value()
 
-    @override
     def add_on_value_changed(self, func: Callable[[Any], None]):
         self.slider.sliderValueChanged.connect(func)
 
-    @override
     def remove_on_value_changed(self, func: Callable[[Any], None]):
         self.slider.sliderValueChanged.disconnect(func)
 
@@ -136,7 +121,6 @@ class _StepSlider(QtWidgets.QSlider):
         # QSlider continues to return int: Add new signal that returns custom value
         self.valueChanged.connect(self._react_to_value_change)
 
-    @override
     def setValue(self, value):
         if value > self._slider_max:
             value = self._slider_max
@@ -147,7 +131,6 @@ class _StepSlider(QtWidgets.QSlider):
         index = round((value - self._slider_min) / self._slider_step)
         return super().setValue(index)
 
-    @override
     def value(self) -> int | float:
         # QSlider uses integers internally, adjust value to our range & step size
         return super().value() * self._slider_step + self._slider_min

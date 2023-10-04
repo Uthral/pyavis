@@ -1,5 +1,4 @@
 from typing import Callable, Any, List
-from overrides import override
 
 from pyavis.backends.bases.widget_bases import BaseToolbar
 from ipywidgets import ToggleButtons
@@ -11,7 +10,6 @@ class ToolbarIPY(BaseToolbar):
         self.toolbar = ToggleButtons(options=list(zip(labels, values)))
         self.functions = {}
 
-    @override
     def get_native_widget(self):
         return self.toolbar
 

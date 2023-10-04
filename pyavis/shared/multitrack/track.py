@@ -7,7 +7,20 @@ from .signal import AudioSignal
 
 
 class Track:
+    """
+    Class representing an audio track.
+    """
     def __init__(self, label: str, sampling_rate: int):
+        """
+        Construct a new track.
+
+        Parameters
+        ----------
+        label : str
+            Name of the track
+        sampling_rate : int
+            Sampling rate of the track
+        """
         self.label = label
         self.sampling_rate = sampling_rate
         self.signals: List[Tuple[int, AudioSignal]] = []
@@ -212,22 +225,22 @@ class Track:
 
 
     def try_add(self, pos: int, signal: AudioSignal) -> bool:
-        '''
+        """
         Try adding the signal at the positioin position to the track.
 
         Parameters
         ----------
         pos : int
             Positon of the new signal
-        signal : Signal
+        signal : AudioSignal
             Signal to add
 
         Returns
         -------
+        bool
             True, if the signal does not overlap
             False, if the signal does overlap with another signal
-        '''
-
+        """
         if signal.sampling_rate() != self.sampling_rate:
             raise ValueError("Sampling rate does not match")
         
@@ -246,7 +259,7 @@ class Track:
         ----------
         pos : int
             Positon of the new signal in the track
-        signal : Signal
+        signal : AudioSignal
             Signal to add
         """
         start, end = pos, pos + len(signal.signal())
@@ -258,15 +271,20 @@ class Track:
                 return False
         return True
     
-    def remove_signal(self, signal):
-        '''
-        Remove the signal.
+    def remove_signal(self, signal: AudioSignal):
+        """
+        Remove a signal.
 
         Parameters
         ----------
-        signal: Signal
+        signal : AudioSignal
             Signal to delete
-        '''
+
+        Raises
+        ------
+        ValueError
+            Raises if signal could not be removed
+        """
         (position, signal) = self.get_signal(signal)
         success = self.remove(position, signal)
         if not success:
@@ -276,21 +294,21 @@ class Track:
 
 
     def remove(self, pos: int, signal: AudioSignal):
-        '''
+        """
         Remove the signal at the position.
 
         Parameters
         ----------
         pos: int
             Position of the signal
-        signal: Signal
-            Signal to delete
-        '''
+        signal: AudioSignal
+            AudioSignal to delete
+        """
         self.signals.remove((pos, signal))
         self.signalRemoved.emit(self, (pos, signal))
 
     def try_move(self, pos: int, idx: int) -> bool:
-        '''
+        """
         Try moving the signal to the new position.
 
         Parameters
@@ -302,8 +320,8 @@ class Track:
 
         Returns
         -------
-
-        '''
+        bool
+        """
         if self.can_move_to(pos, idx):
             value = list(self.signals[idx]) 
             value[0] = pos
@@ -313,20 +331,20 @@ class Track:
             return False
 
     def can_move_to(self, pos: int, signal: AudioSignal | int) -> bool:
-        '''
+        """
         Check if the signal can be moved to the position.
 
         Parameters
         ----------
         pos : int
             New positon of the signal in the track
-        idx : int
+        idx : int | AudioSignal
             Index of the signal
 
         Returns
         -------
-
-        '''
+        bool
+        """
         if isinstance(signal, int):
             (sig_pos, signal) = self.signals[signal]
         elif isinstance(signal, AudioSignal):

@@ -5,6 +5,9 @@ from pyavis.shared.util import Subject
 from .graphic_element import GraphicElement
 
 class InfiniteLine(GraphicElement):
+    """_summary_
+    Base class representing an infinite line.
+    """
     def __init__(
             self,
             position: Tuple[float, float]=(0.0, 0.0),
@@ -50,14 +53,14 @@ class InfiniteLine(GraphicElement):
             self.angleChanged.emit(self, self.line_angle, old_line_angle)
 
     def set_style(self, line_color: Any | Literal["default"]):
-        '''
+        """
         Set the color of the infinite line.
 
         Parameters
         ----------
-        line_color : color.color | str, default: "default"
-            Either "default" or values of the format 'color.color'
-        '''
+        background_color : color | "default"
+            Either "default" or color values
+        """
         if line_color == "default":
             from pyavis.config import get_style_config_value
             line_color = get_style_config_value("line_color")
