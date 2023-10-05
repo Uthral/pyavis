@@ -5,14 +5,17 @@ from pyavis.backends.bases.graphic_bases import GraphicElement, Track
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from pya import Asig, Astft
+from pya import Asig, Aspec, Astft
 import numpy as np
+
+from pyavis.backends.bases.graphic_bases.spectrum import Spectrum
 
 from .axis import AxisIPY
 from .signal import SignalIPY
 from .rectangle import RectangleIPY
 from .infinite_line import InfLineIPY
 from .spectrogram import SpectrogramIPY
+from .spectrum import SpectrumIPY
 
 class TrackIPY(Track):
     def __init__(self, label: str, ax=None, fig=None):
@@ -48,6 +51,16 @@ class TrackIPY(Track):
     ) -> SignalIPY:
         sig = SignalIPY(position, scale, *args, **kwargs, ax=self.ax)
         return sig
+    
+    def add_spectrum(
+            self, 
+            data: Asig | Aspec, 
+            position: Tuple[float, float] = (0.0, 0.0), 
+            scale: float = 1,
+            disp_func: Callable[[np.ndarray], np.ndarray] = np.abs
+    ) -> Spectrum:
+        spec = SpectrumIPY(data, position, scale, disp_func, ax=self.ax)
+        return spec
 
     def add_line(
             self,

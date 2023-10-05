@@ -5,8 +5,10 @@ from pyavis.backends.bases.graphic_bases import GraphicElement, Track
 import pyqtgraph as pg
 from pyqtgraph.GraphicsScene.mouseEvents import *
 
-from pya import Asig, Astft
+from pya import Asig, Aspec, Astft
 import numpy as np
+
+from pyavis.backends.bases.graphic_bases.spectrum import Spectrum
 
 from .axis import AxisQt
 from .signal import SignalQt
@@ -14,6 +16,7 @@ from .rectangle import RectangleQt
 from .infinite_line import InfLineQt
 from .spectrogram import SpectrogramQt
 from .rect_selection import RectSelectionQt
+from .spectrum import SpectrumQt
 
 
 class M_TrackQt(type(Track), type(pg.PlotItem)): pass
@@ -42,6 +45,17 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         sig = SignalQt(position, scale, *args, **kwargs)
         self.addItem(sig)
         return sig
+
+    def add_spectrum(
+            self, 
+            data: Asig | Aspec, 
+            position: Tuple[float, float] = (0.0, 0.0), 
+            scale: float = 1, 
+            disp_func: Callable[[np.ndarray], np.ndarray] = np.abs
+    ) -> Spectrum:
+        spec = SpectrumQt(data, position, scale, disp_func)
+        self.addItem(spec)
+        return spec
 
     def add_line(self, position, angle) -> InfLineQt:
         line = InfLineQt(position, angle)

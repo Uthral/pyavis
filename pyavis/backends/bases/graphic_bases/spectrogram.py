@@ -13,7 +13,7 @@ class Spectrogram(GraphicElement):
         self,
         data: Asig | Astft,
         position: Tuple[float, float] = (0.0, 0.0),
-        scale: float = 1.0, 
+        scale: Tuple[float, float] = (1.0, 1.0), 
         disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
     ):
         """
@@ -137,4 +137,7 @@ class Spectrogram(GraphicElement):
 
 
     def _abstract_set_scale(self):
+        pass
+
+    def _abstract_set_data(self):
         pass

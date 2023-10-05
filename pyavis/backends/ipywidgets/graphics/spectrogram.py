@@ -96,6 +96,3 @@ class SpectrogramIPY(Spectrogram):
     def _abstract_set_scale(self):
         scale = Affine2D().scale(*self.scale)
         return super()._abstract_set_scale(scale + self._spec.get_transform())
-
-    def set_style(self):
-        pass

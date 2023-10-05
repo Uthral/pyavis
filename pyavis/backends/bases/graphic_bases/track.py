@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Any, Callable, List, Literal, Tuple
 
 import numpy as np
-from pya import Asig, Astft
+from pya import Asig, Astft, Aspec
 
 from .axis import Axis
 from .graphic_element import GraphicElement
@@ -11,6 +11,7 @@ from .rectangle import Rectangle
 from .infinite_line import InfiniteLine
 from .spectrogram import Spectrogram
 from .rect_selection import RectSelection
+from .spectrum import Spectrum
 
 class Track(ABC):
     """
@@ -47,10 +48,32 @@ class Track(ABC):
         *args & **kwargs 
             See `Signal.set_data()` for more information.
         '''
+    
+    def add_spectrum(
+        self,
+        data: Asig | Aspec,
+        position: Tuple[float, float] = (0.0, 0.0),
+        scale: float = 1.0, 
+        disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
+    ) -> Spectrum:
+        '''
+        Add a new spectrum to the track.
+
+        Parameters
+        ----------
+        data: Asig | Aspec
+            Data to display as spectrum
+        position: (float, float)
+            Position of the spectrogram
+        scale: float
+            Scale of the y values, by default 1.0
+        disp_func: (np.ndarray) -> np.ndarray
+            Function to apply to the stft data
+        '''
 
     def add_line(
             self,
-            position: Tuple[float, float]=(1.0, 1.0),
+            position: Tuple[float, float]=(0.0, 0.0),
             angle: float = 0.0
     ) -> InfiniteLine:
         '''
