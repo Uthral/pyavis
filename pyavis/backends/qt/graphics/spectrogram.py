@@ -24,9 +24,9 @@ class SpectrogramQt(Spectrogram, pg.ImageItem, metaclass=M_SpectrogramQt):
         if 'plt_item' not in kwargs:
             raise KeyError("PlotItem not provided. Cannot instantiate SpectrogramQt.")
         
-        self.plt_item = kwargs['plt_item']
+        self.plt_item = kwargs.pop('plt_item')
 
-        Spectrogram.__init__(self, data, position, 1, disp_func)
+        Spectrogram.__init__(self, data, position, 1, disp_func, **kwargs)
         pg.ImageItem.__init__(self, None)
         
         self.setImage(self.disp_func(self.orig_spectrogram.stft).T)

@@ -51,7 +51,7 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
             data: Asig | Aspec, 
             position: Tuple[float, float] = (0.0, 0.0), 
             scale: float = 1, 
-            disp_func: Callable[[np.ndarray], np.ndarray] = np.abs
+            disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
     ) -> Spectrum:
         spec = SpectrumQt(data, position, scale, disp_func)
         self.addItem(spec)
@@ -72,9 +72,10 @@ class TrackQt(Track, pg.PlotItem, metaclass=M_TrackQt):
         data: Asig | Astft,
         position: Tuple[float, float] = (0.0, 0.0), 
         disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
-        with_bar: bool = True
+        with_bar: bool = True,
+        **kwargs
     ) -> SpectrogramQt:
-        spec = SpectrogramQt(data=data, position=position, disp_func=disp_func, with_bar=with_bar, plt_item=self)
+        spec = SpectrogramQt(data=data, position=position, disp_func=disp_func, with_bar=with_bar, plt_item=self, **kwargs)
         self.addItem(spec)
         return spec
 

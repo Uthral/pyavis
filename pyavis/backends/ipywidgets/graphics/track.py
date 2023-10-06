@@ -16,6 +16,7 @@ from .rectangle import RectangleIPY
 from .infinite_line import InfLineIPY
 from .spectrogram import SpectrogramIPY
 from .spectrum import SpectrumIPY
+from .rect_selection import RectSelectionIPY
 
 class TrackIPY(Track):
     def __init__(self, label: str, ax=None, fig=None):
@@ -79,13 +80,15 @@ class TrackIPY(Track):
         data: Asig | Astft,
         position: Tuple[float, float] = (0.0, 0.0), 
         disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
-        with_bar: bool = True
+        with_bar: bool = True,
+        **kwargs
     ) -> SpectrogramIPY:
-        spec = SpectrogramIPY(data, position, disp_func, with_bar, ax=self.ax)
+        spec = SpectrogramIPY(data, position, disp_func, with_bar, ax=self.ax, **kwargs)
         return spec
 
-    def add_selection(self) -> None:
-        raise NotImplementedError()
+    def add_selection(self, pos, width, height) -> RectSelectionIPY:
+        sel = RectSelectionIPY(pos, (width, height))
+        return sel
     
     def remove(self, element: GraphicElement):
         if isinstance(element, SpectrogramIPY):

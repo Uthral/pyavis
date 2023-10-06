@@ -1,3 +1,4 @@
 pya @ git+https://github.com/AntiAura/pya@master
 pyqtgraph>=0.13
 ipywidgets
+ipympl

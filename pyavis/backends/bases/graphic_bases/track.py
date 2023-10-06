@@ -112,6 +112,7 @@ class Track(ABC):
         position: Tuple[float, float] = (0.0, 0.0), 
         disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
         with_bar: bool = True,
+        **kwargs
     ) -> Spectrogram:
         '''
         Add a new spectrogram to the track.
@@ -126,6 +127,8 @@ class Track(ABC):
             Function to apply to the stft data
         with_bar: bool
             Optional color bar added to the plot
+        **kwargs
+            Passed to Asig.to_stft()
         '''
         pass
 

@@ -66,7 +66,8 @@ class SpectrogramEraser:
         self.signal_graphic = self.signal_view.add_signal(y=self.display_signal.sig)
         self.spectrogram_graphic = self.spectrogram_view.add_spectrogram(
             data=self.internal_signal,
-            disp_func=lambda x: pya.ampdb(numpy.abs(x))
+            disp_func=lambda x: pya.ampdb(numpy.abs(x)),
+            nperseg=4096
         )
 
         self.handle_callbacks()

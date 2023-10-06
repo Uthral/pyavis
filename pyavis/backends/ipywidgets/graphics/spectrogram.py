@@ -22,9 +22,11 @@ class SpectrogramIPY(Spectrogram):
     ):
         if 'ax' not in kwargs:
             raise KeyError("Axes not provided. Cannot instantiate SignalIPY.")
+        
+        ax: Axes = kwargs.pop('ax')
 
-        Spectrogram.__init__(self, data, position, disp_func)
-        self._ax: Axes = kwargs['ax']
+        Spectrogram.__init__(self, data, position, disp_func, **kwargs)
+        self._ax: Axes = ax
         self.with_bar = with_bar
         self._c_bar = None
         self._c_bar_ax = None

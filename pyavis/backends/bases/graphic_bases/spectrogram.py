@@ -15,6 +15,7 @@ class Spectrogram(GraphicElement):
         position: Tuple[float, float] = (0.0, 0.0),
         scale: Tuple[float, float] = (1.0, 1.0), 
         disp_func: Callable[[np.ndarray], np.ndarray] = np.abs,
+        **kwargs
     ):
         """
         Construct a new spectrogram render.
@@ -34,7 +35,7 @@ class Spectrogram(GraphicElement):
         self.dataChanged = Subject()
         self.scaleChanged = Subject()
 
-        self._set_data(data)
+        self._set_data(data, **kwargs)
         self.scale = scale
         self.disp_func = disp_func
 
@@ -58,10 +59,10 @@ class Spectrogram(GraphicElement):
         if trigger:
             self.dataChanged.emit(self)
 
-    def _set_data(self, data: Asig | Astft):
+    def _set_data(self, data: Asig | Astft, **kwargs):
         if type(data) == Asig:
             self.orig_signal = data
-            self.orig_spectrogram = data.to_stft()
+            self.orig_spectrogram = data.to_stft(**kwargs)
         elif type(data) == Astft:
             self.orig_signal = None
             self.orig_spectrogram = data
