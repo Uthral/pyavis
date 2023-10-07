@@ -45,7 +45,7 @@ class PitchShift:
         self.pitch_shift_view.set_axis(
             'bottom',
             spacing=None,
-            disp_func=lambda value: f'{round(value / self.internal_signal.sr, 2)}'
+            disp_func=lambda value: f'{round(value / self.internal_signal.asig.sr, 2)}'
         )
 
         # Combine widgets in box
@@ -53,7 +53,7 @@ class PitchShift:
         vertical_box.add_widget(self.pitch_shift_toolbar)
         vertical_box.add_widget(self.pitch_shift_display)
 
-        self.pitch_shift = vertical_box
+        self.pitch_shift_widget = vertical_box
         
 
     def _prepare_signal(self):
@@ -66,7 +66,7 @@ class PitchShift:
         self.signal_view = layout.add_track("Signal", 0, 0)
         self.signal_display.set_displayed_item(layout)
 
-        self.signal_view.set_axis('bottom', spacing=None, disp_func=lambda value: f'{round(value / self.signal.sr, 2)}')
+        self.signal_view.set_axis('bottom', spacing=None, disp_func=lambda value: f'{round(value / self.internal_signal.asig.sr, 2)}')
 
         # Combine widgets in box
         vertical_box = VBox()
@@ -75,7 +75,7 @@ class PitchShift:
 
         self.signal_play_button.add_on_click(self.play_audio)
 
-        self.signal = vertical_box
+        self.signal_widget = vertical_box
 
     def set_signal(self, signal):
         if self.internal_signal is not None:
@@ -179,8 +179,8 @@ class PitchShift:
         self.internal_signal.cache.asig.play()
 
     def show(self):
-        self.signal.show()
-        self.pitch_shift.show()
+        self.signal_widget.show()
+        self.pitch_shift_widget.show()
 
 
 def midi_conv(value) -> str:

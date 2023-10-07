@@ -1,4 +1,5 @@
-pya @ git+https://github.com/AntiAura/pya@master
+pya @ git+https://github.com/Uthral/pya@master
 pyqtgraph>=0.13
+notebook
 ipywidgets
 ipympl

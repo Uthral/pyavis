@@ -208,7 +208,7 @@ def ScrollArea(height: int = 100, width: int = 100) -> BaseScrollArea:
     BaseScrollArea
         Newly created scrollable widget container
     """
-    return _get_implementation('ScrollArea')(height)
+    return _get_implementation('ScrollArea')(height=height, width=width)
 
 def GraphicDisp() -> BaseGraphicDisp:
     """
