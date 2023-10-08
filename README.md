@@ -4,19 +4,16 @@ Visualization library for pya. It provides a selection of widgets and data vizua
 
 ## Installation
 
-`pyavis` supports different backends for visualization and widgets. Currently only a Qt- and an ipywidgets-based backend are supported.
+`pyavis` supports different backends for visualization and widgets. Currently only a Qt- and an ipywidgets-based backend are supported. You can either install the dependencies for both backends or choose the one you want to use.
 
 ```
 pip install .
-
 pip install .[ipywidgets] 
-
 pip install .[qt]
-
 pip install .[full]
 ```
 
-`pyavis` uses `PyQt5` as a default dependenciy, but you can install any other version instead, e.g. `PyQt6`.
+`pyavis` uses `PyQt5` as a dependencies when installed via `[qt]`, but you can manually install any other version instead, e.g. `PyQt6`.
 
 ## Simple examples
 
@@ -61,5 +58,5 @@ track.add_signal((0,0), 1, signal)
 
 display = GraphicDisp()
 display.set_displayed_item(layout)
-display.show(exec=True) # Use exec to start Qt eventloop.
+display.show(exec=True) # Use exec to start Qt event loop.
 ```
