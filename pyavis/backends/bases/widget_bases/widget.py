@@ -13,8 +13,14 @@ class Widget(ABC):
         pass
 
     @abstractmethod
-    def show(self):
+    def show(self, *args, **kwargs):
         """
         Display the widget.
+
+        Parameters
+        ----------
+        **exec: bool, optional
+            Used by Qt-based backend if used outside of interactive environment to delay start of QApplication.
+            Set to True for last `show()` invocation to start QApplication, by default False.
         """
         pass

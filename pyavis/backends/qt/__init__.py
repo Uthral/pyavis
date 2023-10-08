@@ -3,6 +3,7 @@ from pyavis.backends import Backend
 
 from .widgets import *
 from .graphics import *
+from pyavis import _get_application
 
 
 class QtBackend(Backend):
@@ -33,9 +34,14 @@ QtBackend.register_widget('HBox')(HBoxQt)
 QtBackend.register_widget('GraphicDisp')(GraphicDispQt)
 
 
-def _show_func(self):
+def _show_func(self, exec=False):
+
     w = self.get_native_widget()
     w.show()
+
+    app = _get_application()
+    if app is not None and exec:
+        app.exec()
 
 for name, widget in QtBackend.get_widget_registry().items():
     widget.show = _show_func

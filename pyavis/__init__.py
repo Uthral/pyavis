@@ -3,6 +3,8 @@ from pyavis.backends import Backend
 _backend: Backend = None
 _backend_str: str = None
 
+_application = None
+
 def _get_backend() -> Backend:
     """
     Return active backend, or initalize default backend.
@@ -47,9 +49,19 @@ def use_backend(backend: str = "qt"):
     """
     global _backend
     global _backend_str
+    global _application
+
     new_backend = backend.lower()
     if new_backend == "qt":
         from .backends.qt import QtBackend
+
+        # Handle the case where pyavis with Qt-based backend is used in non-interactive environment
+        # Create QApplication and use this later to show widget(s)
+        from pyqtgraph.Qt import QtWidgets
+        app = QtWidgets.QApplication.instance()
+        if app is None:
+            _application = QtWidgets.QApplication([])
+
         _backend = QtBackend
         _backend_str = "qt"
     elif new_backend == "ipywidgets":
@@ -65,3 +77,6 @@ def use_backend(backend: str = "qt"):
         raise ValueError("Invalid backend") 
     
 
+def _get_application():
+    global _application
+    return _application

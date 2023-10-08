@@ -1,5 +1,3 @@
 pya @ git+https://github.com/Uthral/pya@master
 pyqtgraph>=0.13
 notebook
-ipywidgets
-ipympl

@@ -1,20 +1,65 @@
 # pyavis
 
-Visualization library for pya.
+Visualization library for pya. It provides a selection of widgets and data vizualization tools.
 
-pyavis supports different backends. 
+## Installation
 
-It provides a selection of widgets and data vizualization tools.
+`pyavis` supports different backends for visualization and widgets. Currently only a Qt- and an ipywidgets-based backend are supported.
+
+```
+pip install .
+
+pip install .[ipywidgets] 
+
+pip install .[qt]
+
+pip install .[full]
+```
+
+`pyavis` uses `PyQt5` as a default dependenciy, but you can install any other version instead, e.g. `PyQt6`.
+
+## Simple examples
+
+### Displaying a signal via Qt or ipywidgets / matplotlib
 
 ```Python
+%gui qt # %matplotlib widget
+
+import numpy as np
 from pyavis.widgets import GraphicDisp
 from pyavis.graphics import Layout
+from pyavis import use_backend
+
+use_backend("qt") # use_backend("ipywidgets")
+
+signal = np.sin(2 * np.pi * 200 * np.linspace(0, 1, 44100))
 
 layout = Layout(1,1)
 track = layout.add_track("Signal", 0, 0)
-track.add_signal()
+track.add_signal((0,0), 1, signal)
 
-display = GraphicDisp(layout)
+display = GraphicDisp()
+display.set_displayed_item(layout)
 display.show()
 ```
 
+### Displaying a signal via Qt in non-interactive environment
+
+```Python
+import numpy as np
+from pyavis.widgets import GraphicDisp
+from pyavis.graphics import Layout
+from pyavis import use_backend
+
+use_backend("qt")
+
+signal = np.sin(2 * np.pi * 200 * np.linspace(0, 1, 44100))
+
+layout = Layout(1,1)
+track = layout.add_track("Signal", 0, 0)
+track.add_signal((0,0), 1, signal)
+
+display = GraphicDisp()
+display.set_displayed_item(layout)
+display.show(exec=True) # Use exec to start Qt eventloop.
+```

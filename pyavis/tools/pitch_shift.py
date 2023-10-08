@@ -167,7 +167,6 @@ class PitchShift:
         y += self.signal_size / 2
         print(y - sig_position[1])
 
-        #self.internal_signal.correct_event_pitch(event_id, np.array([(0, y),(1, y)]))
         self.internal_signal.change_event_pitch(event_id, y - sig_position[1])
         sig.set_position(x=sig.position[0], y=y)
 
