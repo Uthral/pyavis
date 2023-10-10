@@ -117,12 +117,12 @@ class TrackIPY(Track):
             return
 
         if side == 'top':
-            n_axes = self.ax.twinx()
+            n_axes = self.ax.twiny()
             axis = n_axes.xaxis
         elif side == 'bottom':
             axis = self.ax.xaxis
         elif side == 'right':
-            n_axes = self.ax.twiny()
+            n_axes = self.ax.twinx()
             axis = n_axes.yaxis
         elif side == 'left':
             axis = self.ax.yaxis
@@ -139,10 +139,22 @@ class TrackIPY(Track):
         return axis
     
     def set_x_view_limits(self, x_start, x_end):
-        self.ax.set_xlim((x_start, x_end))
+        axis = self.get_axis("bottom")
+        if axis is not None:
+            axis.axis.axes.set_xlim((x_start, x_end))
+
+        axis = self.get_axis("top")
+        if axis is not None:
+            axis.axis.axes.set_xlim((x_start, x_end))
 
     def set_y_view_limits(self, y_start, y_end):
-        self.ax.set_ylim((y_start, y_end))
+        axis = self.get_axis("left")
+        if axis is not None:
+            axis.axis.axes.set_ylim((y_start, y_end))
+
+        axis = self.get_axis("right")
+        if axis is not None:
+            axis.axis.axes.set_ylim((y_start, y_end))
 
     def _abstract_set_style(self, background_color):
         from pyavis.shared.util import color
