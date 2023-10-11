@@ -2,6 +2,8 @@
 
 Visualization library for pya. It provides a selection of widgets and data vizualization tools.
 
+Documentation: see examples folder for usage examples and [Documentation](https://uthral.github.io/pyavis/index.html)
+
 ## Installation
 
 `pyavis` supports different backends for visualization and widgets, with different levels of interactivity. Currently only a Qt- and an ipywidgets-based backend are supported. You can either install the dependencies for both backends or choose the one you want to use.
