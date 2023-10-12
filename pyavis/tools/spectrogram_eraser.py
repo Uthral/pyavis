@@ -54,7 +54,8 @@ class SpectrogramEraser:
 
         self.signal_box = vertical_box
 
-    def set_singal(self, signal):
+    def set_signal(self, signal):
+        # Clear previous visualizations
         if self.internal_signal is not None:
             self.signal_view.remove(self.signal_graphic)
             self.spectrogram_view.remove(self.spectrogram_graphic)
@@ -63,6 +64,7 @@ class SpectrogramEraser:
         self.display_signal = signal
         self.sr = signal.sr
 
+        # Add visualizations for new signals
         self.signal_graphic = self.signal_view.add_signal(y=self.display_signal.sig)
         self.spectrogram_graphic = self.spectrogram_view.add_spectrogram(
             data=self.internal_signal,
@@ -74,7 +76,10 @@ class SpectrogramEraser:
         self.handle_toolbar_mode()
         self.mode_change()
 
+        self.set_eraser(1,1)
+
     def handle_toolbar_mode(self):
+        # Add callback to handle toolbar interaction
         self.spectrogram_toolbar.add_on_active_changed(self.mode_change)
 
     def handle_callbacks(self):
@@ -89,6 +94,9 @@ class SpectrogramEraser:
         self.eraser = -140 * np.ones((time_slices, frequency_slices))
         self.center = (int(time_slices / 2), int(frequency_slices / 2))
 
+        # Set the brush of the spectrogram
+        self.spectrogram_graphic.set_brush(brush_data = self.eraser, brush_center = self.center)
+
     def mode_change(self, _ = None):
         if self.spectrogram_toolbar.get_active_value() == "move":
             self.spectrogram_graphic.draggable = False
@@ -100,9 +108,7 @@ class SpectrogramEraser:
     def draw_on_spectrogram(self, element, pos):
         # Draw on the spectrogram image
         freq, time = pos[1], pos[0]
-        self.spectrogram_graphic.set_brush(brush_data = self.eraser, brush_center = self.center)
         self.spectrogram_graphic.draw(freq, time)
-        self.spectrogram_graphic.clear_brush()
 
     def update_signal(self, element, pos):
         # Convert spectrogram back to audio signal using the original phase
