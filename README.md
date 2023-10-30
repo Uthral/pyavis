@@ -20,6 +20,8 @@ It can be used for
 
 ## Installation
 
+`pyavis` was developed and tested using `Python 3.10`. Other versions might not be supported.
+
 `pyavis` supports different backends for visualization and widgets, with different levels of interactivity. Currently only a Qt- and an ipywidgets-based backend are supported. You can either install the dependencies for both backends or choose the one you want to use.
 
 ```
