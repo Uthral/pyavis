@@ -1,0 +1,105 @@
+:py:mod:`pyavis.shared.util`
+============================
+
+.. py:module:: pyavis.shared.util
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   color/index.rst
+   device_helper/index.rst
+   subject/index.rst
+   util/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.util.Subject
+   pyavis.shared.util.DeviceInfo
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.util.getInOutDevices
+
+
+
+.. py:class:: Subject
+
+
+   Class to allow notification of subscribers.
+   Simple implementation of the observer pattern.
+
+   .. py:method:: connect(observer: Callable)
+
+      Add a new subscriber to be notified on :func:``Subject.emit()`
+
+      :param observer: Function to called on :func:``Subject.emit()`
+      :type observer: Callable
+
+
+   .. py:method:: disconnect(observer: Callable)
+
+      Remove a subscriber.
+
+      :param observer: Function to be removed
+      :type observer: Callable
+
+
+   .. py:method:: emit(*arguments)
+
+      Call all subscribers with the passed arguements.
+
+      :param \*args: Arguments that are passed to all subscribers
+
+
+   .. py:method:: clear()
+
+      Remove all subscribers
+
+
+
+.. py:class:: DeviceInfo(index, name, sr, nr_input, nr_output)
+
+
+   Class to collect basic informations of a device
+
+   .. py:method:: as_output_str() -> str
+
+      Return the device as string with output information
+
+      :returns: Device information with output channels
+      :rtype: str
+
+
+   .. py:method:: as_input_str() -> str
+
+      Return the device as string with input information
+
+      :returns: Device information with input channels
+      :rtype: str
+
+
+
+.. py:function:: getInOutDevices() -> Tuple[List[DeviceInfo], List[DeviceInfo]]
+
+   Return all devices that can be used for input and output.
+
+   :returns: tuple of input and output devices
+   :rtype: Tuple[List[DeviceInfo], List[DeviceInfo]]
+
+

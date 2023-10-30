@@ -1,0 +1,371 @@
+:py:mod:`pyavis.backends.bases`
+===============================
+
+.. py:module:: pyavis.backends.bases
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   graphic_bases/index.rst
+   widget_bases/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.Widget
+   pyavis.backends.bases.BaseHBox
+   pyavis.backends.bases.BaseVBox
+   pyavis.backends.bases.BaseButton
+   pyavis.backends.bases.BaseToggleButton
+   pyavis.backends.bases.BaseIntSlider
+   pyavis.backends.bases.BaseFloatSlider
+   pyavis.backends.bases.BaseDropDown
+   pyavis.backends.bases.BaseScrollArea
+   pyavis.backends.bases.BaseGraphicDisp
+   pyavis.backends.bases.BaseToolbar
+
+
+
+
+.. py:class:: Widget
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Base class for all widgets.
+
+   .. py:method:: get_native_widget()
+      :abstractmethod:
+
+      Return the native element of the backend underlying the widget.
+
+
+   .. py:method:: show(*args, **kwargs)
+      :abstractmethod:
+
+      Display the widget.
+
+      :param \*\*exec: Used by Qt-based backend if used outside of interactive environment to delay start of QApplication.
+                       Set to True for last `show()` invocation to start QApplication, by default False.
+      :type \*\*exec: bool, optional
+
+
+
+.. py:class:: BaseHBox
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a widget for horizontal layouting.
+
+   .. py:method:: add_widget(widget: pyavis.backends.bases.widget_bases.widget.Widget)
+      :abstractmethod:
+
+      Add a widget to the box.
+
+      :param widget: Widget to add
+      :type widget: Widget
+
+
+   .. py:method:: remove_widget(widget: pyavis.backends.bases.widget_bases.widget.Widget)
+      :abstractmethod:
+
+      Remove a widget from the box.
+
+      :param widget: Widget to remvoe
+      :type widget: Widget
+
+
+
+.. py:class:: BaseVBox
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a widget for vertical layouting.
+
+   .. py:method:: add_widget(widget: pyavis.backends.bases.widget_bases.widget.Widget)
+      :abstractmethod:
+
+      Add a widget to the box.
+
+      :param widget: Widget to add
+      :type widget: Widget
+
+
+   .. py:method:: remove_widget(widget: pyavis.backends.bases.widget_bases.widget.Widget)
+      :abstractmethod:
+
+      Remove a widget from the box.
+
+      :param widget: Widget to remvoe
+      :type widget: Widget
+
+
+
+.. py:class:: BaseButton(label: str)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstarct base class representing a button.
+
+   .. py:method:: add_on_click(func: Callable)
+      :abstractmethod:
+
+      Add a callback that is called on button click.
+
+      :param func: Function to call
+      :type func: Callable
+
+
+   .. py:method:: remove_on_click(func: Callable)
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable
+
+
+
+.. py:class:: BaseToggleButton(label: str, icon: Any = None, default_toggle_state: bool = False)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a toggable button.
+
+   .. py:method:: add_on_toggle(func: Callable)
+      :abstractmethod:
+
+      Add a callback that is called on button toggle.
+
+      :param func: Function to call
+      :type func: Callable
+
+
+   .. py:method:: remove_on_toggle(func: Callable)
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable
+
+
+
+.. py:class:: BaseIntSlider(description: str, orientation: Literal[horizontal, vertical], default: int, min: int, max: int, step: int)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class represenitng a integer slider.
+
+   .. py:method:: set_value(value: int)
+      :abstractmethod:
+
+      Set the value of the slider.
+
+      :param value: Value to set
+      :type value: int
+
+
+   .. py:method:: get_value() -> int
+      :abstractmethod:
+
+      Get the current value of the slider
+
+      :returns: Current value of the slider
+      :rtype: int
+
+
+   .. py:method:: add_on_value_changed(func: Callable[[int], None])
+      :abstractmethod:
+
+      Add a callback that is called on slider value change.
+
+      :param func: Function to call
+      :type func: Callable[[int], None]
+
+
+   .. py:method:: remove_on_value_changed(func: Callable[[int], None])
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable[[int], None]
+
+
+   .. py:method:: _validate_slider_values(default: int, min: int, max: int, step: int)
+
+
+   .. py:method:: _validate_orientation(orientation: str)
+
+
+
+.. py:class:: BaseFloatSlider(description: str, orientation: Literal[horizontal, vertical], default: float, min: float, max: float, step: float)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class represenitng a float slider.
+
+   .. py:method:: set_value(value: float)
+      :abstractmethod:
+
+      Set the value of the slider.
+
+      :param value: Value to set
+      :type value: float
+
+
+   .. py:method:: get_value() -> float
+      :abstractmethod:
+
+      Get the current value of the slider
+
+      :returns: Current value of the slider
+      :rtype: float
+
+
+   .. py:method:: add_on_value_changed(func: Callable[[float], None])
+      :abstractmethod:
+
+      Add a callback that is called on slider value change.
+
+      :param func: Function to call
+      :type func: Callable[[float], None]
+
+
+   .. py:method:: remove_on_value_changed(func: Callable[[float], None])
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable[[float], None]
+
+
+   .. py:method:: _validate_slider_values(default: float, min: float, max: float, step: float)
+
+
+   .. py:method:: _validate_orientation(orientation: str)
+
+
+
+.. py:class:: BaseDropDown(description: str, options: List[Any], default: Any = None)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing drop downs.
+
+   .. py:method:: get_value() -> Any | None
+      :abstractmethod:
+
+      Return the currently selected drop down value.
+
+      :returns: The value of the drop down, or None
+      :rtype: Any | None
+
+
+   .. py:method:: add_on_selection_changed(func: Callable[[int], None])
+      :abstractmethod:
+
+      Add a callback that is called on drop down value change.
+
+      :param func: Function to call with index of the value
+      :type func: Callable[[int], None]
+
+
+   .. py:method:: remove_on_selection_changed(func: Callable[[int], None])
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable[[int], None]
+
+
+
+.. py:class:: BaseScrollArea(height: int = 100, width: int = 100)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a scrollable area.
+
+   .. py:method:: set_widget()
+      :abstractmethod:
+
+      Set the widget to display in the scrollable area.
+
+      :param widget: Widget to display
+      :type widget: Widget
+
+
+
+.. py:class:: BaseGraphicDisp
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a widget to display pyavis's graphics.
+
+   .. py:method:: set_displayed_item(item: pyavis.backends.bases.graphic_bases.Layout)
+      :abstractmethod:
+
+      Set the layout graphic item to display.
+
+      :param item: Layout to display
+      :type item: Layout
+
+
+
+.. py:class:: BaseToolbar(labels: List[str], values: List[str])
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class represenitng a toolbar.
+
+   .. py:method:: get_active_value() -> str
+      :abstractmethod:
+
+      Return the value of the currently active toolbar button.
+
+      :returns: Current value of the toolbar
+      :rtype: str
+
+
+   .. py:method:: add_on_active_changed(func: Callable)
+      :abstractmethod:
+
+      Add a callback that will be called when the active toolbar button changed.
+
+      :param func: Function to call on change
+      :type func: Callable
+
+
+   .. py:method:: remove_on_active_changed(func: Callable)
+      :abstractmethod:
+
+      Remove a callback
+
+      :param func: Function to remvoe
+      :type func: Callable
+
+
+

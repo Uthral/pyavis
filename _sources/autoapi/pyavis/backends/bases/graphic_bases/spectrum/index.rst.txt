@@ -1,0 +1,70 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.spectrum`
+======================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.spectrum
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.spectrum.Spectrum
+
+
+
+
+.. py:class:: Spectrum(data: pya.Asig | pya.Aspec, position: Tuple[float, float] = (0.0, 0.0), scale: float = 1.0, disp_func: Callable[[numpy.ndarray], numpy.ndarray] = np.abs)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Base class representing a renderable spectrum.
+
+   .. py:method:: set_data(data: pya.Asig | pya.Aspec, trigger=True)
+
+      Set the displayed Asig / Aspec.
+
+      :param data: Audio data to display
+      :type data: Asig | Aspec
+      :param trigger: Trigger obeserver, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: _set_data(data: pya.Asig | pya.Aspec)
+
+
+   .. py:method:: set_scale(scale: float, trigger=True)
+
+      Set the displayed scale of the spectrum.
+
+      Parameter
+      ---------
+      scale: float
+
+
+      :param scale: y scale of the spectrum
+      :type scale: float
+
+
+   .. py:method:: set_style(line_color: Any | Literal[default])
+
+      Set the color of the spectrum.
+
+      :param line_color: Either "default" or color
+      :type line_color: color | "default"
+
+
+   .. py:method:: _abstract_set_scale()
+
+
+   .. py:method:: _abstract_set_data()
+
+
+   .. py:method:: _abstract_set_style(line_color: Any)
+
+
+

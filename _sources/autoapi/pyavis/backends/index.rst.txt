@@ -1,0 +1,68 @@
+:py:mod:`pyavis.backends`
+=========================
+
+.. py:module:: pyavis.backends
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   bases/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.Backend
+
+
+
+
+.. py:class:: Backend
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+   .. py:attribute:: _widget_registry_name
+      :value: 'widget'
+
+      
+
+   .. py:attribute:: _gfx_registry_name
+      :value: 'gfx'
+
+      
+
+   .. py:method:: register_gfx(entity)
+      :classmethod:
+
+
+   .. py:method:: register_widget(entity)
+      :classmethod:
+
+
+   .. py:method:: get_gfx_registry()
+      :classmethod:
+
+
+   .. py:method:: get_widget_registry()
+      :classmethod:
+
+
+   .. py:method:: _get_registry(registry_name) -> dict
+      :classmethod:
+      :abstractmethod:
+
+
+

@@ -1,0 +1,56 @@
+:py:mod:`pyavis.tools.spectrogram_eraser`
+=========================================
+
+.. py:module:: pyavis.tools.spectrogram_eraser
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.tools.spectrogram_eraser.SpectrogramEraser
+
+
+
+
+.. py:class:: SpectrogramEraser
+
+
+   .. py:method:: _build_spectrogram()
+
+
+   .. py:method:: _build_signal()
+
+
+   .. py:method:: set_signal(signal)
+
+
+   .. py:method:: handle_toolbar_mode()
+
+
+   .. py:method:: handle_callbacks()
+
+
+   .. py:method:: set_eraser(frequency_slices, time_slices)
+
+
+   .. py:method:: mode_change(_=None)
+
+
+   .. py:method:: draw_on_spectrogram(element, pos)
+
+
+   .. py:method:: update_signal(element, pos)
+
+
+   .. py:method:: play_audio(args)
+
+
+   .. py:method:: show()
+
+
+

@@ -1,0 +1,55 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.infinite_line`
+===========================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.infinite_line
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.infinite_line.InfiniteLine
+
+
+
+
+.. py:class:: InfiniteLine(position: Tuple[float, float] = (0.0, 0.0), angle: float = 0.0)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   _summary_
+   Base class representing an infinite line.
+
+   .. py:property:: line_angle
+
+
+   .. py:method:: set_line_angle(angle: float, trigger=True)
+
+      Set the angle of the line.
+
+      :param angle: New angle of the line, in radians.
+      :type angle: float
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: set_style(line_color: Any | Literal[default])
+
+      Set the color of the infinite line.
+
+      :param background_color: Either "default" or color values
+      :type background_color: color | "default"
+
+
+   .. py:method:: _abstract_set_style(line_color: Any)
+
+
+   .. py:method:: _abstract_set_line_angle()
+
+
+

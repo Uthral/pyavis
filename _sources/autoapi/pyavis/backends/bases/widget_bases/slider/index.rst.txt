@@ -1,0 +1,120 @@
+:py:mod:`pyavis.backends.bases.widget_bases.slider`
+===================================================
+
+.. py:module:: pyavis.backends.bases.widget_bases.slider
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.widget_bases.slider.BaseIntSlider
+   pyavis.backends.bases.widget_bases.slider.BaseFloatSlider
+
+
+
+
+.. py:class:: BaseIntSlider(description: str, orientation: Literal[horizontal, vertical], default: int, min: int, max: int, step: int)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class represenitng a integer slider.
+
+   .. py:method:: set_value(value: int)
+      :abstractmethod:
+
+      Set the value of the slider.
+
+      :param value: Value to set
+      :type value: int
+
+
+   .. py:method:: get_value() -> int
+      :abstractmethod:
+
+      Get the current value of the slider
+
+      :returns: Current value of the slider
+      :rtype: int
+
+
+   .. py:method:: add_on_value_changed(func: Callable[[int], None])
+      :abstractmethod:
+
+      Add a callback that is called on slider value change.
+
+      :param func: Function to call
+      :type func: Callable[[int], None]
+
+
+   .. py:method:: remove_on_value_changed(func: Callable[[int], None])
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable[[int], None]
+
+
+   .. py:method:: _validate_slider_values(default: int, min: int, max: int, step: int)
+
+
+   .. py:method:: _validate_orientation(orientation: str)
+
+
+
+.. py:class:: BaseFloatSlider(description: str, orientation: Literal[horizontal, vertical], default: float, min: float, max: float, step: float)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class represenitng a float slider.
+
+   .. py:method:: set_value(value: float)
+      :abstractmethod:
+
+      Set the value of the slider.
+
+      :param value: Value to set
+      :type value: float
+
+
+   .. py:method:: get_value() -> float
+      :abstractmethod:
+
+      Get the current value of the slider
+
+      :returns: Current value of the slider
+      :rtype: float
+
+
+   .. py:method:: add_on_value_changed(func: Callable[[float], None])
+      :abstractmethod:
+
+      Add a callback that is called on slider value change.
+
+      :param func: Function to call
+      :type func: Callable[[float], None]
+
+
+   .. py:method:: remove_on_value_changed(func: Callable[[float], None])
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable[[float], None]
+
+
+   .. py:method:: _validate_slider_values(default: float, min: float, max: float, step: float)
+
+
+   .. py:method:: _validate_orientation(orientation: str)
+
+
+

@@ -1,0 +1,78 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.layout`
+====================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.layout
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.layout.Layout
+
+
+
+
+.. py:class:: Layout(rows: int = 1, columns: int = 1)
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Abstract base class representing a graphical layout.
+
+   .. py:property:: layout_rows
+      :type: int
+
+
+   .. py:property:: layout_columns
+      :type: int
+
+
+   .. py:method:: add_track(label: str, row: int, column: int, rowspan: int = 1, colspan: int = 1) -> pyavis.backends.bases.graphic_bases.track.Track
+
+      Add a new track to the layout occupying the spacified range.
+
+      :param label: Label of the track
+      :type label: str
+      :param row: Start row
+      :type row: int
+      :param column: Start column
+      :type column: int
+      :param rowspan: Row size, by default 1
+      :type rowspan: int, optional
+      :param colspan: Column size, by default 1
+      :type colspan: int, optional
+
+      :returns: Newly added track
+      :rtype: Track
+
+      :raises ValueError: Raises if start position or span leads to incorrect area.
+
+
+   .. py:method:: remove_track(track: pyavis.backends.bases.graphic_bases.track.Track)
+
+      Remove track from layout.
+
+      :param track: Track to remove
+      :type track: Track
+
+
+   .. py:method:: set_style(background_color: Any | Literal[default])
+
+      Set the background color of the layout.
+
+      :param background_color: Either "default" or color values
+      :type background_color: color | "default"
+
+
+   .. py:method:: _add_track(label: str, row: int, column: int, rowspan: int = 1, colspan: int = 1) -> pyavis.backends.bases.graphic_bases.track.Track
+
+
+   .. py:method:: _abstract_set_style(background_color: Any)
+
+
+

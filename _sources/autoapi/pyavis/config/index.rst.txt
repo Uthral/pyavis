@@ -1,0 +1,65 @@
+:py:mod:`pyavis.config`
+=======================
+
+.. py:module:: pyavis.config
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.config.set_style_config_value
+   pyavis.config.set_style_config_values
+   pyavis.config.get_style_config_value
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.config.PYAVIS_DEFAULT_STYLE_CONFIG
+
+
+.. py:data:: PYAVIS_DEFAULT_STYLE_CONFIG
+
+   
+
+.. py:function:: set_style_config_value(key: str, value: pyavis.shared.util.color.color)
+
+   Set the default value of a config value
+
+   :param key: Key of the config value
+   :type key: str
+   :param value: New value of the config value
+   :type value: color.color
+
+   :raises KeyError: Raises if key is not valid
+   :raises TypeError: Raised if value does not have a supported format
+
+
+.. py:function:: set_style_config_values(**kwargs)
+
+   Set mulitple config values at once.
+   See :func:`set_style_config_value` for details.
+
+   :param \*\*kwargs: Arguments passed to :func:`set_style_config_value`
+
+
+.. py:function:: get_style_config_value(key: str) -> pyavis.shared.util.color.color
+
+   Get the style of the specified config value.
+
+   :param key: Key of the config value
+   :type key: str
+
+   :returns: Color for the configuration
+   :rtype: color
+
+

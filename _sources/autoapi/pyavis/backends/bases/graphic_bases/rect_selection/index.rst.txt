@@ -1,0 +1,74 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.rect_selection`
+============================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.rect_selection
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.rect_selection.RectSelection
+
+
+
+
+.. py:class:: RectSelection(position: Tuple[float, float], size: Tuple[float, float])
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+   .. py:property:: size
+
+
+   .. py:method:: set_size(size: Tuple[float, float], trigger=True)
+
+      Set the size of the of the rectangle.
+
+      :param size: New width and height
+      :type size: Tuple[float, float]
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: add_handle(side: str, mirror: bool = False)
+
+      Add or replace a handle that scales the rectangle.
+
+      :param side: Side to add the handle to
+      :type side: 'left' | 'right' | 'top' | 'bottom'
+      :param mirror: Mirror changes on the opposite side
+
+
+   .. py:method:: remove_handle(side: str)
+
+      Remove a handle from the rectangle.
+
+      :param side: Side to remove the handle from
+      :type side: 'left' | 'right' | 'top' | 'bottom'
+
+
+   .. py:method:: set_style(line_color, handle_color)
+
+      Set the color of the selection lines and handels.
+
+      :param line_color: Either "default" or values of the format 'color.color'
+      :type line_color: color.color | str, default: "default"
+      :param handle_color: Either "default" or values of the format 'color.color'
+      :type handle_color: color.color | str, default: "default"
+
+
+   .. py:method:: _abstract_set_style(line_color, fill_color)
+
+
+   .. py:method:: _abstract_set_size()
+
+
+

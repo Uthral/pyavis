@@ -1,0 +1,86 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.signal`
+====================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.signal
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.signal.Signal
+
+
+
+
+.. py:class:: Signal(position: Tuple[float, float] = (0.0, 0.0), scale: float = 1.0, *args, **kwargs)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Base class representing a renderable signal.
+
+   .. py:method:: set_data(*args, **kwargs)
+
+      Set the data that should be rendered.
+
+      :param y: y values, x values will be ``range(len(y))``
+      :type y: np.ndarray
+      :param x: x, y values
+      :type x: np.ndarray, np.ndarray
+      :param y: x, y values
+      :type y: np.ndarray, np.ndarray
+      :param (y: y values given as tuple, x values will be ``range(len(y))``
+      :type (y: Tuple[np.ndarray]
+      :param ): y values given as tuple, x values will be ``range(len(y))``
+      :type ): Tuple[np.ndarray]
+      :param (x: x, y values given as tuple
+      :type (x: Tuple[np.ndarray, np.ndarray]
+      :param y): x, y values given as tuple
+      :type y): Tuple[np.ndarray, np.ndarray]
+      :param y=y: y values given as keyword argument, x values will be ``range(len(y))``
+      :type y=y: np.ndarray
+      :param x=x: x, y values given as keyword argument
+      :type x=x: np.ndarray, np.ndarray
+      :param y=y: x, y values given as keyword argument
+      :type y=y: np.ndarray, np.ndarray
+
+
+   .. py:method:: set_scale(scale: float = 1.0, trigger=True)
+
+      Set the scale of the y values.
+
+      :param scale: Scale of the y values, by default 1.0
+      :type scale: float, optional
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: _update_data(*args, **kwargs)
+
+
+   .. py:method:: _update_scale()
+
+
+   .. py:method:: set_style(line_color: Any | Literal[default] = 'default')
+
+      Set the color of the signal.
+
+      :param line_color: Either "default" or values of the format 'color.color'
+      :type line_color: color.color | str, default: "default"
+
+
+   .. py:method:: _abstract_set_data()
+
+
+   .. py:method:: _abstract_set_scale()
+
+
+   .. py:method:: _abstract_set_style(line_color: Any)
+
+
+

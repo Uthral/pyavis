@@ -1,0 +1,247 @@
+:py:mod:`pyavis.shared.multitrack`
+==================================
+
+.. py:module:: pyavis.shared.multitrack
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   multi_track/index.rst
+   signal/index.rst
+   track/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.multitrack.Track
+   pyavis.shared.multitrack.MultiTrack
+   pyavis.shared.multitrack.AudioSignal
+
+
+
+
+.. py:class:: Track(label: str, sampling_rate: int)
+
+
+   Class representing an audio track.
+
+   .. py:method:: __getitem__(index)
+
+      Accessing array elements through slicing.
+          * slice, range and step slicing track[4:40:2]
+              * Negative indexing and missing slice values use the tracks minimum length as basis.
+                  * e.g. [-1:-500:-1] and [::1]
+              * Use positive indexing if you want padding
+          * Time slicing (unit in seconds) using dict track[{1:2.5}]
+              * Indexing from 1s to 2.5s
+
+      :param index: Slicing argument.
+      :type index: slice or list or dict
+
+      :returns: Array containing the signal values in the range. Values between signals are 0.
+      :rtype: numpy.ndarray
+
+
+   .. py:method:: _get_signal_values(slice: Track._get_signal_values.slice)
+
+
+   .. py:method:: _handle_indexing(lower, higher, step)
+
+
+   .. py:method:: get_index(signal: pyavis.shared.multitrack.signal.AudioSignal) -> int
+
+      Get index of the signal
+
+      :param signal: The signal
+      :type signal: Signal
+
+      :returns: Index of the signal
+      :rtype: int
+
+
+   .. py:method:: get_signal(signal: pyavis.shared.multitrack.signal.AudioSignal) -> Tuple[int, pyavis.shared.multitrack.signal.AudioSignal] | None
+
+      Get the signal and its position
+
+      :param signal: The signal
+      :type signal: Signal
+
+      :returns: Tuple of position and audio signal, or None if signal not in track
+      :rtype: Tuple[int, AudioSignal] | None
+
+
+   .. py:method:: get_signal_at_position(pos: int) -> Tuple[int, pyavis.shared.multitrack.signal.AudioSignal] | None
+
+      Get signal at the position
+
+      :param pos: Position of the signal
+      :type pos: int
+
+      :returns: Returns a signal, if there is one at the position
+      :rtype: Tuple[int, Signal] | None
+
+
+   .. py:method:: try_add(pos: int, signal: pyavis.shared.multitrack.signal.AudioSignal) -> bool
+
+      Try adding the signal at the positioin position to the track.
+
+      :param pos: Positon of the new signal
+      :type pos: int
+      :param signal: Signal to add
+      :type signal: AudioSignal
+
+      :returns: True, if the signal does not overlap
+                False, if the signal does overlap with another signal
+      :rtype: bool
+
+
+   .. py:method:: can_add_at(pos: int, signal: pyavis.shared.multitrack.signal.AudioSignal) -> bool
+
+      Check if a signal can be added at the position
+
+      :param pos: Positon of the new signal in the track
+      :type pos: int
+      :param signal: Signal to add
+      :type signal: AudioSignal
+
+
+   .. py:method:: remove_signal(signal: pyavis.shared.multitrack.signal.AudioSignal)
+
+      Remove a signal.
+
+      :param signal: Signal to delete
+      :type signal: AudioSignal
+
+      :raises ValueError: Raises if signal could not be removed
+
+
+   .. py:method:: remove(pos: int, signal: pyavis.shared.multitrack.signal.AudioSignal)
+
+      Remove the signal at the position.
+
+      :param pos: Position of the signal
+      :type pos: int
+      :param signal: AudioSignal to delete
+      :type signal: AudioSignal
+
+
+   .. py:method:: try_move(pos: int, idx: int) -> bool
+
+      Try moving the signal to the new position.
+
+      :param pos: New positon of the signal in the track
+      :type pos: int
+      :param idx: Index of the signal
+      :type idx: int
+
+      :rtype: bool
+
+
+   .. py:method:: can_move_to(pos: int, signal: pyavis.shared.multitrack.signal.AudioSignal | int) -> bool
+
+      Check if the signal can be moved to the position.
+
+      :param pos: New positon of the signal in the track
+      :type pos: int
+      :param idx: Index of the signal
+      :type idx: int | AudioSignal
+
+      :rtype: bool
+
+
+   .. py:method:: get_minimum_length(type='samples') -> int | float
+
+      Get the minimum length that the track occupies
+
+      Parameter
+      ---------
+      type : str
+          Return type (either "samples" or "seconds")
+
+      :returns: Minimum length in samples or seconds
+      :rtype: int | float
+
+
+
+.. py:class:: MultiTrack
+
+
+   Class representing a collection of tracks.
+
+   .. py:method:: get_track(track: pyavis.shared.multitrack.track.Track | str | int) -> pyavis.shared.multitrack.track.Track | None
+
+      Get a track.
+
+      :param track: The track, its name or its index
+      :type track: Track | str | int
+
+      :returns: The track or None, if the track is not present
+      :rtype: Track | None
+
+      :raises TypeError: Raises if 'track' is not one of the listed types
+
+
+   .. py:method:: add_track(track: pyavis.shared.multitrack.track.Track)
+
+      Add a track.
+
+      :param track: Track to add
+      :type track: Track
+
+
+   .. py:method:: remove_track(track: pyavis.shared.multitrack.track.Track | str | int) -> pyavis.shared.multitrack.track.Track
+
+      Remove a track
+
+      :param track: Either the track, it's name or its index
+      :type track: Track | str | int
+
+      :returns: The removed track
+      :rtype: Track
+
+      :raises TypeError: Raises if 'track' is not one of the listed types
+
+
+   .. py:method:: __getitem__(index)
+
+      Accessing array elements through slicing.
+          * int, get signal row asig[4];
+          * slice, range and step slicing asig[4:40:2]
+              # from 4 to 40 every 2 samples;
+          * list, subset rows, asig[[2, 4, 6]]
+              # pick out index 2, 4, 6 as a new asig
+          * tuple, row and column specific slicing, asig[4:40, 3:5]
+              # from 4 to 40, channel 3 and 4
+          * Time slicing (unit in seconds) using dict asig[{1:2.5}, :]
+              creates indexing of 1s to 2.5s.
+          * Channel name slicing: asig['l'] returns channel 'l' as
+              a new mono asig. asig[['front', 'rear']], etc...
+          * bool, subset channels: asig[:, [True, False]]
+      :param index: Slicing argument.
+      :type index: Number or slice or list or tuple or dict
+
+      :returns: **a** -- __getitem__ returns a subset of the self based on the slicing.
+      :rtype: Asig
+
+
+
+.. py:class:: AudioSignal(asig: pya.Asig, channel_index: int = None, channel_name: str = None)
+
+
+   .. py:method:: signal()
+
+
+   .. py:method:: sampling_rate()
+
+
+

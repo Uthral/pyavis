@@ -1,0 +1,65 @@
+:py:mod:`pyavis.tools.signal_display`
+=====================================
+
+.. py:module:: pyavis.tools.signal_display
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.tools.signal_display.SignalDisplay
+
+
+
+
+.. py:class:: SignalDisplay
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Base class for all widgets.
+
+   .. py:method:: set_signal(signal, channel=0)
+
+      Set the signal that should be displayed.
+      If the signal has multiple channels, then display only one.
+
+      :param signal: Audio signal to display
+      :type signal: Asig
+      :param channel: Channel of the signal
+      :type channel: number | None
+
+
+   .. py:method:: set_selection(value)
+
+      Set or unset selection.
+
+      :param value: If None, removes active selection. If tuple, adds or replaces active selection.
+      :type value: None or (float, float)
+
+
+   .. py:method:: _play()
+
+      Play the displayed signal or selection of the signal.
+
+
+   .. py:method:: get_native_widget()
+
+      Return the native element of the backend underlying the widget.
+
+
+   .. py:method:: show()
+
+      Display the widget.
+
+      :param \*\*exec: Used by Qt-based backend if used outside of interactive environment to delay start of QApplication.
+                       Set to True for last `show()` invocation to start QApplication, by default False.
+      :type \*\*exec: bool, optional
+
+
+

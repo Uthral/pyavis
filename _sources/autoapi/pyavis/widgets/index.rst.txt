@@ -1,0 +1,171 @@
+:py:mod:`pyavis.widgets`
+========================
+
+.. py:module:: pyavis.widgets
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.widgets._is_missing_implementation
+   pyavis.widgets._get_implementation
+   pyavis.widgets.Button
+   pyavis.widgets.ToggleButton
+   pyavis.widgets.Toolbar
+   pyavis.widgets.VBox
+   pyavis.widgets.HBox
+   pyavis.widgets.IntSlider
+   pyavis.widgets.FloatSlider
+   pyavis.widgets.DropDown
+   pyavis.widgets.ScrollArea
+   pyavis.widgets.GraphicDisp
+
+
+
+.. py:function:: _is_missing_implementation(backend: pyavis.backends.Backend, widget: str)
+
+
+.. py:function:: _get_implementation(widget: str)
+
+
+.. py:function:: Button(label: str) -> pyavis.backends.bases.widget_bases.BaseButton
+
+   Construct a new button.
+
+   :param label: Label of the button
+   :type label: str
+
+   :returns: Newly created button widget
+   :rtype: BaseButton
+
+
+.. py:function:: ToggleButton(label: str, icon: Any = None, default_toggle_state: bool = False) -> pyavis.backends.bases.widget_bases.BaseToggleButton
+
+   Construct a new toggable button.
+
+   :param label: Label of the button
+   :type label: str
+   :param icon: Icon of the button, by default None. Has to be specified
+   :type icon: Any, optional
+   :param default_toggle_state: Default state of the button, by default False
+   :type default_toggle_state: bool, optional
+
+   :returns: Newly created button widget
+   :rtype: BaseToggleButton
+
+
+.. py:function:: Toolbar(labels: List[str], values: List[str]) -> pyavis.backends.bases.widget_bases.BaseToolbar
+
+   Construct a new toolbar.
+
+   :param labels: Labels of the toolbar buttons
+   :type labels: List[str]
+   :param values: Values of the toolbar buttons
+   :type values: List[str]
+
+   :raises RuntimeError: Raises if labels and values have different lengths
+
+   :returns: Widget for vertical layouting
+   :rtype: BaseToolbar
+
+
+.. py:function:: VBox() -> pyavis.backends.bases.widget_bases.BaseVBox
+
+   Construct a vertical layouting widget.
+
+   :returns: Widget for vertical layouting
+   :rtype: BaseVBox
+
+
+.. py:function:: HBox() -> pyavis.backends.bases.widget_bases.BaseHBox
+
+   Create horizontal layouting widget.
+
+   :returns: Widget for horizontal layouting
+   :rtype: BaseHBox
+
+
+.. py:function:: IntSlider(description: str, orientation: Literal[vertical, horizontal], default: int = 50, min: int = 1, max: int = 100, step: int = 1) -> pyavis.backends.bases.widget_bases.BaseIntSlider
+
+   Construct a new integer slider widget.
+
+   :param description: Description of the slider
+   :type description: str
+   :param orientation: Orientation of the slider
+   :type orientation: Literal[&quot;vertical&quot;, &quot;horizontal&quot;]
+   :param default: Default value of the slider, by default 50
+   :type default: int, optional
+   :param min: Minimum value of the slider, by default 1
+   :type min: int, optional
+   :param max: Maximum value of the slider, by default 100
+   :type max: int, optional
+   :param step: Step size in which the slider can be incremented, by default 1
+   :type step: int, optional
+
+   :returns: Newly created integer slider widget
+   :rtype: BaseIntSlider
+
+
+.. py:function:: FloatSlider(description: str, orientation: Literal[vertical, horizontal], default: float = 5.0, min: float = 1.0, max: float = 10.0, step: float = 0.1) -> pyavis.backends.bases.widget_bases.BaseFloatSlider
+
+   Construct a new float slider widget.
+
+   :param description: Orientation of the slider
+   :type description: str
+   :param orientation: Orientation of the slider
+   :type orientation: Literal[&quot;vertical&quot;, &quot;horizontal&quot;]
+   :param default: Default value of the slider, by default 5.0
+   :type default: float, optional
+   :param min: Minimum value of the slider, by default 1.0
+   :type min: float, optional
+   :param max: Maximum value of the slider, by default 10.0
+   :type max: float, optional
+   :param step: Step size in which the slider can be incremented, by default 0.1
+   :type step: float, optional
+
+   :returns: Newly created float slider widget
+   :rtype: BaseFloatSlider
+
+
+.. py:function:: DropDown(description: str, options: List[Any], default: Any = None) -> pyavis.backends.bases.widget_bases.BaseDropDown
+
+   Construct a new drop down widget.
+
+   :param description: Description of the drop down.
+   :type description: str
+   :param options: Selectable options of the drop down.
+   :type options: List[Any]
+   :param default: Default value of the drop down, by default None
+   :type default: Any, optional
+
+   :returns: Newly created drop down widget
+   :rtype: BaseDropDown
+
+
+.. py:function:: ScrollArea(height: int = 100, width: int = 100) -> pyavis.backends.bases.widget_bases.BaseScrollArea
+
+   Construct a new scrollable widget container.
+
+   :param height: Height of the scrollable area, by default 100
+   :type height: int, optional
+   :param width: Width of the scrollable area, by default 100
+   :type width: int, optional
+
+   :returns: Newly created scrollable widget container
+   :rtype: BaseScrollArea
+
+
+.. py:function:: GraphicDisp() -> pyavis.backends.bases.widget_bases.BaseGraphicDisp
+
+   Construct a new graphics display.
+
+   :returns: Widget for displaying graphics
+   :rtype: BaseGraphicDisp
+
+

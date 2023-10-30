@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyavis.widgets &mdash; pyavis 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyavis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.widgets</span></code></a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a><ul>
+<li><a class="reference internal" href="#pyavis.widgets._is_missing_implementation"><code class="docutils literal notranslate"><span class="pre">_is_missing_implementation()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets._get_implementation"><code class="docutils literal notranslate"><span class="pre">_get_implementation()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.Button"><code class="docutils literal notranslate"><span class="pre">Button()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.ToggleButton"><code class="docutils literal notranslate"><span class="pre">ToggleButton()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.Toolbar"><code class="docutils literal notranslate"><span class="pre">Toolbar()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.VBox"><code class="docutils literal notranslate"><span class="pre">VBox()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.HBox"><code class="docutils literal notranslate"><span class="pre">HBox()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.IntSlider"><code class="docutils literal notranslate"><span class="pre">IntSlider()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.FloatSlider"><code class="docutils literal notranslate"><span class="pre">FloatSlider()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.DropDown"><code class="docutils literal notranslate"><span class="pre">DropDown()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.ScrollArea"><code class="docutils literal notranslate"><span class="pre">ScrollArea()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.widgets.GraphicDisp"><code class="docutils literal notranslate"><span class="pre">GraphicDisp()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyavis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.widgets</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/pyavis/widgets/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyavis.widgets">
+<span id="pyavis-widgets"></span><h1><a class="reference internal" href="#module-pyavis.widgets" title="pyavis.widgets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.widgets</span></code></a><a class="headerlink" href="#module-pyavis.widgets" title="Link to this heading"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.widgets._is_missing_implementation" title="pyavis.widgets._is_missing_implementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_is_missing_implementation</span></code></a>(backend, widget)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.widgets._get_implementation" title="pyavis.widgets._get_implementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_get_implementation</span></code></a>(widget)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.widgets.Button" title="pyavis.widgets.Button"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Button</span></code></a>(→ pyavis.backends.bases.widget_bases.BaseButton)</p></td>
+<td><p>Construct a new button.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.widgets.ToggleButton" title="pyavis.widgets.ToggleButton"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ToggleButton</span></code></a>(...)</p></td>
+<td><p>Construct a new toggable button.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.widgets.Toolbar" title="pyavis.widgets.Toolbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Toolbar</span></code></a>(→ pyavis.backends.bases.widget_bases.BaseToolbar)</p></td>
+<td><p>Construct a new toolbar.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.widgets.VBox" title="pyavis.widgets.VBox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VBox</span></code></a>(→ pyavis.backends.bases.widget_bases.BaseVBox)</p></td>
+<td><p>Construct a vertical layouting widget.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.widgets.HBox" title="pyavis.widgets.HBox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HBox</span></code></a>(→ pyavis.backends.bases.widget_bases.BaseHBox)</p></td>
+<td><p>Create horizontal layouting widget.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.widgets.IntSlider" title="pyavis.widgets.IntSlider"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IntSlider</span></code></a>(...)</p></td>
+<td><p>Construct a new integer slider widget.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.widgets.FloatSlider" title="pyavis.widgets.FloatSlider"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FloatSlider</span></code></a>(...)</p></td>
+<td><p>Construct a new float slider widget.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.widgets.DropDown" title="pyavis.widgets.DropDown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DropDown</span></code></a>(→ pyavis.backends.bases.widget_bases.BaseDropDown)</p></td>
+<td><p>Construct a new drop down widget.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.widgets.ScrollArea" title="pyavis.widgets.ScrollArea"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScrollArea</span></code></a>(...)</p></td>
+<td><p>Construct a new scrollable widget container.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.widgets.GraphicDisp" title="pyavis.widgets.GraphicDisp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GraphicDisp</span></code></a>(...)</p></td>
+<td><p>Construct a new graphics display.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets._is_missing_implementation">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">_is_missing_implementation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../backends/index.html#pyavis.backends.Backend" title="pyavis.backends.Backend"><span class="pre">pyavis.backends.Backend</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.widgets._is_missing_implementation" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets._get_implementation">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">_get_implementation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.widgets._get_implementation" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.Button">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">Button</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseButton" title="pyavis.backends.bases.widget_bases.BaseButton"><span class="pre">pyavis.backends.bases.widget_bases.BaseButton</span></a></span></span><a class="headerlink" href="#pyavis.widgets.Button" title="Link to this definition"></a></dt>
+<dd><p>Construct a new button.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>label</strong> (<em>str</em>) – Label of the button</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created button widget</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseButton" title="pyavis.backends.bases.BaseButton">BaseButton</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.ToggleButton">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">ToggleButton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_toggle_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseToggleButton" title="pyavis.backends.bases.widget_bases.BaseToggleButton"><span class="pre">pyavis.backends.bases.widget_bases.BaseToggleButton</span></a></span></span><a class="headerlink" href="#pyavis.widgets.ToggleButton" title="Link to this definition"></a></dt>
+<dd><p>Construct a new toggable button.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label</strong> (<em>str</em>) – Label of the button</p></li>
+<li><p><strong>icon</strong> (<em>Any</em><em>, </em><em>optional</em>) – Icon of the button, by default None. Has to be specified</p></li>
+<li><p><strong>default_toggle_state</strong> (<em>bool</em><em>, </em><em>optional</em>) – Default state of the button, by default False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created button widget</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseToggleButton" title="pyavis.backends.bases.BaseToggleButton">BaseToggleButton</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.Toolbar">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">Toolbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseToolbar" title="pyavis.backends.bases.widget_bases.BaseToolbar"><span class="pre">pyavis.backends.bases.widget_bases.BaseToolbar</span></a></span></span><a class="headerlink" href="#pyavis.widgets.Toolbar" title="Link to this definition"></a></dt>
+<dd><p>Construct a new toolbar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Labels of the toolbar buttons</p></li>
+<li><p><strong>values</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Values of the toolbar buttons</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Raises if labels and values have different lengths</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Widget for vertical layouting</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseToolbar" title="pyavis.backends.bases.BaseToolbar">BaseToolbar</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.VBox">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">VBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseVBox" title="pyavis.backends.bases.widget_bases.BaseVBox"><span class="pre">pyavis.backends.bases.widget_bases.BaseVBox</span></a></span></span><a class="headerlink" href="#pyavis.widgets.VBox" title="Link to this definition"></a></dt>
+<dd><p>Construct a vertical layouting widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Widget for vertical layouting</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseVBox" title="pyavis.backends.bases.BaseVBox">BaseVBox</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.HBox">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">HBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseHBox" title="pyavis.backends.bases.widget_bases.BaseHBox"><span class="pre">pyavis.backends.bases.widget_bases.BaseHBox</span></a></span></span><a class="headerlink" href="#pyavis.widgets.HBox" title="Link to this definition"></a></dt>
+<dd><p>Create horizontal layouting widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Widget for horizontal layouting</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseHBox" title="pyavis.backends.bases.BaseHBox">BaseHBox</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.IntSlider">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">IntSlider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">vertical</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">horizontal</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseIntSlider" title="pyavis.backends.bases.widget_bases.BaseIntSlider"><span class="pre">pyavis.backends.bases.widget_bases.BaseIntSlider</span></a></span></span><a class="headerlink" href="#pyavis.widgets.IntSlider" title="Link to this definition"></a></dt>
+<dd><p>Construct a new integer slider widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>description</strong> (<em>str</em>) – Description of the slider</p></li>
+<li><p><strong>orientation</strong> (<em>Literal</em><em>[</em><em>&amp;quot;vertical&amp;quot;</em><em>, </em><em>&amp;quot;horizontal&amp;quot;</em><em>]</em>) – Orientation of the slider</p></li>
+<li><p><strong>default</strong> (<em>int</em><em>, </em><em>optional</em>) – Default value of the slider, by default 50</p></li>
+<li><p><strong>min</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum value of the slider, by default 1</p></li>
+<li><p><strong>max</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum value of the slider, by default 100</p></li>
+<li><p><strong>step</strong> (<em>int</em><em>, </em><em>optional</em>) – Step size in which the slider can be incremented, by default 1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created integer slider widget</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseIntSlider" title="pyavis.backends.bases.BaseIntSlider">BaseIntSlider</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.FloatSlider">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">FloatSlider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">vertical</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">horizontal</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseFloatSlider" title="pyavis.backends.bases.widget_bases.BaseFloatSlider"><span class="pre">pyavis.backends.bases.widget_bases.BaseFloatSlider</span></a></span></span><a class="headerlink" href="#pyavis.widgets.FloatSlider" title="Link to this definition"></a></dt>
+<dd><p>Construct a new float slider widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>description</strong> (<em>str</em>) – Orientation of the slider</p></li>
+<li><p><strong>orientation</strong> (<em>Literal</em><em>[</em><em>&amp;quot;vertical&amp;quot;</em><em>, </em><em>&amp;quot;horizontal&amp;quot;</em><em>]</em>) – Orientation of the slider</p></li>
+<li><p><strong>default</strong> (<em>float</em><em>, </em><em>optional</em>) – Default value of the slider, by default 5.0</p></li>
+<li><p><strong>min</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum value of the slider, by default 1.0</p></li>
+<li><p><strong>max</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum value of the slider, by default 10.0</p></li>
+<li><p><strong>step</strong> (<em>float</em><em>, </em><em>optional</em>) – Step size in which the slider can be incremented, by default 0.1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created float slider widget</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseFloatSlider" title="pyavis.backends.bases.BaseFloatSlider">BaseFloatSlider</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.DropDown">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">DropDown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseDropDown" title="pyavis.backends.bases.widget_bases.BaseDropDown"><span class="pre">pyavis.backends.bases.widget_bases.BaseDropDown</span></a></span></span><a class="headerlink" href="#pyavis.widgets.DropDown" title="Link to this definition"></a></dt>
+<dd><p>Construct a new drop down widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>description</strong> (<em>str</em>) – Description of the drop down.</p></li>
+<li><p><strong>options</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – Selectable options of the drop down.</p></li>
+<li><p><strong>default</strong> (<em>Any</em><em>, </em><em>optional</em>) – Default value of the drop down, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created drop down widget</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseDropDown" title="pyavis.backends.bases.BaseDropDown">BaseDropDown</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.ScrollArea">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">ScrollArea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseScrollArea" title="pyavis.backends.bases.widget_bases.BaseScrollArea"><span class="pre">pyavis.backends.bases.widget_bases.BaseScrollArea</span></a></span></span><a class="headerlink" href="#pyavis.widgets.ScrollArea" title="Link to this definition"></a></dt>
+<dd><p>Construct a new scrollable widget container.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>height</strong> (<em>int</em><em>, </em><em>optional</em>) – Height of the scrollable area, by default 100</p></li>
+<li><p><strong>width</strong> (<em>int</em><em>, </em><em>optional</em>) – Width of the scrollable area, by default 100</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created scrollable widget container</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseScrollArea" title="pyavis.backends.bases.BaseScrollArea">BaseScrollArea</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.widgets.GraphicDisp">
+<span class="sig-prename descclassname"><span class="pre">pyavis.widgets.</span></span><span class="sig-name descname"><span class="pre">GraphicDisp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../backends/bases/widget_bases/index.html#pyavis.backends.bases.widget_bases.BaseGraphicDisp" title="pyavis.backends.bases.widget_bases.BaseGraphicDisp"><span class="pre">pyavis.backends.bases.widget_bases.BaseGraphicDisp</span></a></span></span><a class="headerlink" href="#pyavis.widgets.GraphicDisp" title="Link to this definition"></a></dt>
+<dd><p>Construct a new graphics display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Widget for displaying graphics</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../backends/bases/index.html#pyavis.backends.bases.BaseGraphicDisp" title="pyavis.backends.bases.BaseGraphicDisp">BaseGraphicDisp</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Robin Kuelker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

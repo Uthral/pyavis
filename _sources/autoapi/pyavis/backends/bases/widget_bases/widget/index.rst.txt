@@ -1,0 +1,43 @@
+:py:mod:`pyavis.backends.bases.widget_bases.widget`
+===================================================
+
+.. py:module:: pyavis.backends.bases.widget_bases.widget
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.widget_bases.widget.Widget
+
+
+
+
+.. py:class:: Widget
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Base class for all widgets.
+
+   .. py:method:: get_native_widget()
+      :abstractmethod:
+
+      Return the native element of the backend underlying the widget.
+
+
+   .. py:method:: show(*args, **kwargs)
+      :abstractmethod:
+
+      Display the widget.
+
+      :param \*\*exec: Used by Qt-based backend if used outside of interactive environment to delay start of QApplication.
+                       Set to True for last `show()` invocation to start QApplication, by default False.
+      :type \*\*exec: bool, optional
+
+
+

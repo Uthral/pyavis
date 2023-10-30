@@ -1,0 +1,40 @@
+:py:mod:`pyavis.graphics`
+=========================
+
+.. py:module:: pyavis.graphics
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.graphics._is_missing_implementation
+   pyavis.graphics._get_implementation
+   pyavis.graphics.Layout
+
+
+
+.. py:function:: _is_missing_implementation(backend: pyavis.backends.Backend, gfx: str)
+
+
+.. py:function:: _get_implementation(gfx: str)
+
+
+.. py:function:: Layout(rows: int = 1, columns: int = 1) -> Layout
+
+   Construct a new layout.
+
+   :param rows: Row count, by default 1
+   :type rows: int, optional
+   :param columns: Column count, by default 1
+   :type columns: int, optional
+
+   :returns: Newly constructed layout
+   :rtype: Layout
+
+

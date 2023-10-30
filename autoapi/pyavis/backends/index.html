@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyavis.backends &mdash; pyavis 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyavis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends</span></code></a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#package-contents">Package Contents</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#pyavis.backends.Backend"><code class="docutils literal notranslate"><span class="pre">Backend</span></code></a><ul>
+<li><a class="reference internal" href="#pyavis.backends.Backend._widget_registry_name"><code class="docutils literal notranslate"><span class="pre">Backend._widget_registry_name</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.Backend._gfx_registry_name"><code class="docutils literal notranslate"><span class="pre">Backend._gfx_registry_name</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.Backend.register_gfx"><code class="docutils literal notranslate"><span class="pre">Backend.register_gfx()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.Backend.register_widget"><code class="docutils literal notranslate"><span class="pre">Backend.register_widget()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.Backend.get_gfx_registry"><code class="docutils literal notranslate"><span class="pre">Backend.get_gfx_registry()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.Backend.get_widget_registry"><code class="docutils literal notranslate"><span class="pre">Backend.get_widget_registry()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.Backend._get_registry"><code class="docutils literal notranslate"><span class="pre">Backend._get_registry()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyavis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/pyavis/backends/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyavis.backends">
+<span id="pyavis-backends"></span><h1><a class="reference internal" href="#module-pyavis.backends" title="pyavis.backends"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends</span></code></a><a class="headerlink" href="#module-pyavis.backends" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bases/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bases/graphic_bases/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/axis/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.axis</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/graphic_element/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.graphic_element</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/infinite_line/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.infinite_line</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/layout/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.layout</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/rect_selection/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.rect_selection</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/rectangle/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.rectangle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/signal/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.signal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/spectrogram/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.spectrogram</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/spectrum/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.spectrum</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/graphic_bases/track/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.track</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bases/widget_bases/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bases/widget_bases/box/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.box</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/widget_bases/button/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.button</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/widget_bases/drop_down/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.drop_down</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/widget_bases/graphic_disp/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.graphic_disp</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/widget_bases/scroll/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.scroll</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/widget_bases/slider/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.slider</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/widget_bases/toolbar/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.toolbar</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases/widget_bases/widget/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.widget</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.backends.Backend" title="pyavis.backends.Backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Backend</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyavis.backends.Backend">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyavis.backends.</span></span><span class="sig-name descname"><span class="pre">Backend</span></span><a class="headerlink" href="#pyavis.backends.Backend" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyavis.backends.Backend._widget_registry_name">
+<span class="sig-name descname"><span class="pre">_widget_registry_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'widget'</span></em><a class="headerlink" href="#pyavis.backends.Backend._widget_registry_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyavis.backends.Backend._gfx_registry_name">
+<span class="sig-name descname"><span class="pre">_gfx_registry_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'gfx'</span></em><a class="headerlink" href="#pyavis.backends.Backend._gfx_registry_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.Backend.register_gfx">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_gfx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.Backend.register_gfx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.Backend.register_widget">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.Backend.register_widget" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.Backend.get_gfx_registry">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_gfx_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.Backend.get_gfx_registry" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.Backend.get_widget_registry">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_widget_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.Backend.get_widget_registry" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.Backend._get_registry">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_get_registry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registry_name</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#pyavis.backends.Backend._get_registry" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Robin Kuelker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyavis.backends.bases.graphic_bases.track &mdash; pyavis 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../../index.html" class="icon icon-home">
+            pyavis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.track</span></code></a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track"><code class="docutils literal notranslate"><span class="pre">Track</span></code></a><ul>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.add_signal"><code class="docutils literal notranslate"><span class="pre">Track.add_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.add_spectrum"><code class="docutils literal notranslate"><span class="pre">Track.add_spectrum()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.add_line"><code class="docutils literal notranslate"><span class="pre">Track.add_line()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.add_rect"><code class="docutils literal notranslate"><span class="pre">Track.add_rect()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.add_spectrogram"><code class="docutils literal notranslate"><span class="pre">Track.add_spectrogram()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.add_selection"><code class="docutils literal notranslate"><span class="pre">Track.add_selection()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.remove"><code class="docutils literal notranslate"><span class="pre">Track.remove()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.link_track"><code class="docutils literal notranslate"><span class="pre">Track.link_track()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track._link_track"><code class="docutils literal notranslate"><span class="pre">Track._link_track()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.get_axis"><code class="docutils literal notranslate"><span class="pre">Track.get_axis()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.toggle_axis"><code class="docutils literal notranslate"><span class="pre">Track.toggle_axis()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.set_axis"><code class="docutils literal notranslate"><span class="pre">Track.set_axis()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.set_x_view_limits"><code class="docutils literal notranslate"><span class="pre">Track.set_x_view_limits()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.set_y_view_limits"><code class="docutils literal notranslate"><span class="pre">Track.set_y_view_limits()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track.set_style"><code class="docutils literal notranslate"><span class="pre">Track.set_style()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track._abstract_set_style"><code class="docutils literal notranslate"><span class="pre">Track._abstract_set_style()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">pyavis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.track</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../../_sources/autoapi/pyavis/backends/bases/graphic_bases/track/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyavis.backends.bases.graphic_bases.track">
+<span id="pyavis-backends-bases-graphic-bases-track"></span><h1><a class="reference internal" href="#module-pyavis.backends.bases.graphic_bases.track" title="pyavis.backends.bases.graphic_bases.track"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.track</span></code></a><a class="headerlink" href="#module-pyavis.backends.bases.graphic_bases.track" title="Link to this heading"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track" title="pyavis.backends.bases.graphic_bases.track.Track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Track</span></code></a></p></td>
+<td><p>Base class representing a plot.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyavis.backends.bases.graphic_bases.track.</span></span><span class="sig-name descname"><span class="pre">Track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Base class representing a plot.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.add_signal">
+<span class="sig-name descname"><span class="pre">add_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../signal/index.html#pyavis.backends.bases.graphic_bases.signal.Signal" title="pyavis.backends.bases.graphic_bases.signal.Signal"><span class="pre">pyavis.backends.bases.graphic_bases.signal.Signal</span></a></span></span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.add_signal" title="Link to this definition"></a></dt>
+<dd><p>Add a new signal to the track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Position of the signal</p></li>
+<li><p><strong>scale</strong> (<em>float</em>) – Scale of the y values, by default 1.0</p></li>
+<li><p><strong>**kwargs</strong> (<em>*args &amp;</em>) – <p>See <cite>Signal.set_data()</cite> for more information.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.add_spectrum">
+<span class="sig-name descname"><span class="pre">add_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pya.Asig</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pya.Aspec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">np.abs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../spectrum/index.html#pyavis.backends.bases.graphic_bases.spectrum.Spectrum" title="pyavis.backends.bases.graphic_bases.spectrum.Spectrum"><span class="pre">pyavis.backends.bases.graphic_bases.spectrum.Spectrum</span></a></span></span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.add_spectrum" title="Link to this definition"></a></dt>
+<dd><p>Add a new spectrum to the track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Asig</em><em> | </em><em>Aspec</em>) – Data to display as spectrum</p></li>
+<li><p><strong>position</strong> (<em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Position of the spectrogram</p></li>
+<li><p><strong>scale</strong> (<em>float</em>) – Scale of the y values, by default 1.0</p></li>
+<li><p><strong>disp_func</strong> (<em>(</em><em>np.ndarray</em><em>) </em><em>-&gt; np.ndarray</em>) – Function to apply to the stft data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.add_line">
+<span class="sig-name descname"><span class="pre">add_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../infinite_line/index.html#pyavis.backends.bases.graphic_bases.infinite_line.InfiniteLine" title="pyavis.backends.bases.graphic_bases.infinite_line.InfiniteLine"><span class="pre">pyavis.backends.bases.graphic_bases.infinite_line.InfiniteLine</span></a></span></span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.add_line" title="Link to this definition"></a></dt>
+<dd><p>Add a new infinite line to the track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Position of the line</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – Angle of the line</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.add_rect">
+<span class="sig-name descname"><span class="pre">add_rect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../rectangle/index.html#pyavis.backends.bases.graphic_bases.rectangle.Rectangle" title="pyavis.backends.bases.graphic_bases.rectangle.Rectangle"><span class="pre">pyavis.backends.bases.graphic_bases.rectangle.Rectangle</span></a></span></span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.add_rect" title="Link to this definition"></a></dt>
+<dd><p>Add a new rectangle to the track.</p>
+<p>Parameters:
+position: (float, float)</p>
+<blockquote>
+<div><p>Position of the rectangle. (lower-left corner)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>width: float</dt><dd><p>Width of the rectangle</p>
+</dd>
+<dt>height: float</dt><dd><p>Heigth of the rectangle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.add_spectrogram">
+<span class="sig-name descname"><span class="pre">add_spectrogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pya.Asig</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pya.Astft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">np.abs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../spectrogram/index.html#pyavis.backends.bases.graphic_bases.spectrogram.Spectrogram" title="pyavis.backends.bases.graphic_bases.spectrogram.Spectrogram"><span class="pre">pyavis.backends.bases.graphic_bases.spectrogram.Spectrogram</span></a></span></span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.add_spectrogram" title="Link to this definition"></a></dt>
+<dd><p>Add a new spectrogram to the track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Asig</em><em> | </em><em>Astft</em>) – Data to display as spectrogram</p></li>
+<li><p><strong>position</strong> (<em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Position of the spectrogram</p></li>
+<li><p><strong>disp_func</strong> (<em>(</em><em>np.ndarray</em><em>) </em><em>-&gt; np.ndarray</em>) – Function to apply to the stft data</p></li>
+<li><p><strong>with_bar</strong> (<em>bool</em>) – Optional color bar added to the plot</p></li>
+<li><p><strong>**kwargs</strong> – Passed to Asig.to_stft()</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.add_selection">
+<span class="sig-name descname"><span class="pre">add_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../rect_selection/index.html#pyavis.backends.bases.graphic_bases.rect_selection.RectSelection" title="pyavis.backends.bases.graphic_bases.rect_selection.RectSelection"><span class="pre">pyavis.backends.bases.graphic_bases.rect_selection.RectSelection</span></a></span></span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.add_selection" title="Link to this definition"></a></dt>
+<dd><p>Add an adjustable selection to the track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>positon</strong> (<em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – Position of the selection (bottom-left corner)</p></li>
+<li><p><strong>width</strong> (<em>float</em>) – Width of the selection</p></li>
+<li><p><strong>height</strong> (<em>float</em>) – Height of the selection</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../graphic_element/index.html#pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement" title="pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement"><span class="pre">pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.remove" title="Link to this definition"></a></dt>
+<dd><p>Remove an element from the track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element</strong> (<a class="reference internal" href="../graphic_element/index.html#pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement" title="pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement"><em>GraphicElement</em></a>) – Element to remove</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.link_track">
+<span class="sig-name descname"><span class="pre">link_track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track" title="pyavis.backends.bases.graphic_bases.track.Track"><span class="pre">Track</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">x</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">y</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.link_track" title="Link to this definition"></a></dt>
+<dd><p>Link either x or y axis of this track with another track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track</strong> (<a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track" title="pyavis.backends.bases.graphic_bases.track.Track"><em>Track</em></a><em> | </em><em>None</em>) – Track to link axis with. If None, the track will instead remove it’s present link</p></li>
+<li><p><strong>axis</strong> (<em>'x'</em><em> or </em><em>'y'</em>) – Axis to link</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track._link_track">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_link_track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.track.Track" title="pyavis.backends.bases.graphic_bases.track.Track"><span class="pre">Track</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">x</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">y</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track._link_track" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.get_axis">
+<span class="sig-name descname"><span class="pre">get_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">top</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bottom</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">left</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">right</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../axis/index.html#pyavis.backends.bases.graphic_bases.axis.Axis" title="pyavis.backends.bases.graphic_bases.axis.Axis"><span class="pre">pyavis.backends.bases.graphic_bases.axis.Axis</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.get_axis" title="Link to this definition"></a></dt>
+<dd><p>Return the axis, or None if no axis is set for that side.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>side</strong> (<em>'top'</em><em> | </em><em>'bottom'</em><em> | </em><em>'left'</em><em> | </em><em>'right'</em>) – Side to get the axis from</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.toggle_axis">
+<span class="sig-name descname"><span class="pre">toggle_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">top</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bottom</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">left</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">right</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.toggle_axis" title="Link to this definition"></a></dt>
+<dd><p>Hide or show the axis of the side.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>side</strong> (<em>'top'</em><em> | </em><em>'bottom'</em><em> | </em><em>'left'</em><em> | </em><em>'right'</em>) – Side to toggle the axis of</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.set_axis">
+<span class="sig-name descname"><span class="pre">set_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">top</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bottom</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">left</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">right</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../axis/index.html#pyavis.backends.bases.graphic_bases.axis.Axis" title="pyavis.backends.bases.graphic_bases.axis.Axis"><span class="pre">pyavis.backends.bases.graphic_bases.axis.Axis</span></a></span></span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.set_axis" title="Link to this definition"></a></dt>
+<dd><p>Set a new axis for the choosen side.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>side</strong> (<em>'top'</em><em> | </em><em>'bottom'</em><em> | </em><em>'left'</em><em> | </em><em>'right'</em>) – Side of the new axis</p></li>
+<li><p><strong>spacing</strong> (<em>(</em><em>float</em><em>, </em><em>float</em><em>) </em><em>| </em><em>None:</em>) – Default spacing if None, else (major, minor) spacing</p></li>
+<li><p><strong>disp_func</strong> (<em>(</em><em>float</em><em>) </em><em>-&gt; str</em><em> | </em><em>None</em><em>,</em>) – Default displace function if None, else function values.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.set_x_view_limits">
+<span class="sig-name descname"><span class="pre">set_x_view_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.set_x_view_limits" title="Link to this definition"></a></dt>
+<dd><p>Set the visible range of the x axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_start</strong> (<em>float</em>) – Start of the x view range</p></li>
+<li><p><strong>x_end</strong> (<em>float</em>) – End of the x view range</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.set_y_view_limits">
+<span class="sig-name descname"><span class="pre">set_y_view_limits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_end</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.set_y_view_limits" title="Link to this definition"></a></dt>
+<dd><p>Set the visible range of the y axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_start</strong> (<em>float</em>) – Start of the y view range</p></li>
+<li><p><strong>y_end</strong> (<em>float</em>) – End of the y view range</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track.set_style">
+<span class="sig-name descname"><span class="pre">set_style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">background_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">default</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track.set_style" title="Link to this definition"></a></dt>
+<dd><p>Set the background color of the layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>background_color</strong> (<em>color.color</em><em> | </em><em>str</em><em>, </em><em>default: &quot;default&quot;</em>) – Either “default” or values of the format ‘color.color’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.track.Track._abstract_set_style">
+<span class="sig-name descname"><span class="pre">_abstract_set_style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">background_color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.track.Track._abstract_set_style" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Robin Kuelker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

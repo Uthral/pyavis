@@ -1,0 +1,56 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.rectangle`
+=======================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.rectangle
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.rectangle.Rectangle
+
+
+
+
+.. py:class:: Rectangle(position: Tuple[float, float] = (0.0, 0.0), width: float = 1.0, height: float = 1.0)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+   .. py:property:: rect_size
+
+
+   .. py:property:: rect_width
+
+
+   .. py:property:: rect_height
+
+
+   .. py:method:: set_size(size: Tuple[float, float], trigger=True)
+
+      Set the size of the rectangle.
+
+      :param size: New size of the rectangle
+      :type size: Tuple[float, float]
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: set_style(border_color, fill_color)
+
+
+   .. py:method:: _abstract_set_size()
+
+
+   .. py:method:: _abstract_set_style(border_color, fill_color)
+
+
+

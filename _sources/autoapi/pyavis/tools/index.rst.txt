@@ -1,0 +1,179 @@
+:py:mod:`pyavis.tools`
+======================
+
+.. py:module:: pyavis.tools
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   device_selector/index.rst
+   pitch_shift/index.rst
+   signal_display/index.rst
+   spectrogram_eraser/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.tools.DeviceSelector
+   pyavis.tools.SpectrogramEraser
+   pyavis.tools.PitchShift
+   pyavis.tools.SignalDisplay
+
+
+
+
+.. py:class:: DeviceSelector(type: Literal[input, output])
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Base class for all widgets.
+
+   .. py:property:: server
+
+
+   .. py:method:: on_value_change(idx: int)
+
+
+   .. py:method:: get_native_widget()
+
+      Return the native element of the backend underlying the widget.
+
+
+   .. py:method:: show()
+
+      Display the widget.
+
+      :param \*\*exec: Used by Qt-based backend if used outside of interactive environment to delay start of QApplication.
+                       Set to True for last `show()` invocation to start QApplication, by default False.
+      :type \*\*exec: bool, optional
+
+
+
+.. py:class:: SpectrogramEraser
+
+
+   .. py:method:: _build_spectrogram()
+
+
+   .. py:method:: _build_signal()
+
+
+   .. py:method:: set_signal(signal)
+
+
+   .. py:method:: handle_toolbar_mode()
+
+
+   .. py:method:: handle_callbacks()
+
+
+   .. py:method:: set_eraser(frequency_slices, time_slices)
+
+
+   .. py:method:: mode_change(_=None)
+
+
+   .. py:method:: draw_on_spectrogram(element, pos)
+
+
+   .. py:method:: update_signal(element, pos)
+
+
+   .. py:method:: play_audio(args)
+
+
+   .. py:method:: show()
+
+
+
+.. py:class:: PitchShift
+
+
+   .. py:method:: _prepare_pitch_shift()
+
+
+   .. py:method:: _prepare_signal()
+
+
+   .. py:method:: set_signal(signal)
+
+
+   .. py:method:: handle_pitch_curve()
+
+
+   .. py:method:: handle_toolbar_mode()
+
+
+   .. py:method:: handle_mode_change(_=None)
+
+
+   .. py:method:: move_selection_event(selection, x, y)
+
+
+   .. py:method:: finish_move_selection_event(selection, x, y)
+
+
+   .. py:method:: play_audio(args)
+
+
+   .. py:method:: show()
+
+
+
+.. py:class:: SignalDisplay
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Base class for all widgets.
+
+   .. py:method:: set_signal(signal, channel=0)
+
+      Set the signal that should be displayed.
+      If the signal has multiple channels, then display only one.
+
+      :param signal: Audio signal to display
+      :type signal: Asig
+      :param channel: Channel of the signal
+      :type channel: number | None
+
+
+   .. py:method:: set_selection(value)
+
+      Set or unset selection.
+
+      :param value: If None, removes active selection. If tuple, adds or replaces active selection.
+      :type value: None or (float, float)
+
+
+   .. py:method:: _play()
+
+      Play the displayed signal or selection of the signal.
+
+
+   .. py:method:: get_native_widget()
+
+      Return the native element of the backend underlying the widget.
+
+
+   .. py:method:: show()
+
+      Display the widget.
+
+      :param \*\*exec: Used by Qt-based backend if used outside of interactive environment to delay start of QApplication.
+                       Set to True for last `show()` invocation to start QApplication, by default False.
+      :type \*\*exec: bool, optional
+
+
+

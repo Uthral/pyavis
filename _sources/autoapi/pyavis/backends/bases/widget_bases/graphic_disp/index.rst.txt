@@ -1,0 +1,36 @@
+:py:mod:`pyavis.backends.bases.widget_bases.graphic_disp`
+=========================================================
+
+.. py:module:: pyavis.backends.bases.widget_bases.graphic_disp
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.widget_bases.graphic_disp.BaseGraphicDisp
+
+
+
+
+.. py:class:: BaseGraphicDisp
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a widget to display pyavis's graphics.
+
+   .. py:method:: set_displayed_item(item: pyavis.backends.bases.graphic_bases.Layout)
+      :abstractmethod:
+
+      Set the layout graphic item to display.
+
+      :param item: Layout to display
+      :type item: Layout
+
+
+

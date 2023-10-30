@@ -1,0 +1,53 @@
+:py:mod:`pyavis.shared.util.util`
+=================================
+
+.. py:module:: pyavis.shared.util.util
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.util.util.spec_to_stft
+   pyavis.shared.util.util.spec_to_asig
+
+
+
+.. py:function:: spec_to_stft(spectrogram: pyavis.backends.bases.graphic_bases.Spectrogram, inverted_display_func=None, with_original_phase: bool = False) -> pya.Astft
+
+   Return the displayed spectrogram as an :class:`Astft <pya.Astft>`.
+   Assumes `np.abs` as the display function.
+
+   :param spectrogram: Spectrogram to convert
+   :type spectrogram: Spectrogram
+   :param inverted_display_func: If `np.abs` is not used, provide inverted display function
+   :type inverted_display_func: optional
+   :param with_original_phase: If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies
+   :type with_original_phase: bool, optional
+
+   :returns: :class:`Astft <pya.Astft>` of the displayed spectrogram
+   :rtype: Astft
+
+
+.. py:function:: spec_to_asig(spectrogram: pyavis.backends.bases.graphic_bases.Spectrogram, inverted_display_func=None, with_original_phase: bool = False, **kwargs) -> pya.Asig
+
+   Return the displayed spectrogram as an :class:`Asig <pya.Asig>`.
+   Assumes `np.abs` as the display function.
+
+   :param spectrogram: Spectrogram to convert
+   :type spectrogram: Spectrogram
+   :param inverted_display_func: If `np.abs` is not used, provide inverted display function
+   :type inverted_display_func: optional
+   :param with_original_phase: If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies
+   :type with_original_phase: bool, optional
+   :param \*\*kwargs: Keyword arguments for :func:`Astft.to_sig()`
+
+   :returns: :class:`Asig <pya.Asig>` of the displayed spectrogram
+   :rtype: Asig
+
+

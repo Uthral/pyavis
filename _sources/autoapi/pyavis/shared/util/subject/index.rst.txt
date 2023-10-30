@@ -1,0 +1,54 @@
+:py:mod:`pyavis.shared.util.subject`
+====================================
+
+.. py:module:: pyavis.shared.util.subject
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.util.subject.Subject
+
+
+
+
+.. py:class:: Subject
+
+
+   Class to allow notification of subscribers.
+   Simple implementation of the observer pattern.
+
+   .. py:method:: connect(observer: Callable)
+
+      Add a new subscriber to be notified on :func:``Subject.emit()`
+
+      :param observer: Function to called on :func:``Subject.emit()`
+      :type observer: Callable
+
+
+   .. py:method:: disconnect(observer: Callable)
+
+      Remove a subscriber.
+
+      :param observer: Function to be removed
+      :type observer: Callable
+
+
+   .. py:method:: emit(*arguments)
+
+      Call all subscribers with the passed arguements.
+
+      :param \*args: Arguments that are passed to all subscribers
+
+
+   .. py:method:: clear()
+
+      Remove all subscribers
+
+
+

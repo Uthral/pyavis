@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyavis.shared.util.util &mdash; pyavis 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            pyavis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.shared.util.util</span></code></a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a><ul>
+<li><a class="reference internal" href="#pyavis.shared.util.util.spec_to_stft"><code class="docutils literal notranslate"><span class="pre">spec_to_stft()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.util.util.spec_to_asig"><code class="docutils literal notranslate"><span class="pre">spec_to_asig()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">pyavis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.shared.util.util</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/autoapi/pyavis/shared/util/util/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyavis.shared.util.util">
+<span id="pyavis-shared-util-util"></span><h1><a class="reference internal" href="#module-pyavis.shared.util.util" title="pyavis.shared.util.util"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.shared.util.util</span></code></a><a class="headerlink" href="#module-pyavis.shared.util.util" title="Link to this heading"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.shared.util.util.spec_to_stft" title="pyavis.shared.util.util.spec_to_stft"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spec_to_stft</span></code></a>(→ pya.Astft)</p></td>
+<td><p>Return the displayed spectrogram as an <code class="xref py py-class docutils literal notranslate"><span class="pre">Astft</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.shared.util.util.spec_to_asig" title="pyavis.shared.util.util.spec_to_asig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spec_to_asig</span></code></a>(→ pya.Asig)</p></td>
+<td><p>Return the displayed spectrogram as an <code class="xref py py-class docutils literal notranslate"><span class="pre">Asig</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.shared.util.util.spec_to_stft">
+<span class="sig-prename descclassname"><span class="pre">pyavis.shared.util.util.</span></span><span class="sig-name descname"><span class="pre">spec_to_stft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrogram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../backends/bases/graphic_bases/index.html#pyavis.backends.bases.graphic_bases.Spectrogram" title="pyavis.backends.bases.graphic_bases.Spectrogram"><span class="pre">pyavis.backends.bases.graphic_bases.Spectrogram</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverted_display_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_original_phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pya.Astft</span></span></span><a class="headerlink" href="#pyavis.shared.util.util.spec_to_stft" title="Link to this definition"></a></dt>
+<dd><p>Return the displayed spectrogram as an <code class="xref py py-class docutils literal notranslate"><span class="pre">Astft</span></code>.
+Assumes <cite>np.abs</cite> as the display function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrogram</strong> (<a class="reference internal" href="../../../backends/bases/graphic_bases/index.html#pyavis.backends.bases.graphic_bases.Spectrogram" title="pyavis.backends.bases.graphic_bases.Spectrogram"><em>Spectrogram</em></a>) – Spectrogram to convert</p></li>
+<li><p><strong>inverted_display_func</strong> (<em>optional</em>) – If <cite>np.abs</cite> is not used, provide inverted display function</p></li>
+<li><p><strong>with_original_phase</strong> (<em>bool</em><em>, </em><em>optional</em>) – If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Astft</span></code> of the displayed spectrogram</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Astft</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyavis.shared.util.util.spec_to_asig">
+<span class="sig-prename descclassname"><span class="pre">pyavis.shared.util.util.</span></span><span class="sig-name descname"><span class="pre">spec_to_asig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrogram</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../../backends/bases/graphic_bases/index.html#pyavis.backends.bases.graphic_bases.Spectrogram" title="pyavis.backends.bases.graphic_bases.Spectrogram"><span class="pre">pyavis.backends.bases.graphic_bases.Spectrogram</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverted_display_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_original_phase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pya.Asig</span></span></span><a class="headerlink" href="#pyavis.shared.util.util.spec_to_asig" title="Link to this definition"></a></dt>
+<dd><p>Return the displayed spectrogram as an <code class="xref py py-class docutils literal notranslate"><span class="pre">Asig</span></code>.
+Assumes <cite>np.abs</cite> as the display function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrogram</strong> (<a class="reference internal" href="../../../backends/bases/graphic_bases/index.html#pyavis.backends.bases.graphic_bases.Spectrogram" title="pyavis.backends.bases.graphic_bases.Spectrogram"><em>Spectrogram</em></a>) – Spectrogram to convert</p></li>
+<li><p><strong>inverted_display_func</strong> (<em>optional</em>) – If <cite>np.abs</cite> is not used, provide inverted display function</p></li>
+<li><p><strong>with_original_phase</strong> (<em>bool</em><em>, </em><em>optional</em>) – If the phases of the original spectrogram shall be used, else a phase of 0 for all frequencies</p></li>
+<li><p><strong>**kwargs</strong> – Keyword arguments for <code class="xref py py-func docutils literal notranslate"><span class="pre">Astft.to_sig()</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Asig</span></code> of the displayed spectrogram</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Asig</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Robin Kuelker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.spectrogram`
+=========================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.spectrogram
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.spectrogram.Spectrogram
+
+
+
+
+.. py:class:: Spectrogram(data: pya.Asig | pya.Astft, position: Tuple[float, float] = (0.0, 0.0), scale: Tuple[float, float] = (1.0, 1.0), disp_func: Callable[[numpy.ndarray], numpy.ndarray] = np.abs, **kwargs)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Base class representing a renderable spectrogram.
+
+   .. py:method:: toggle_color_bar(show: bool)
+
+
+   .. py:method:: set_data(data: pya.Asig | pya.Astft, trigger=True)
+
+      Set the displayed Asig / Astft.
+
+      :param data: Audio data to display
+      :type data: Asig | Astft
+      :param trigger: Trigger obeserver, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: _set_data(data: pya.Asig | pya.Astft, **kwargs)
+
+
+   .. py:method:: set_scale(scale: Tuple[float, float], trigger=True)
+
+      Set the displayed scale of the spectrogram. Default size
+      is corresponds to signal length in seconds and highest frequency of the STFT.
+
+      Parameter
+      ---------
+      scale: (float, float)
+
+
+      :param scale: x and y scale of the spectrogram
+      :type scale: Tuple[float, float]
+
+
+   .. py:method:: get_spectrogram_data()
+
+      Get the data of the displayed spectrogram.
+
+
+   .. py:method:: draw(freq: float, time: float)
+
+      Draw into the spectrogram using at the provided frequency and time.
+      Drawing is limited by resolution of spectrogram.
+
+      :param freq: Frequency to draw at
+      :type freq: float
+      :param time: Time to draw at
+      :type time: float
+
+
+   .. py:method:: set_brush(brush_data=None, brush_mask=None, brush_center=(0, 0), draw_mode='set')
+
+      Set the brush shape, values, center and mode.
+
+      :param brush_data: Values that should be used for drawing
+      :type brush_data: np.ndarray, default: None
+      :param brush_mask: Mask with values between 0-1. Effect: image * (1-mask) + data * mask
+      :type brush_mask: np.ndarray, optional, default: None
+      :param brush_center: Center of the brush
+      :type brush_center: tuple, default: (0, 0)
+      :param draw_mode: Either "add" or "set". If "set", then mask will be ignored.
+      :type draw_mode: str, optional, default: "set"
+
+
+   .. py:method:: clear_brush()
+
+      Clear the brush.
+
+
+   .. py:method:: _abstract_set_scale()
+
+
+   .. py:method:: _abstract_set_data()
+
+
+

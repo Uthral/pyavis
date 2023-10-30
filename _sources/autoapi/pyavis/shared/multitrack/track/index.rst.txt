@@ -1,0 +1,162 @@
+:py:mod:`pyavis.shared.multitrack.track`
+========================================
+
+.. py:module:: pyavis.shared.multitrack.track
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.multitrack.track.Track
+
+
+
+
+.. py:class:: Track(label: str, sampling_rate: int)
+
+
+   Class representing an audio track.
+
+   .. py:method:: __getitem__(index)
+
+      Accessing array elements through slicing.
+          * slice, range and step slicing track[4:40:2]
+              * Negative indexing and missing slice values use the tracks minimum length as basis.
+                  * e.g. [-1:-500:-1] and [::1]
+              * Use positive indexing if you want padding
+          * Time slicing (unit in seconds) using dict track[{1:2.5}]
+              * Indexing from 1s to 2.5s
+
+      :param index: Slicing argument.
+      :type index: slice or list or dict
+
+      :returns: Array containing the signal values in the range. Values between signals are 0.
+      :rtype: numpy.ndarray
+
+
+   .. py:method:: _get_signal_values(slice: Track._get_signal_values.slice)
+
+
+   .. py:method:: _handle_indexing(lower, higher, step)
+
+
+   .. py:method:: get_index(signal: pyavis.shared.multitrack.signal.AudioSignal) -> int
+
+      Get index of the signal
+
+      :param signal: The signal
+      :type signal: Signal
+
+      :returns: Index of the signal
+      :rtype: int
+
+
+   .. py:method:: get_signal(signal: pyavis.shared.multitrack.signal.AudioSignal) -> Tuple[int, pyavis.shared.multitrack.signal.AudioSignal] | None
+
+      Get the signal and its position
+
+      :param signal: The signal
+      :type signal: Signal
+
+      :returns: Tuple of position and audio signal, or None if signal not in track
+      :rtype: Tuple[int, AudioSignal] | None
+
+
+   .. py:method:: get_signal_at_position(pos: int) -> Tuple[int, pyavis.shared.multitrack.signal.AudioSignal] | None
+
+      Get signal at the position
+
+      :param pos: Position of the signal
+      :type pos: int
+
+      :returns: Returns a signal, if there is one at the position
+      :rtype: Tuple[int, Signal] | None
+
+
+   .. py:method:: try_add(pos: int, signal: pyavis.shared.multitrack.signal.AudioSignal) -> bool
+
+      Try adding the signal at the positioin position to the track.
+
+      :param pos: Positon of the new signal
+      :type pos: int
+      :param signal: Signal to add
+      :type signal: AudioSignal
+
+      :returns: True, if the signal does not overlap
+                False, if the signal does overlap with another signal
+      :rtype: bool
+
+
+   .. py:method:: can_add_at(pos: int, signal: pyavis.shared.multitrack.signal.AudioSignal) -> bool
+
+      Check if a signal can be added at the position
+
+      :param pos: Positon of the new signal in the track
+      :type pos: int
+      :param signal: Signal to add
+      :type signal: AudioSignal
+
+
+   .. py:method:: remove_signal(signal: pyavis.shared.multitrack.signal.AudioSignal)
+
+      Remove a signal.
+
+      :param signal: Signal to delete
+      :type signal: AudioSignal
+
+      :raises ValueError: Raises if signal could not be removed
+
+
+   .. py:method:: remove(pos: int, signal: pyavis.shared.multitrack.signal.AudioSignal)
+
+      Remove the signal at the position.
+
+      :param pos: Position of the signal
+      :type pos: int
+      :param signal: AudioSignal to delete
+      :type signal: AudioSignal
+
+
+   .. py:method:: try_move(pos: int, idx: int) -> bool
+
+      Try moving the signal to the new position.
+
+      :param pos: New positon of the signal in the track
+      :type pos: int
+      :param idx: Index of the signal
+      :type idx: int
+
+      :rtype: bool
+
+
+   .. py:method:: can_move_to(pos: int, signal: pyavis.shared.multitrack.signal.AudioSignal | int) -> bool
+
+      Check if the signal can be moved to the position.
+
+      :param pos: New positon of the signal in the track
+      :type pos: int
+      :param idx: Index of the signal
+      :type idx: int | AudioSignal
+
+      :rtype: bool
+
+
+   .. py:method:: get_minimum_length(type='samples') -> int | float
+
+      Get the minimum length that the track occupies
+
+      Parameter
+      ---------
+      type : str
+          Return type (either "samples" or "seconds")
+
+      :returns: Minimum length in samples or seconds
+      :rtype: int | float
+
+
+

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to pyavis’s documentation! &mdash; pyavis 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            pyavis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to pyavis’s documentation!</a></li>
+<li><a class="reference internal" href="#pyavis">pyavis</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#simple-examples">Simple examples</a><ul>
+<li><a class="reference internal" href="#displaying-a-signal-and-widgets-via-qt-or-ipywidgets-matplotlib">Displaying a signal and widgets via Qt or ipywidgets / matplotlib</a></li>
+<li><a class="reference internal" href="#displaying-a-signal-via-qt-in-non-interactive-environment-via-qt">Displaying a signal via Qt in non-interactive environment via Qt</a></li>
+<li><a class="reference internal" href="#using-widgets">Using widgets</a></li>
+<li><a class="reference internal" href="#styling-elements">Styling elements</a></li>
+<li><a class="reference internal" href="#interacting-with-elements">Interacting with elements</a></li>
+<li><a class="reference internal" href="#learning-more">Learning more</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">pyavis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to pyavis’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-pyavis-s-documentation">
+<h1>Welcome to pyavis’s documentation!<a class="headerlink" href="#welcome-to-pyavis-s-documentation" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="pyavis">
+<h1>pyavis<a class="headerlink" href="#pyavis" title="Link to this heading"></a></h1>
+<p>Visualization library for pya. It provides a selection of widgets and data vizualization tools.</p>
+<ul class="simple">
+<li><p>Documentation: see examples folder for usage examples and <a class="reference external" href="https://uthral.github.io/pyavis/index.html">Documentation</a></p></li>
+<li><p>Source code: <a class="reference external" href="https://github.com/Uthral/pyavis">https://github.com/Uthral/pyavis</a></p></li>
+</ul>
+<p>pyavis provides:</p>
+<ul class="simple">
+<li><p>different backends to support different environments</p></li>
+<li><p>visualizations of pya datatypes (signal, spectrum and spectrogram) and more</p></li>
+<li><p>selection of widgets</p></li>
+<li><p>interactions with visualizations</p></li>
+</ul>
+<p>It can be used for</p>
+<ul class="simple">
+<li><p>visualization of audio data</p></li>
+<li><p>exploration of audio data</p></li>
+<li><p>interface development for interactions with audio data</p></li>
+</ul>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pyavis</span></code> was developed and tested using <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.10</span></code>. Other versions might not be supported.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pyavis</span></code> supports different backends for visualization and widgets, with different levels of interactivity. Currently only a Qt- and an ipywidgets-based backend are supported. You can either install the dependencies for both backends or choose the one you want to use.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span><span class="p">[</span><span class="n">ipywidgets</span><span class="p">]</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span><span class="p">[</span><span class="n">qt</span><span class="p">]</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span><span class="p">[</span><span class="n">full</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pyavis</span></code> uses <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> as a dependencies when installed via <code class="docutils literal notranslate"><span class="pre">[qt]</span></code>, but you can manually install any other version instead, e.g. <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>.</p>
+</section>
+<section id="simple-examples">
+<h2>Simple examples<a class="headerlink" href="#simple-examples" title="Link to this heading"></a></h2>
+<section id="displaying-a-signal-and-widgets-via-qt-or-ipywidgets-matplotlib">
+<h3>Displaying a signal and widgets via Qt or ipywidgets / matplotlib<a class="headerlink" href="#displaying-a-signal-and-widgets-via-qt-or-ipywidgets-matplotlib" title="Link to this heading"></a></h3>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyavis.widgets</span> <span class="kn">import</span> <span class="n">GraphicDisp</span>
+<span class="kn">from</span> <span class="nn">pyavis.graphics</span> <span class="kn">import</span> <span class="n">Layout</span>
+<span class="kn">from</span> <span class="nn">pyavis</span> <span class="kn">import</span> <span class="n">use_backend</span>
+
+<span class="n">signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">200</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">44100</span><span class="p">))</span> <span class="c1"># Values to display</span>
+
+<span class="o">%</span><span class="n">gui</span> <span class="n">qt</span> <span class="c1"># or alternatively: %matplotlib widget</span>
+<span class="n">use_backend</span><span class="p">(</span><span class="s2">&quot;qt&quot;</span><span class="p">)</span> <span class="c1"># Use qt backend to create widgets and graphcis, alternatively: use_backend(&quot;ipywidgets&quot;)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Create layout</span>
+<span class="n">track</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">add_track</span><span class="p">(</span><span class="s2">&quot;Signal&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Add plot to layout</span>
+<span class="n">signal</span> <span class="o">=</span> <span class="n">track</span><span class="o">.</span><span class="n">add_signal</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">signal</span><span class="p">)</span> <span class="c1"># Add values to plot</span>
+
+<span class="n">display</span> <span class="o">=</span> <span class="n">GraphicDisp</span><span class="p">()</span> <span class="c1"># Create widget to display layout</span>
+<span class="n">display</span><span class="o">.</span><span class="n">set_displayed_item</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="displaying-a-signal-via-qt-in-non-interactive-environment-via-qt">
+<h3>Displaying a signal via Qt in non-interactive environment via Qt<a class="headerlink" href="#displaying-a-signal-via-qt-in-non-interactive-environment-via-qt" title="Link to this heading"></a></h3>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">exec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Use exec to start Qt event loop.</span>
+</pre></div>
+</div>
+</section>
+<section id="using-widgets">
+<h3>Using widgets<a class="headerlink" href="#using-widgets" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pyavis</span></code> provides a selection of widgets, e.g.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyavis.widgets</span> <span class="kn">import</span> <span class="n">ScrollArea</span><span class="p">,</span> <span class="n">VBox</span><span class="p">,</span> <span class="n">HBox</span><span class="p">,</span> <span class="n">Button</span><span class="p">,</span> <span class="n">ToggleButton</span><span class="p">,</span> <span class="n">DropDown</span><span class="p">,</span> <span class="n">IntSlider</span><span class="p">,</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">Toolbar</span>
+
+<span class="n">drop_down</span> <span class="o">=</span> <span class="n">DropDown</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">],</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="n">drop_down</span><span class="o">.</span><span class="n">add_on_selection_changed</span><span class="p">(</span><span class="k">lambda</span> <span class="n">option</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">option</span><span class="p">))</span>
+
+<span class="n">slider</span> <span class="o">=</span> <span class="n">IntSlider</span><span class="p">(</span><span class="s2">&quot;Slider Test&quot;</span><span class="p">,</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">slider</span><span class="o">.</span><span class="n">add_on_value_changed</span><span class="p">(</span><span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+<span class="n">hbox</span> <span class="o">=</span> <span class="n">HBox</span><span class="p">()</span>
+<span class="n">hbox</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">drop_down</span><span class="p">)</span>
+<span class="n">hbox</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">slider</span><span class="p">)</span>
+<span class="n">hbox</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="styling-elements">
+<h3>Styling elements<a class="headerlink" href="#styling-elements" title="Link to this heading"></a></h3>
+<p>Most graphical items to be styled, e.g.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">signal</span><span class="o">.</span><span class="n">set_style</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>3- and 4-dimensional tuples of integers between 0 - 255 and floating point numbers between 0.0 - 1.0 are supported.</p>
+</section>
+<section id="interacting-with-elements">
+<h3>Interacting with elements<a class="headerlink" href="#interacting-with-elements" title="Link to this heading"></a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">Subject</span></code>s to interact with created elements, e.g.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">signal</span><span class="o">.</span><span class="n">onClick</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">element</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="n">element</span><span class="o">.</span><span class="n">set_style</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)))</span> <span class="c1"># Add callbacks to execute code on event</span>
+</pre></div>
+</div>
+</section>
+<section id="learning-more">
+<h3>Learning more<a class="headerlink" href="#learning-more" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Please check the notebooks in examples/ for more examples and.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="autoapi/pyavis/index.html"><span class="doc">API Reference</span></a></p></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Robin Kuelker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

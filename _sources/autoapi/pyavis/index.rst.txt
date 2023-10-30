@@ -1,0 +1,145 @@
+:py:mod:`pyavis`
+================
+
+.. py:module:: pyavis
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   backends/index.rst
+   shared/index.rst
+   tools/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   config/index.rst
+   graphics/index.rst
+   widgets/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.Backend
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis._get_backend
+   pyavis._get_backend_str
+   pyavis.use_backend
+   pyavis._get_application
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis._backend
+   pyavis._backend_str
+   pyavis._application
+
+
+.. py:class:: Backend
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+   .. py:attribute:: _widget_registry_name
+      :value: 'widget'
+
+      
+
+   .. py:attribute:: _gfx_registry_name
+      :value: 'gfx'
+
+      
+
+   .. py:method:: register_gfx(entity)
+      :classmethod:
+
+
+   .. py:method:: register_widget(entity)
+      :classmethod:
+
+
+   .. py:method:: get_gfx_registry()
+      :classmethod:
+
+
+   .. py:method:: get_widget_registry()
+      :classmethod:
+
+
+   .. py:method:: _get_registry(registry_name) -> dict
+      :classmethod:
+      :abstractmethod:
+
+
+
+.. py:data:: _backend
+   :type: backends.Backend
+
+   
+
+.. py:data:: _backend_str
+   :type: str
+
+   
+
+.. py:data:: _application
+
+   
+
+.. py:function:: _get_backend() -> backends.Backend
+
+   Return active backend, or initalize default backend.
+
+   :returns: Active backend
+   :rtype: Backend
+
+
+.. py:function:: _get_backend_str() -> str
+
+   Return active backend string, or initalize default backend.
+
+   :returns: String representation of backend
+   :rtype: str
+
+
+.. py:function:: use_backend(backend: str = 'qt')
+
+   Choose the backend to use.
+
+   :param backend: Either "qt" or "ipywidgets", by default "qt"
+   :type backend: str, optional
+
+   :raises ValueError: Raises if backend is not known
+
+
+.. py:function:: _get_application()
+
+

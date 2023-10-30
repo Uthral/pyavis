@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyavis.tools &mdash; pyavis 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyavis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.tools</span></code></a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#package-contents">Package Contents</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#pyavis.tools.DeviceSelector"><code class="docutils literal notranslate"><span class="pre">DeviceSelector</span></code></a><ul>
+<li><a class="reference internal" href="#pyavis.tools.DeviceSelector.server"><code class="docutils literal notranslate"><span class="pre">DeviceSelector.server</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.DeviceSelector.on_value_change"><code class="docutils literal notranslate"><span class="pre">DeviceSelector.on_value_change()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.DeviceSelector.get_native_widget"><code class="docutils literal notranslate"><span class="pre">DeviceSelector.get_native_widget()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.DeviceSelector.show"><code class="docutils literal notranslate"><span class="pre">DeviceSelector.show()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser</span></code></a><ul>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser._build_spectrogram"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser._build_spectrogram()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser._build_signal"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser._build_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.set_signal"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.set_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.handle_toolbar_mode"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.handle_toolbar_mode()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.handle_callbacks"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.handle_callbacks()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.set_eraser"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.set_eraser()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.mode_change"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.mode_change()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.draw_on_spectrogram"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.draw_on_spectrogram()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.update_signal"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.update_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.play_audio"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.play_audio()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SpectrogramEraser.show"><code class="docutils literal notranslate"><span class="pre">SpectrogramEraser.show()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift"><code class="docutils literal notranslate"><span class="pre">PitchShift</span></code></a><ul>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift._prepare_pitch_shift"><code class="docutils literal notranslate"><span class="pre">PitchShift._prepare_pitch_shift()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift._prepare_signal"><code class="docutils literal notranslate"><span class="pre">PitchShift._prepare_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift.set_signal"><code class="docutils literal notranslate"><span class="pre">PitchShift.set_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift.handle_pitch_curve"><code class="docutils literal notranslate"><span class="pre">PitchShift.handle_pitch_curve()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift.handle_toolbar_mode"><code class="docutils literal notranslate"><span class="pre">PitchShift.handle_toolbar_mode()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift.handle_mode_change"><code class="docutils literal notranslate"><span class="pre">PitchShift.handle_mode_change()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift.move_selection_event"><code class="docutils literal notranslate"><span class="pre">PitchShift.move_selection_event()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift.finish_move_selection_event"><code class="docutils literal notranslate"><span class="pre">PitchShift.finish_move_selection_event()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift.play_audio"><code class="docutils literal notranslate"><span class="pre">PitchShift.play_audio()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.PitchShift.show"><code class="docutils literal notranslate"><span class="pre">PitchShift.show()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pyavis.tools.SignalDisplay"><code class="docutils literal notranslate"><span class="pre">SignalDisplay</span></code></a><ul>
+<li><a class="reference internal" href="#pyavis.tools.SignalDisplay.set_signal"><code class="docutils literal notranslate"><span class="pre">SignalDisplay.set_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SignalDisplay.set_selection"><code class="docutils literal notranslate"><span class="pre">SignalDisplay.set_selection()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SignalDisplay._play"><code class="docutils literal notranslate"><span class="pre">SignalDisplay._play()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SignalDisplay.get_native_widget"><code class="docutils literal notranslate"><span class="pre">SignalDisplay.get_native_widget()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.tools.SignalDisplay.show"><code class="docutils literal notranslate"><span class="pre">SignalDisplay.show()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyavis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.tools</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/pyavis/tools/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyavis.tools">
+<span id="pyavis-tools"></span><h1><a class="reference internal" href="#module-pyavis.tools" title="pyavis.tools"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.tools</span></code></a><a class="headerlink" href="#module-pyavis.tools" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="device_selector/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.tools.device_selector</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pitch_shift/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.tools.pitch_shift</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal_display/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.tools.signal_display</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="spectrogram_eraser/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.tools.spectrogram_eraser</span></code></a></li>
+</ul>
+</div>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.tools.DeviceSelector" title="pyavis.tools.DeviceSelector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceSelector</span></code></a></p></td>
+<td><p>Base class for all widgets.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.tools.SpectrogramEraser" title="pyavis.tools.SpectrogramEraser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpectrogramEraser</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.tools.PitchShift" title="pyavis.tools.PitchShift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PitchShift</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyavis.tools.SignalDisplay" title="pyavis.tools.SignalDisplay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SignalDisplay</span></code></a></p></td>
+<td><p>Base class for all widgets.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyavis.tools.DeviceSelector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyavis.tools.</span></span><span class="sig-name descname"><span class="pre">DeviceSelector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">input</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">output</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.DeviceSelector" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../backends/bases/widget_bases/widget/index.html#pyavis.backends.bases.widget_bases.widget.Widget" title="pyavis.backends.bases.widget_bases.widget.Widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.widget.Widget</span></code></a></p>
+<p>Base class for all widgets.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyavis.tools.DeviceSelector.server">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">server</span></span><a class="headerlink" href="#pyavis.tools.DeviceSelector.server" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.DeviceSelector.on_value_change">
+<span class="sig-name descname"><span class="pre">on_value_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.DeviceSelector.on_value_change" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.DeviceSelector.get_native_widget">
+<span class="sig-name descname"><span class="pre">get_native_widget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.DeviceSelector.get_native_widget" title="Link to this definition"></a></dt>
+<dd><p>Return the native element of the backend underlying the widget.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.DeviceSelector.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.DeviceSelector.show" title="Link to this definition"></a></dt>
+<dd><p>Display the widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**exec</strong> (<em>bool</em><em>, </em><em>optional</em>) – Used by Qt-based backend if used outside of interactive environment to delay start of QApplication.
+Set to True for last <cite>show()</cite> invocation to start QApplication, by default False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyavis.tools.</span></span><span class="sig-name descname"><span class="pre">SpectrogramEraser</span></span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser._build_spectrogram">
+<span class="sig-name descname"><span class="pre">_build_spectrogram</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser._build_spectrogram" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser._build_signal">
+<span class="sig-name descname"><span class="pre">_build_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser._build_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.set_signal">
+<span class="sig-name descname"><span class="pre">set_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.set_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.handle_toolbar_mode">
+<span class="sig-name descname"><span class="pre">handle_toolbar_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.handle_toolbar_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.handle_callbacks">
+<span class="sig-name descname"><span class="pre">handle_callbacks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.handle_callbacks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.set_eraser">
+<span class="sig-name descname"><span class="pre">set_eraser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency_slices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_slices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.set_eraser" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.mode_change">
+<span class="sig-name descname"><span class="pre">mode_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.mode_change" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.draw_on_spectrogram">
+<span class="sig-name descname"><span class="pre">draw_on_spectrogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.draw_on_spectrogram" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.update_signal">
+<span class="sig-name descname"><span class="pre">update_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.update_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.play_audio">
+<span class="sig-name descname"><span class="pre">play_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.play_audio" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SpectrogramEraser.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SpectrogramEraser.show" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyavis.tools.</span></span><span class="sig-name descname"><span class="pre">PitchShift</span></span><a class="headerlink" href="#pyavis.tools.PitchShift" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift._prepare_pitch_shift">
+<span class="sig-name descname"><span class="pre">_prepare_pitch_shift</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift._prepare_pitch_shift" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift._prepare_signal">
+<span class="sig-name descname"><span class="pre">_prepare_signal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift._prepare_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift.set_signal">
+<span class="sig-name descname"><span class="pre">set_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift.set_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift.handle_pitch_curve">
+<span class="sig-name descname"><span class="pre">handle_pitch_curve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift.handle_pitch_curve" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift.handle_toolbar_mode">
+<span class="sig-name descname"><span class="pre">handle_toolbar_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift.handle_toolbar_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift.handle_mode_change">
+<span class="sig-name descname"><span class="pre">handle_mode_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift.handle_mode_change" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift.move_selection_event">
+<span class="sig-name descname"><span class="pre">move_selection_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift.move_selection_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift.finish_move_selection_event">
+<span class="sig-name descname"><span class="pre">finish_move_selection_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift.finish_move_selection_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift.play_audio">
+<span class="sig-name descname"><span class="pre">play_audio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift.play_audio" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.PitchShift.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.PitchShift.show" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyavis.tools.SignalDisplay">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyavis.tools.</span></span><span class="sig-name descname"><span class="pre">SignalDisplay</span></span><a class="headerlink" href="#pyavis.tools.SignalDisplay" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../backends/bases/widget_bases/widget/index.html#pyavis.backends.bases.widget_bases.widget.Widget" title="pyavis.backends.bases.widget_bases.widget.Widget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyavis.backends.bases.widget_bases.widget.Widget</span></code></a></p>
+<p>Base class for all widgets.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SignalDisplay.set_signal">
+<span class="sig-name descname"><span class="pre">set_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SignalDisplay.set_signal" title="Link to this definition"></a></dt>
+<dd><p>Set the signal that should be displayed.
+If the signal has multiple channels, then display only one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>Asig</em>) – Audio signal to display</p></li>
+<li><p><strong>channel</strong> (<em>number</em><em> | </em><em>None</em>) – Channel of the signal</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SignalDisplay.set_selection">
+<span class="sig-name descname"><span class="pre">set_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SignalDisplay.set_selection" title="Link to this definition"></a></dt>
+<dd><p>Set or unset selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>None</em><em> or </em><em>(</em><em>float</em><em>, </em><em>float</em><em>)</em>) – If None, removes active selection. If tuple, adds or replaces active selection.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SignalDisplay._play">
+<span class="sig-name descname"><span class="pre">_play</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SignalDisplay._play" title="Link to this definition"></a></dt>
+<dd><p>Play the displayed signal or selection of the signal.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SignalDisplay.get_native_widget">
+<span class="sig-name descname"><span class="pre">get_native_widget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SignalDisplay.get_native_widget" title="Link to this definition"></a></dt>
+<dd><p>Return the native element of the backend underlying the widget.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.tools.SignalDisplay.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.tools.SignalDisplay.show" title="Link to this definition"></a></dt>
+<dd><p>Display the widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**exec</strong> (<em>bool</em><em>, </em><em>optional</em>) – Used by Qt-based backend if used outside of interactive environment to delay start of QApplication.
+Set to True for last <cite>show()</cite> invocation to start QApplication, by default False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Robin Kuelker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

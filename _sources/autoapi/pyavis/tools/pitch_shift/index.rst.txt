@@ -1,0 +1,72 @@
+:py:mod:`pyavis.tools.pitch_shift`
+==================================
+
+.. py:module:: pyavis.tools.pitch_shift
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.tools.pitch_shift.PitchShift
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.tools.pitch_shift.midi_conv
+   pyavis.tools.pitch_shift.midi_2_hz
+   pyavis.tools.pitch_shift.hz_2_midi
+
+
+
+.. py:class:: PitchShift
+
+
+   .. py:method:: _prepare_pitch_shift()
+
+
+   .. py:method:: _prepare_signal()
+
+
+   .. py:method:: set_signal(signal)
+
+
+   .. py:method:: handle_pitch_curve()
+
+
+   .. py:method:: handle_toolbar_mode()
+
+
+   .. py:method:: handle_mode_change(_=None)
+
+
+   .. py:method:: move_selection_event(selection, x, y)
+
+
+   .. py:method:: finish_move_selection_event(selection, x, y)
+
+
+   .. py:method:: play_audio(args)
+
+
+   .. py:method:: show()
+
+
+
+.. py:function:: midi_conv(value) -> str
+
+
+.. py:function:: midi_2_hz(value)
+
+
+.. py:function:: hz_2_midi(value)
+
+

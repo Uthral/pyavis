@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyavis.shared.multitrack.track &mdash; pyavis 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            pyavis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.shared.multitrack.track</span></code></a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track"><code class="docutils literal notranslate"><span class="pre">Track</span></code></a><ul>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.__getitem__"><code class="docutils literal notranslate"><span class="pre">Track.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track._get_signal_values"><code class="docutils literal notranslate"><span class="pre">Track._get_signal_values()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track._handle_indexing"><code class="docutils literal notranslate"><span class="pre">Track._handle_indexing()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.get_index"><code class="docutils literal notranslate"><span class="pre">Track.get_index()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.get_signal"><code class="docutils literal notranslate"><span class="pre">Track.get_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.get_signal_at_position"><code class="docutils literal notranslate"><span class="pre">Track.get_signal_at_position()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.try_add"><code class="docutils literal notranslate"><span class="pre">Track.try_add()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.can_add_at"><code class="docutils literal notranslate"><span class="pre">Track.can_add_at()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.remove_signal"><code class="docutils literal notranslate"><span class="pre">Track.remove_signal()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.remove"><code class="docutils literal notranslate"><span class="pre">Track.remove()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.try_move"><code class="docutils literal notranslate"><span class="pre">Track.try_move()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.can_move_to"><code class="docutils literal notranslate"><span class="pre">Track.can_move_to()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.shared.multitrack.track.Track.get_minimum_length"><code class="docutils literal notranslate"><span class="pre">Track.get_minimum_length()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">pyavis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.shared.multitrack.track</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/autoapi/pyavis/shared/multitrack/track/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyavis.shared.multitrack.track">
+<span id="pyavis-shared-multitrack-track"></span><h1><a class="reference internal" href="#module-pyavis.shared.multitrack.track" title="pyavis.shared.multitrack.track"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.shared.multitrack.track</span></code></a><a class="headerlink" href="#module-pyavis.shared.multitrack.track" title="Link to this heading"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.shared.multitrack.track.Track" title="pyavis.shared.multitrack.track.Track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Track</span></code></a></p></td>
+<td><p>Class representing an audio track.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyavis.shared.multitrack.track.</span></span><span class="sig-name descname"><span class="pre">Track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track" title="Link to this definition"></a></dt>
+<dd><p>Class representing an audio track.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.__getitem__" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Accessing array elements through slicing.</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>slice, range and step slicing track[4:40:2]</dt><dd><ul>
+<li><dl class="simple">
+<dt>Negative indexing and missing slice values use the tracks minimum length as basis.</dt><dd><ul>
+<li><p>e.g. [-1:-500:-1] and [::1]</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Use positive indexing if you want padding</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Time slicing (unit in seconds) using dict track[{1:2.5}]</dt><dd><ul>
+<li><p>Indexing from 1s to 2.5s</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>slice</em><em> or </em><em>list</em><em> or </em><em>dict</em>) – Slicing argument.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array containing the signal values in the range. Values between signals are 0.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track._get_signal_values">
+<span class="sig-name descname"><span class="pre">_get_signal_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Track._get_signal_values.slice</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track._get_signal_values" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track._handle_indexing">
+<span class="sig-name descname"><span class="pre">_handle_indexing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">higher</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track._handle_indexing" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.get_index">
+<span class="sig-name descname"><span class="pre">get_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.get_index" title="Link to this definition"></a></dt>
+<dd><p>Get index of the signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>signal</strong> (<a class="reference internal" href="../../../backends/bases/graphic_bases/index.html#pyavis.backends.bases.graphic_bases.Signal" title="pyavis.backends.bases.graphic_bases.Signal"><em>Signal</em></a>) – The signal</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Index of the signal</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.get_signal">
+<span class="sig-name descname"><span class="pre">get_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.get_signal" title="Link to this definition"></a></dt>
+<dd><p>Get the signal and its position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>signal</strong> (<a class="reference internal" href="../../../backends/bases/graphic_bases/index.html#pyavis.backends.bases.graphic_bases.Signal" title="pyavis.backends.bases.graphic_bases.Signal"><em>Signal</em></a>) – The signal</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of position and audio signal, or None if signal not in track</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[int, <a class="reference internal" href="../../index.html#pyavis.shared.AudioSignal" title="pyavis.shared.AudioSignal">AudioSignal</a>] | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.get_signal_at_position">
+<span class="sig-name descname"><span class="pre">get_signal_at_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.get_signal_at_position" title="Link to this definition"></a></dt>
+<dd><p>Get signal at the position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pos</strong> (<em>int</em>) – Position of the signal</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a signal, if there is one at the position</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[int, <a class="reference internal" href="../../../backends/bases/graphic_bases/index.html#pyavis.backends.bases.graphic_bases.Signal" title="pyavis.backends.bases.graphic_bases.Signal">Signal</a>] | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.try_add">
+<span class="sig-name descname"><span class="pre">try_add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.try_add" title="Link to this definition"></a></dt>
+<dd><p>Try adding the signal at the positioin position to the track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>int</em>) – Positon of the new signal</p></li>
+<li><p><strong>signal</strong> (<a class="reference internal" href="../../index.html#pyavis.shared.AudioSignal" title="pyavis.shared.AudioSignal"><em>AudioSignal</em></a>) – Signal to add</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, if the signal does not overlap
+False, if the signal does overlap with another signal</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.can_add_at">
+<span class="sig-name descname"><span class="pre">can_add_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.can_add_at" title="Link to this definition"></a></dt>
+<dd><p>Check if a signal can be added at the position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>int</em>) – Positon of the new signal in the track</p></li>
+<li><p><strong>signal</strong> (<a class="reference internal" href="../../index.html#pyavis.shared.AudioSignal" title="pyavis.shared.AudioSignal"><em>AudioSignal</em></a>) – Signal to add</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.remove_signal">
+<span class="sig-name descname"><span class="pre">remove_signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.remove_signal" title="Link to this definition"></a></dt>
+<dd><p>Remove a signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>signal</strong> (<a class="reference internal" href="../../index.html#pyavis.shared.AudioSignal" title="pyavis.shared.AudioSignal"><em>AudioSignal</em></a>) – Signal to delete</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raises if signal could not be removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.remove" title="Link to this definition"></a></dt>
+<dd><p>Remove the signal at the position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>int</em>) – Position of the signal</p></li>
+<li><p><strong>signal</strong> (<a class="reference internal" href="../../index.html#pyavis.shared.AudioSignal" title="pyavis.shared.AudioSignal"><em>AudioSignal</em></a>) – AudioSignal to delete</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.try_move">
+<span class="sig-name descname"><span class="pre">try_move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.try_move" title="Link to this definition"></a></dt>
+<dd><p>Try moving the signal to the new position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>int</em>) – New positon of the signal in the track</p></li>
+<li><p><strong>idx</strong> (<em>int</em>) – Index of the signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.can_move_to">
+<span class="sig-name descname"><span class="pre">can_move_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../signal/index.html#pyavis.shared.multitrack.signal.AudioSignal" title="pyavis.shared.multitrack.signal.AudioSignal"><span class="pre">pyavis.shared.multitrack.signal.AudioSignal</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.can_move_to" title="Link to this definition"></a></dt>
+<dd><p>Check if the signal can be moved to the position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>int</em>) – New positon of the signal in the track</p></li>
+<li><p><strong>idx</strong> (<em>int</em><em> | </em><a class="reference internal" href="../../index.html#pyavis.shared.AudioSignal" title="pyavis.shared.AudioSignal"><em>AudioSignal</em></a>) – Index of the signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.shared.multitrack.track.Track.get_minimum_length">
+<span class="sig-name descname"><span class="pre">get_minimum_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'samples'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></span><a class="headerlink" href="#pyavis.shared.multitrack.track.Track.get_minimum_length" title="Link to this definition"></a></dt>
+<dd><p>Get the minimum length that the track occupies</p>
+<section id="parameter">
+<h4>Parameter<a class="headerlink" href="#parameter" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>type<span class="classifier">str</span></dt><dd><p>Return type (either “samples” or “seconds”)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Minimum length in samples or seconds</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>int | float</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Robin Kuelker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

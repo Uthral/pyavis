@@ -1,0 +1,57 @@
+:py:mod:`pyavis.shared.util.device_helper`
+==========================================
+
+.. py:module:: pyavis.shared.util.device_helper
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.util.device_helper.DeviceInfo
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.util.device_helper.getInOutDevices
+
+
+
+.. py:class:: DeviceInfo(index, name, sr, nr_input, nr_output)
+
+
+   Class to collect basic informations of a device
+
+   .. py:method:: as_output_str() -> str
+
+      Return the device as string with output information
+
+      :returns: Device information with output channels
+      :rtype: str
+
+
+   .. py:method:: as_input_str() -> str
+
+      Return the device as string with input information
+
+      :returns: Device information with input channels
+      :rtype: str
+
+
+
+.. py:function:: getInOutDevices() -> Tuple[List[DeviceInfo], List[DeviceInfo]]
+
+   Return all devices that can be used for input and output.
+
+   :returns: tuple of input and output devices
+   :rtype: Tuple[List[DeviceInfo], List[DeviceInfo]]
+
+

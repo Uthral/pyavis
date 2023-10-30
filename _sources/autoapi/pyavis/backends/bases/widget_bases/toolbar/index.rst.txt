@@ -1,0 +1,54 @@
+:py:mod:`pyavis.backends.bases.widget_bases.toolbar`
+====================================================
+
+.. py:module:: pyavis.backends.bases.widget_bases.toolbar
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.widget_bases.toolbar.BaseToolbar
+
+
+
+
+.. py:class:: BaseToolbar(labels: List[str], values: List[str])
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class represenitng a toolbar.
+
+   .. py:method:: get_active_value() -> str
+      :abstractmethod:
+
+      Return the value of the currently active toolbar button.
+
+      :returns: Current value of the toolbar
+      :rtype: str
+
+
+   .. py:method:: add_on_active_changed(func: Callable)
+      :abstractmethod:
+
+      Add a callback that will be called when the active toolbar button changed.
+
+      :param func: Function to call on change
+      :type func: Callable
+
+
+   .. py:method:: remove_on_active_changed(func: Callable)
+      :abstractmethod:
+
+      Remove a callback
+
+      :param func: Function to remvoe
+      :type func: Callable
+
+
+

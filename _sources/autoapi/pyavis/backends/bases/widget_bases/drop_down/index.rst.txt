@@ -1,0 +1,54 @@
+:py:mod:`pyavis.backends.bases.widget_bases.drop_down`
+======================================================
+
+.. py:module:: pyavis.backends.bases.widget_bases.drop_down
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.widget_bases.drop_down.BaseDropDown
+
+
+
+
+.. py:class:: BaseDropDown(description: str, options: List[Any], default: Any = None)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing drop downs.
+
+   .. py:method:: get_value() -> Any | None
+      :abstractmethod:
+
+      Return the currently selected drop down value.
+
+      :returns: The value of the drop down, or None
+      :rtype: Any | None
+
+
+   .. py:method:: add_on_selection_changed(func: Callable[[int], None])
+      :abstractmethod:
+
+      Add a callback that is called on drop down value change.
+
+      :param func: Function to call with index of the value
+      :type func: Callable[[int], None]
+
+
+   .. py:method:: remove_on_selection_changed(func: Callable[[int], None])
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable[[int], None]
+
+
+

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyavis.backends.bases.graphic_bases.signal &mdash; pyavis 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../../_static/documentation_options.js?v=2709fde1"></script>
+        <script src="../../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../../index.html" class="icon icon-home">
+            pyavis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.signal</span></code></a><ul>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal"><code class="docutils literal notranslate"><span class="pre">Signal</span></code></a><ul>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal.set_data"><code class="docutils literal notranslate"><span class="pre">Signal.set_data()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal.set_scale"><code class="docutils literal notranslate"><span class="pre">Signal.set_scale()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal._update_data"><code class="docutils literal notranslate"><span class="pre">Signal._update_data()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal._update_scale"><code class="docutils literal notranslate"><span class="pre">Signal._update_scale()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal.set_style"><code class="docutils literal notranslate"><span class="pre">Signal.set_style()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_data"><code class="docutils literal notranslate"><span class="pre">Signal._abstract_set_data()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_scale"><code class="docutils literal notranslate"><span class="pre">Signal._abstract_set_scale()</span></code></a></li>
+<li><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_style"><code class="docutils literal notranslate"><span class="pre">Signal._abstract_set_style()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">pyavis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.signal</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../../_sources/autoapi/pyavis/backends/bases/graphic_bases/signal/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyavis.backends.bases.graphic_bases.signal">
+<span id="pyavis-backends-bases-graphic-bases-signal"></span><h1><a class="reference internal" href="#module-pyavis.backends.bases.graphic_bases.signal" title="pyavis.backends.bases.graphic_bases.signal"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.signal</span></code></a><a class="headerlink" href="#module-pyavis.backends.bases.graphic_bases.signal" title="Link to this heading"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyavis.backends.bases.graphic_bases.signal.Signal" title="pyavis.backends.bases.graphic_bases.signal.Signal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Signal</span></code></a></p></td>
+<td><p>Base class representing a renderable signal.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyavis.backends.bases.graphic_bases.signal.</span></span><span class="sig-name descname"><span class="pre">Signal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../graphic_element/index.html#pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement" title="pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement</span></code></a></p>
+<p>Base class representing a renderable signal.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal.set_data">
+<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal.set_data" title="Link to this definition"></a></dt>
+<dd><p>Set the data that should be rendered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>np.ndarray</em><em>, </em><em>np.ndarray</em>) – y values, x values will be <code class="docutils literal notranslate"><span class="pre">range(len(y))</span></code></p></li>
+<li><p><strong>x</strong> (<em>np.ndarray</em><em>, </em><em>np.ndarray</em>) – x, y values</p></li>
+<li><p><strong>y</strong> – x, y values</p></li>
+<li><p><strong>(</strong><strong>y</strong> (<em>Tuple</em><em>[</em><em>np.ndarray</em><em>]</em>) – y values given as tuple, x values will be <code class="docutils literal notranslate"><span class="pre">range(len(y))</span></code></p></li>
+<li><p><strong>)</strong> (<em>Tuple</em><em>[</em><em>np.ndarray</em><em>]</em>) – y values given as tuple, x values will be <code class="docutils literal notranslate"><span class="pre">range(len(y))</span></code></p></li>
+<li><p><strong>(</strong><strong>x</strong> (<em>Tuple</em><em>[</em><em>np.ndarray</em><em>, </em><em>np.ndarray</em><em>]</em>) – x, y values given as tuple</p></li>
+<li><p><strong>y</strong><strong>)</strong> (<em>Tuple</em><em>[</em><em>np.ndarray</em><em>, </em><em>np.ndarray</em><em>]</em>) – x, y values given as tuple</p></li>
+<li><p><strong>y=y</strong> (<em>np.ndarray</em><em>, </em><em>np.ndarray</em>) – y values given as keyword argument, x values will be <code class="docutils literal notranslate"><span class="pre">range(len(y))</span></code></p></li>
+<li><p><strong>x=x</strong> (<em>np.ndarray</em><em>, </em><em>np.ndarray</em>) – x, y values given as keyword argument</p></li>
+<li><p><strong>y=y</strong> – x, y values given as keyword argument</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal.set_scale">
+<span class="sig-name descname"><span class="pre">set_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal.set_scale" title="Link to this definition"></a></dt>
+<dd><p>Set the scale of the y values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em>) – Scale of the y values, by default 1.0</p></li>
+<li><p><strong>trigger</strong> (<em>bool</em><em>, </em><em>optional</em>) – Trigger observer, by default True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal._update_data">
+<span class="sig-name descname"><span class="pre">_update_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal._update_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal._update_scale">
+<span class="sig-name descname"><span class="pre">_update_scale</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal._update_scale" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal.set_style">
+<span class="sig-name descname"><span class="pre">set_style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">default</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal.set_style" title="Link to this definition"></a></dt>
+<dd><p>Set the color of the signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>line_color</strong> (<em>color.color</em><em> | </em><em>str</em><em>, </em><em>default: &quot;default&quot;</em>) – Either “default” or values of the format ‘color.color’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_data">
+<span class="sig-name descname"><span class="pre">_abstract_set_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_scale">
+<span class="sig-name descname"><span class="pre">_abstract_set_scale</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_scale" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_style">
+<span class="sig-name descname"><span class="pre">_abstract_set_style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyavis.backends.bases.graphic_bases.signal.Signal._abstract_set_style" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Robin Kuelker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

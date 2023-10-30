@@ -1,0 +1,72 @@
+:py:mod:`pyavis.backends.bases.widget_bases.box`
+================================================
+
+.. py:module:: pyavis.backends.bases.widget_bases.box
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.widget_bases.box.BaseVBox
+   pyavis.backends.bases.widget_bases.box.BaseHBox
+
+
+
+
+.. py:class:: BaseVBox
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a widget for vertical layouting.
+
+   .. py:method:: add_widget(widget: pyavis.backends.bases.widget_bases.widget.Widget)
+      :abstractmethod:
+
+      Add a widget to the box.
+
+      :param widget: Widget to add
+      :type widget: Widget
+
+
+   .. py:method:: remove_widget(widget: pyavis.backends.bases.widget_bases.widget.Widget)
+      :abstractmethod:
+
+      Remove a widget from the box.
+
+      :param widget: Widget to remvoe
+      :type widget: Widget
+
+
+
+.. py:class:: BaseHBox
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a widget for horizontal layouting.
+
+   .. py:method:: add_widget(widget: pyavis.backends.bases.widget_bases.widget.Widget)
+      :abstractmethod:
+
+      Add a widget to the box.
+
+      :param widget: Widget to add
+      :type widget: Widget
+
+
+   .. py:method:: remove_widget(widget: pyavis.backends.bases.widget_bases.widget.Widget)
+      :abstractmethod:
+
+      Remove a widget from the box.
+
+      :param widget: Widget to remvoe
+      :type widget: Widget
+
+
+

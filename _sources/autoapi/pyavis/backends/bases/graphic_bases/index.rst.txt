@@ -1,0 +1,584 @@
+:py:mod:`pyavis.backends.bases.graphic_bases`
+=============================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   axis/index.rst
+   graphic_element/index.rst
+   infinite_line/index.rst
+   layout/index.rst
+   rect_selection/index.rst
+   rectangle/index.rst
+   signal/index.rst
+   spectrogram/index.rst
+   spectrum/index.rst
+   track/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.Layout
+   pyavis.backends.bases.graphic_bases.Track
+   pyavis.backends.bases.graphic_bases.GraphicElement
+   pyavis.backends.bases.graphic_bases.Signal
+   pyavis.backends.bases.graphic_bases.Rectangle
+   pyavis.backends.bases.graphic_bases.Spectrogram
+   pyavis.backends.bases.graphic_bases.InfiniteLine
+   pyavis.backends.bases.graphic_bases.RectSelection
+
+
+
+
+.. py:class:: Layout(rows: int = 1, columns: int = 1)
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Abstract base class representing a graphical layout.
+
+   .. py:property:: layout_rows
+      :type: int
+
+
+   .. py:property:: layout_columns
+      :type: int
+
+
+   .. py:method:: add_track(label: str, row: int, column: int, rowspan: int = 1, colspan: int = 1) -> pyavis.backends.bases.graphic_bases.track.Track
+
+      Add a new track to the layout occupying the spacified range.
+
+      :param label: Label of the track
+      :type label: str
+      :param row: Start row
+      :type row: int
+      :param column: Start column
+      :type column: int
+      :param rowspan: Row size, by default 1
+      :type rowspan: int, optional
+      :param colspan: Column size, by default 1
+      :type colspan: int, optional
+
+      :returns: Newly added track
+      :rtype: Track
+
+      :raises ValueError: Raises if start position or span leads to incorrect area.
+
+
+   .. py:method:: remove_track(track: pyavis.backends.bases.graphic_bases.track.Track)
+
+      Remove track from layout.
+
+      :param track: Track to remove
+      :type track: Track
+
+
+   .. py:method:: set_style(background_color: Any | Literal[default])
+
+      Set the background color of the layout.
+
+      :param background_color: Either "default" or color values
+      :type background_color: color | "default"
+
+
+   .. py:method:: _add_track(label: str, row: int, column: int, rowspan: int = 1, colspan: int = 1) -> pyavis.backends.bases.graphic_bases.track.Track
+
+
+   .. py:method:: _abstract_set_style(background_color: Any)
+
+
+
+.. py:class:: Track(label: str)
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Base class representing a plot.
+
+   .. py:method:: add_signal(position: Tuple[float, float] = (0.0, 0.0), scale: float = 1.0, *args, **kwargs) -> pyavis.backends.bases.graphic_bases.signal.Signal
+
+      Add a new signal to the track.
+
+      :param position: Position of the signal
+      :type position: (float, float)
+      :param scale: Scale of the y values, by default 1.0
+      :type scale: float
+      :param \*args & **kwargs: See `Signal.set_data()` for more information.
+
+
+   .. py:method:: add_spectrum(data: pya.Asig | pya.Aspec, position: Tuple[float, float] = (0.0, 0.0), scale: float = 1.0, disp_func: Callable[[numpy.ndarray], numpy.ndarray] = np.abs) -> pyavis.backends.bases.graphic_bases.spectrum.Spectrum
+
+      Add a new spectrum to the track.
+
+      :param data: Data to display as spectrum
+      :type data: Asig | Aspec
+      :param position: Position of the spectrogram
+      :type position: (float, float)
+      :param scale: Scale of the y values, by default 1.0
+      :type scale: float
+      :param disp_func: Function to apply to the stft data
+      :type disp_func: (np.ndarray) -> np.ndarray
+
+
+   .. py:method:: add_line(position: Tuple[float, float] = (0.0, 0.0), angle: float = 0.0) -> pyavis.backends.bases.graphic_bases.infinite_line.InfiniteLine
+
+      Add a new infinite line to the track.
+
+      :param position: Position of the line
+      :type position: (float, float)
+      :param angle: Angle of the line
+      :type angle: float
+
+
+   .. py:method:: add_rect(position: Tuple[float, float] = (0.0, 0.0), width: float = 1.0, height: float = 1.0) -> pyavis.backends.bases.graphic_bases.rectangle.Rectangle
+
+      Add a new rectangle to the track.
+
+      Parameters:
+      position: (float, float)
+          Position of the rectangle. (lower-left corner)
+      width: float
+          Width of the rectangle
+      height: float
+          Heigth of the rectangle
+
+
+   .. py:method:: add_spectrogram(data: pya.Asig | pya.Astft, position: Tuple[float, float] = (0.0, 0.0), disp_func: Callable[[numpy.ndarray], numpy.ndarray] = np.abs, with_bar: bool = True, **kwargs) -> pyavis.backends.bases.graphic_bases.spectrogram.Spectrogram
+
+      Add a new spectrogram to the track.
+
+      :param data: Data to display as spectrogram
+      :type data: Asig | Astft
+      :param position: Position of the spectrogram
+      :type position: (float, float)
+      :param disp_func: Function to apply to the stft data
+      :type disp_func: (np.ndarray) -> np.ndarray
+      :param with_bar: Optional color bar added to the plot
+      :type with_bar: bool
+      :param \*\*kwargs: Passed to Asig.to_stft()
+
+
+   .. py:method:: add_selection(pos: Tuple[float, float], width: float, height: float) -> pyavis.backends.bases.graphic_bases.rect_selection.RectSelection
+
+      Add an adjustable selection to the track.
+
+      :param positon: Position of the selection (bottom-left corner)
+      :type positon: (float, float)
+      :param width: Width of the selection
+      :type width: float
+      :param height: Height of the selection
+      :type height: float
+
+
+   .. py:method:: remove(element: pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement)
+
+      Remove an element from the track.
+
+      :param element: Element to remove
+      :type element: GraphicElement
+
+
+   .. py:method:: link_track(track: Track, axis: Literal[x, y])
+
+      Link either x or y axis of this track with another track.
+
+      :param track: Track to link axis with. If None, the track will instead remove it's present link
+      :type track: Track | None
+      :param axis: Axis to link
+      :type axis: 'x' or 'y'
+
+
+   .. py:method:: _link_track(track: Track, axis: Literal[x, y])
+      :abstractmethod:
+
+
+   .. py:method:: get_axis(side: Literal[top, bottom, left, right]) -> pyavis.backends.bases.graphic_bases.axis.Axis | None
+
+      Return the axis, or None if no axis is set for that side.
+
+      :param side: Side to get the axis from
+      :type side: 'top' | 'bottom' | 'left' | 'right'
+
+
+   .. py:method:: toggle_axis(side: Literal[top, bottom, left, right], show=True)
+
+      Hide or show the axis of the side.
+
+      :param side: Side to toggle the axis of
+      :type side: 'top' | 'bottom' | 'left' | 'right'
+
+
+   .. py:method:: set_axis(side: Literal[top, bottom, left, right], spacing: Tuple[float, float] = None, disp_func: Callable[[float], str] = None) -> pyavis.backends.bases.graphic_bases.axis.Axis
+
+      Set a new axis for the choosen side.
+
+      :param side: Side of the new axis
+      :type side: 'top' | 'bottom' | 'left' | 'right'
+      :param spacing: Default spacing if None, else (major, minor) spacing
+      :type spacing: (float, float) | None:
+      :param disp_func: Default displace function if None, else function values.
+      :type disp_func: (float) -> str | None,
+
+
+   .. py:method:: set_x_view_limits(x_start: float, x_end: float)
+
+      Set the visible range of the x axis.
+
+      :param x_start: Start of the x view range
+      :type x_start: float
+      :param x_end: End of the x view range
+      :type x_end: float
+
+
+   .. py:method:: set_y_view_limits(y_start, y_end)
+
+      Set the visible range of the y axis.
+
+      :param y_start: Start of the y view range
+      :type y_start: float
+      :param y_end: End of the y view range
+      :type y_end: float
+
+
+   .. py:method:: set_style(background_color: Any | Literal[default])
+
+      Set the background color of the layout.
+
+      :param background_color: Either "default" or values of the format 'color.color'
+      :type background_color: color.color | str, default: "default"
+
+
+   .. py:method:: _abstract_set_style(background_color)
+
+
+
+.. py:class:: GraphicElement(position: Tuple[int | float, int | float] = (0.0, 0.0), active=True)
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+   .. py:property:: clickable
+
+
+   .. py:property:: draggable
+
+
+   .. py:method:: set_position(x: int | float, y: int | float, trigger=True)
+
+      Set the position of the element.
+
+      :param x: New x-position of the element
+      :type x: int | float
+      :param y: New y-position of the element
+      :type y: int | float
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: set_active(active=True, trigger=True)
+
+      Hide or show the element.
+
+      :param active: Change active state to hide or show element, by default True
+      :type active: bool, optional
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: _abstract_set_position()
+
+
+   .. py:method:: _abstract_set_active()
+
+
+
+.. py:class:: Signal(position: Tuple[float, float] = (0.0, 0.0), scale: float = 1.0, *args, **kwargs)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Base class representing a renderable signal.
+
+   .. py:method:: set_data(*args, **kwargs)
+
+      Set the data that should be rendered.
+
+      :param y: y values, x values will be ``range(len(y))``
+      :type y: np.ndarray
+      :param x: x, y values
+      :type x: np.ndarray, np.ndarray
+      :param y: x, y values
+      :type y: np.ndarray, np.ndarray
+      :param (y: y values given as tuple, x values will be ``range(len(y))``
+      :type (y: Tuple[np.ndarray]
+      :param ): y values given as tuple, x values will be ``range(len(y))``
+      :type ): Tuple[np.ndarray]
+      :param (x: x, y values given as tuple
+      :type (x: Tuple[np.ndarray, np.ndarray]
+      :param y): x, y values given as tuple
+      :type y): Tuple[np.ndarray, np.ndarray]
+      :param y=y: y values given as keyword argument, x values will be ``range(len(y))``
+      :type y=y: np.ndarray
+      :param x=x: x, y values given as keyword argument
+      :type x=x: np.ndarray, np.ndarray
+      :param y=y: x, y values given as keyword argument
+      :type y=y: np.ndarray, np.ndarray
+
+
+   .. py:method:: set_scale(scale: float = 1.0, trigger=True)
+
+      Set the scale of the y values.
+
+      :param scale: Scale of the y values, by default 1.0
+      :type scale: float, optional
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: _update_data(*args, **kwargs)
+
+
+   .. py:method:: _update_scale()
+
+
+   .. py:method:: set_style(line_color: Any | Literal[default] = 'default')
+
+      Set the color of the signal.
+
+      :param line_color: Either "default" or values of the format 'color.color'
+      :type line_color: color.color | str, default: "default"
+
+
+   .. py:method:: _abstract_set_data()
+
+
+   .. py:method:: _abstract_set_scale()
+
+
+   .. py:method:: _abstract_set_style(line_color: Any)
+
+
+
+.. py:class:: Rectangle(position: Tuple[float, float] = (0.0, 0.0), width: float = 1.0, height: float = 1.0)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+   .. py:property:: rect_size
+
+
+   .. py:property:: rect_width
+
+
+   .. py:property:: rect_height
+
+
+   .. py:method:: set_size(size: Tuple[float, float], trigger=True)
+
+      Set the size of the rectangle.
+
+      :param size: New size of the rectangle
+      :type size: Tuple[float, float]
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: set_style(border_color, fill_color)
+
+
+   .. py:method:: _abstract_set_size()
+
+
+   .. py:method:: _abstract_set_style(border_color, fill_color)
+
+
+
+.. py:class:: Spectrogram(data: pya.Asig | pya.Astft, position: Tuple[float, float] = (0.0, 0.0), scale: Tuple[float, float] = (1.0, 1.0), disp_func: Callable[[numpy.ndarray], numpy.ndarray] = np.abs, **kwargs)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Base class representing a renderable spectrogram.
+
+   .. py:method:: toggle_color_bar(show: bool)
+
+
+   .. py:method:: set_data(data: pya.Asig | pya.Astft, trigger=True)
+
+      Set the displayed Asig / Astft.
+
+      :param data: Audio data to display
+      :type data: Asig | Astft
+      :param trigger: Trigger obeserver, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: _set_data(data: pya.Asig | pya.Astft, **kwargs)
+
+
+   .. py:method:: set_scale(scale: Tuple[float, float], trigger=True)
+
+      Set the displayed scale of the spectrogram. Default size
+      is corresponds to signal length in seconds and highest frequency of the STFT.
+
+      Parameter
+      ---------
+      scale: (float, float)
+
+
+      :param scale: x and y scale of the spectrogram
+      :type scale: Tuple[float, float]
+
+
+   .. py:method:: get_spectrogram_data()
+
+      Get the data of the displayed spectrogram.
+
+
+   .. py:method:: draw(freq: float, time: float)
+
+      Draw into the spectrogram using at the provided frequency and time.
+      Drawing is limited by resolution of spectrogram.
+
+      :param freq: Frequency to draw at
+      :type freq: float
+      :param time: Time to draw at
+      :type time: float
+
+
+   .. py:method:: set_brush(brush_data=None, brush_mask=None, brush_center=(0, 0), draw_mode='set')
+
+      Set the brush shape, values, center and mode.
+
+      :param brush_data: Values that should be used for drawing
+      :type brush_data: np.ndarray, default: None
+      :param brush_mask: Mask with values between 0-1. Effect: image * (1-mask) + data * mask
+      :type brush_mask: np.ndarray, optional, default: None
+      :param brush_center: Center of the brush
+      :type brush_center: tuple, default: (0, 0)
+      :param draw_mode: Either "add" or "set". If "set", then mask will be ignored.
+      :type draw_mode: str, optional, default: "set"
+
+
+   .. py:method:: clear_brush()
+
+      Clear the brush.
+
+
+   .. py:method:: _abstract_set_scale()
+
+
+   .. py:method:: _abstract_set_data()
+
+
+
+.. py:class:: InfiniteLine(position: Tuple[float, float] = (0.0, 0.0), angle: float = 0.0)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   _summary_
+   Base class representing an infinite line.
+
+   .. py:property:: line_angle
+
+
+   .. py:method:: set_line_angle(angle: float, trigger=True)
+
+      Set the angle of the line.
+
+      :param angle: New angle of the line, in radians.
+      :type angle: float
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: set_style(line_color: Any | Literal[default])
+
+      Set the color of the infinite line.
+
+      :param background_color: Either "default" or color values
+      :type background_color: color | "default"
+
+
+   .. py:method:: _abstract_set_style(line_color: Any)
+
+
+   .. py:method:: _abstract_set_line_angle()
+
+
+
+.. py:class:: RectSelection(position: Tuple[float, float], size: Tuple[float, float])
+
+
+   Bases: :py:obj:`pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+   .. py:property:: size
+
+
+   .. py:method:: set_size(size: Tuple[float, float], trigger=True)
+
+      Set the size of the of the rectangle.
+
+      :param size: New width and height
+      :type size: Tuple[float, float]
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: add_handle(side: str, mirror: bool = False)
+
+      Add or replace a handle that scales the rectangle.
+
+      :param side: Side to add the handle to
+      :type side: 'left' | 'right' | 'top' | 'bottom'
+      :param mirror: Mirror changes on the opposite side
+
+
+   .. py:method:: remove_handle(side: str)
+
+      Remove a handle from the rectangle.
+
+      :param side: Side to remove the handle from
+      :type side: 'left' | 'right' | 'top' | 'bottom'
+
+
+   .. py:method:: set_style(line_color, handle_color)
+
+      Set the color of the selection lines and handels.
+
+      :param line_color: Either "default" or values of the format 'color.color'
+      :type line_color: color.color | str, default: "default"
+      :param handle_color: Either "default" or values of the format 'color.color'
+      :type handle_color: color.color | str, default: "default"
+
+
+   .. py:method:: _abstract_set_style(line_color, fill_color)
+
+
+   .. py:method:: _abstract_set_size()
+
+
+

@@ -1,0 +1,79 @@
+:py:mod:`pyavis.shared.util.color`
+==================================
+
+.. py:module:: pyavis.shared.util.color
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.util.color._check_color
+   pyavis.shared.util.color._convert_color
+   pyavis.shared.util.color._qt_color
+   pyavis.shared.util.color._mpl_color
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.util.color.color
+
+
+.. py:data:: color
+
+   
+
+.. py:function:: _check_color(color: _check_color.color)
+
+   Validate if value is of an accepted color format.
+
+   :param color: Value to validate
+   :type color: color
+
+   :raises TypeError: Raised if color is not a tuple, color does not have length 3 or 4, values are not int or float or if types are mixed
+
+
+.. py:function:: _convert_color(color: _convert_color.color) -> _convert_color.color
+
+   Convert input color to a format used by the currently active backend.
+
+   :param color: Color to convert
+   :type color: color
+
+   :returns: Color in the correct format for the current backend
+   :rtype: color
+
+   :raises RuntimeError: Raised if unknown backend is used
+
+
+.. py:function:: _qt_color(color: _qt_color.color) -> _qt_color.color
+
+   pyqtgraph uses color values between 0 - 255. Convert floats to integers if necessary.
+
+   :param color: tuple of 'float' or 'int' values
+   :type color: color
+
+   :returns: tuple of integers in the range of 0 - 255
+   :rtype: color
+
+
+.. py:function:: _mpl_color(color: _mpl_color.color) -> _mpl_color.color
+
+   matplotlib uses color values between 0.0 - 1.0. Convert integers to floats if necessary.
+
+   :param color: tuple of 'float' or 'int' values
+   :type color: color
+
+   :returns: tuple of floats in the range of 0.0 - 1.0
+   :rtype: color
+
+

@@ -1,0 +1,29 @@
+:py:mod:`pyavis.shared.multitrack.signal`
+=========================================
+
+.. py:module:: pyavis.shared.multitrack.signal
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.shared.multitrack.signal.AudioSignal
+
+
+
+
+.. py:class:: AudioSignal(asig: pya.Asig, channel_index: int = None, channel_name: str = None)
+
+
+   .. py:method:: signal()
+
+
+   .. py:method:: sampling_rate()
+
+
+

@@ -1,0 +1,50 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.axis`
+==================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.axis
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.axis.Axis
+
+
+
+
+.. py:class:: Axis(side: Literal[top, bottom, left, right])
+
+
+   Base class representing an axis on the side of a plot.
+
+   .. py:method:: set_disp_func(func: Callable[[float], str])
+
+      Set the display function, that converts between axis value and axis display text.
+
+      :param func: Convert axis value to axis display text
+      :type func: Callable[[float], str]
+
+
+   .. py:method:: tick_spacing(spacing: Tuple[float, float] = None)
+
+      Set distance of minor and major ticks.
+
+      :param spacing: Set the spacing between ticks. Format: (major, minor).
+                      If None, uses default configuration of backend.
+      :type spacing: Tuple[float, float], optional
+
+
+   .. py:method:: toggle_visibility(show: bool = True)
+
+      Show or hide the axis.
+
+      :param show: To show or hide axis, by default True
+      :type show: bool, optional
+
+
+

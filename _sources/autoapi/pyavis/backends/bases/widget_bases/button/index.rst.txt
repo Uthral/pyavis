@@ -1,0 +1,72 @@
+:py:mod:`pyavis.backends.bases.widget_bases.button`
+===================================================
+
+.. py:module:: pyavis.backends.bases.widget_bases.button
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.widget_bases.button.BaseButton
+   pyavis.backends.bases.widget_bases.button.BaseToggleButton
+
+
+
+
+.. py:class:: BaseButton(label: str)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstarct base class representing a button.
+
+   .. py:method:: add_on_click(func: Callable)
+      :abstractmethod:
+
+      Add a callback that is called on button click.
+
+      :param func: Function to call
+      :type func: Callable
+
+
+   .. py:method:: remove_on_click(func: Callable)
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable
+
+
+
+.. py:class:: BaseToggleButton(label: str, icon: Any = None, default_toggle_state: bool = False)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a toggable button.
+
+   .. py:method:: add_on_toggle(func: Callable)
+      :abstractmethod:
+
+      Add a callback that is called on button toggle.
+
+      :param func: Function to call
+      :type func: Callable
+
+
+   .. py:method:: remove_on_toggle(func: Callable)
+      :abstractmethod:
+
+      Remove a callback.
+
+      :param func: Function to remove
+      :type func: Callable
+
+
+

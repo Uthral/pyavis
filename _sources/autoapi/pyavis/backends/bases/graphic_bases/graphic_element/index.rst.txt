@@ -1,0 +1,62 @@
+:py:mod:`pyavis.backends.bases.graphic_bases.graphic_element`
+=============================================================
+
+.. py:module:: pyavis.backends.bases.graphic_bases.graphic_element
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.graphic_bases.graphic_element.GraphicElement
+
+
+
+
+.. py:class:: GraphicElement(position: Tuple[int | float, int | float] = (0.0, 0.0), active=True)
+
+
+   Bases: :py:obj:`abc.ABC`
+
+   Helper class that provides a standard way to create an ABC using
+   inheritance.
+
+   .. py:property:: clickable
+
+
+   .. py:property:: draggable
+
+
+   .. py:method:: set_position(x: int | float, y: int | float, trigger=True)
+
+      Set the position of the element.
+
+      :param x: New x-position of the element
+      :type x: int | float
+      :param y: New y-position of the element
+      :type y: int | float
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: set_active(active=True, trigger=True)
+
+      Hide or show the element.
+
+      :param active: Change active state to hide or show element, by default True
+      :type active: bool, optional
+      :param trigger: Trigger observer, by default True
+      :type trigger: bool, optional
+
+
+   .. py:method:: _abstract_set_position()
+
+
+   .. py:method:: _abstract_set_active()
+
+
+

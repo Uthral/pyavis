@@ -1,0 +1,36 @@
+:py:mod:`pyavis.backends.bases.widget_bases.scroll`
+===================================================
+
+.. py:module:: pyavis.backends.bases.widget_bases.scroll
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   pyavis.backends.bases.widget_bases.scroll.BaseScrollArea
+
+
+
+
+.. py:class:: BaseScrollArea(height: int = 100, width: int = 100)
+
+
+   Bases: :py:obj:`pyavis.backends.bases.widget_bases.widget.Widget`
+
+   Abstract base class representing a scrollable area.
+
+   .. py:method:: set_widget()
+      :abstractmethod:
+
+      Set the widget to display in the scrollable area.
+
+      :param widget: Widget to display
+      :type widget: Widget
+
+
+
