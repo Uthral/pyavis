@@ -19,7 +19,7 @@ class SignalQt(Signal, pg.GraphicsObject, metaclass=M_SignalQt):
         Signal.__init__(self, position, scale, *args, **kwargs)
         pg.GraphicsObject.__init__(self)
         
-        self.signal = pg.PlotDataItem()
+        self.signal = pg.PlotDataItem(autoDownsample=True)
         self.signal.setParentItem(self)
 
         self.set_style("default")

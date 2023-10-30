@@ -31,7 +31,9 @@ def spec_to_stft(spectrogram: Spectrogram, inverted_display_func = None, with_or
     stft = deepcopy(spectrogram.orig_spectrogram)
 
     if with_original_phase:
-        stft.stft = magnitude * (spectrogram.orig_spectrogram.stft / np.abs(spectrogram.orig_spectrogram.stft))
+        original_stft = spectrogram.orig_spectrogram.stft
+        scaled_stft = original_stft / np.abs(original_stft)
+        stft.stft = magnitude * scaled_stft
     else:
         stft.stft = magnitude * (1.0 + 0.0j)
 
@@ -67,7 +69,9 @@ def spec_to_asig(spectrogram: Spectrogram, inverted_display_func = None, with_or
     stft = deepcopy(spectrogram.orig_spectrogram)
 
     if with_original_phase:
-        stft.stft = magnitude * (spectrogram.orig_spectrogram.stft / np.abs(spectrogram.orig_spectrogram.stft))
+        original_stft = spectrogram.orig_spectrogram.stft
+        scaled_stft = original_stft / np.abs(original_stft)
+        stft.stft = magnitude * scaled_stft
     else:
         stft.stft = magnitude * (1.0 + 0.0j)
 
